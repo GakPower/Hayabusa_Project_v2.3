@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Hayabusa Project:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Hayabusa_Project_jar</output-path>
+    <root id="archive" name="Hayabusa Project.jar">
+      <element id="module-output" name="Hayabusa Project" />
+      <element id="extracted-dir" path="D:/Dependencies/hsqldb/lib/hsqldb.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Dependencies/jfoenix-8.0.4.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

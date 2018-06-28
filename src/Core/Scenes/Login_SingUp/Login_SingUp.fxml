@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<StackPane fx:id="mainLogin_SignUp_Stack" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Core.Scenes.Login_SingUp.Login_SingUpController">
+   <children>
+      <AnchorPane fx:id="mainLogin_SignUp_Anchor" prefHeight="526.0" prefWidth="830.0" style="-fx-background-color: transparent;">
+         <AnchorPane fx:id="SignUp_Anchor" layoutX="485.0" prefHeight="526.0" prefWidth="360.0" styleClass="Side-AnchorPane" stylesheets="@StyleSheet.css" visible="false">
+            <ImageView fitHeight="526.0" fitWidth="360.0" opacity="0.13" pickOnBounds="true">
+               <Image url="@../Images/rounded_corners2.png" />
+            </ImageView>
+            <Label layoutX="149.0" layoutY="37.0" text="Sing up" textFill="WHITE">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="UsernameSingUp_Field" focusColor="#db0000" labelFloat="true" layoutX="65.0" layoutY="118.0" prefHeight="25.0" prefWidth="253.0" promptText="Username" styleClass="jfx-field" stylesheets="@StyleSheet.css" unFocusColor="WHITE">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </JFXTextField>
+            <JFXPasswordField fx:id="PasswordSingUp_Field" focusColor="#dd0000" labelFloat="true" layoutX="65.0" layoutY="169.0" prefHeight="25.0" prefWidth="253.0" promptText="Password" styleClass="jfx-field" stylesheets="@StyleSheet.css" unFocusColor="WHITE">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </JFXPasswordField>
+            <JFXPasswordField fx:id="PasswordConfirmSingUp_Field" focusColor="#dd0000" labelFloat="true" layoutX="65.0" layoutY="222.0" prefHeight="25.0" prefWidth="253.0" promptText="Confirm Password" styleClass="jfx-field" stylesheets="@StyleSheet.css" unFocusColor="WHITE">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </JFXPasswordField>
+            <JFXComboBox fx:id="SecQuestionSingUp_Combo" editable="true" focusColor="#dd0000" labelFloat="true" layoutX="65.0" layoutY="276.0" prefHeight="25.0" prefWidth="253.0" promptText="Security Question" styleClass="jfx-field" stylesheets="@StyleSheet.css" unFocusColor="WHITE" />
+            <JFXTextField fx:id="SecAnsSingUp_Field" focusColor="#dd0000" labelFloat="true" layoutX="65.0" layoutY="324.0" prefHeight="25.0" prefWidth="253.0" promptText="Security Question" styleClass="jfx-field" stylesheets="@StyleSheet.css" unFocusColor="WHITE">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </JFXTextField>
+            <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../Images/User.png" />
+            </ImageView>
+            <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="174.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../Images/Lock.png" />
+            </ImageView>
+            <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="35.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../Images/Lock2.png" />
+            </ImageView>
+            <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="281.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../Images/Shield.png" />
+            </ImageView>
+            <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="328.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../Images/Key.png" />
+            </ImageView>
+            <ImageView fx:id="UsernameSingUp_Image" fitHeight="20.0" fitWidth="20.0" layoutX="325.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <Image url="@../Images/Error.png" />
+            </ImageView>
+            <Label fx:id="UsernameSingUp_Label" layoutX="325.0" layoutY="126.0" prefHeight="20.0" prefWidth="20.0" visible="false" />
+            <ImageView fx:id="PasswordSingUp_Image" fitHeight="20.0" fitWidth="20.0" layoutX="325.0" layoutY="174.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <Image url="@../Images/Error.png" />
+            </ImageView>
+            <Label fx:id="PasswordSingUp_Label" layoutX="325.0" layoutY="174.0" prefHeight="20.0" prefWidth="20.0" visible="false" />
+            <ImageView fx:id="PasswordConfirmSingUp_Image" fitHeight="20.0" fitWidth="20.0" layoutX="327.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <Image url="@../Images/Error.png" />
+            </ImageView>
+            <Label fx:id="PasswordConfirmSingUp_Label" layoutX="327.0" layoutY="225.0" prefHeight="20.0" prefWidth="20.0" visible="false" />
+            <ImageView fx:id="SecQuestionSingUp_Image" fitHeight="20.0" fitWidth="20.0" layoutX="329.0" layoutY="277.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <Image url="@../Images/Error.png" />
+            </ImageView>
+            <Label fx:id="SecQuestionSingUp_Label" layoutX="329.0" layoutY="277.0" prefHeight="20.0" prefWidth="20.0" visible="false" />
+            <ImageView fx:id="SecAnsSingUp_Image" fitHeight="20.0" fitWidth="20.0" layoutX="329.0" layoutY="328.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <Image url="@../Images/Error.png" />
+            </ImageView>
+            <Label fx:id="SecAnsSingUp_Label" layoutX="329.0" layoutY="328.0" prefHeight="20.0" prefWidth="20.0" visible="false" />
+            <JFXButton buttonType="RAISED" defaultButton="true" focusTraversable="false" layoutX="42.0" layoutY="432.0" mnemonicParsing="false" onAction="#onSignUpClick" prefHeight="44.0" prefWidth="288.0" styleClass="login_signupButtons" stylesheets="@StyleSheet.css" text="Sign up" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </JFXButton>
+         </AnchorPane>
+         <AnchorPane fx:id="Login_Anchor" layoutX="485.0" layoutY="64.0" prefHeight="387.0" prefWidth="360.0" styleClass="Side-AnchorPane" stylesheets="@StyleSheet.css">
+            <ImageView fitHeight="387.0" fitWidth="360.0" opacity="0.13" pickOnBounds="true">
+               <Image url="@../Images/rounded_corners2.png" />
+            </ImageView>
+            <Label layoutX="156.0" layoutY="43.0" text="Login" textFill="WHITE">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="UsernameLogin_Field" focusColor="#dd0000" labelFloat="true" layoutX="65.0" layoutY="118.0" prefHeight="25.0" prefWidth="253.0" promptText="Username" styleClass="jfx-field" stylesheets="@StyleSheet.css" unFocusColor="WHITE">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </JFXTextField>
+            <JFXPasswordField fx:id="PasswordLogin_Field" focusColor="#dd0000" labelFloat="true" layoutX="65.0" layoutY="169.0" prefHeight="25.0" prefWidth="253.0" promptText="Password" styleClass="jfx-field" stylesheets="@StyleSheet.css" unFocusColor="WHITE">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </JFXPasswordField>
+            <JFXCheckBox fx:id="RememberMe_CheckBox" checkedColor="#ed0000" focusTraversable="false" layoutX="66.0" layoutY="211.0" mnemonicParsing="false" text="Remember me" textFill="#e4e4e4" unCheckedColor="WHITE">
+               <font>
+                  <Font name="System Bold" size="10.0" />
+               </font>
+            </JFXCheckBox>
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="35.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../Images/User.png" />
+            </ImageView>
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="35.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../Images/Lock.png" />
+            </ImageView>
+            <ImageView fx:id="UsernameLogin_ImageView" fitHeight="20.0" fitWidth="20.0" layoutX="325.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <Image url="@../Images/Error.png" />
+            </ImageView>
+            <Label fx:id="UsernameLogin_Label" layoutX="325.0" layoutY="126.0" prefHeight="20.0" prefWidth="20.0" visible="false" />
+            <ImageView fx:id="PasswordLogin_ImageView" fitHeight="20.0" fitWidth="20.0" layoutX="325.0" layoutY="174.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <Image url="@../Images/Error.png" />
+            </ImageView>
+            <Label fx:id="PasswordLogin_Label" layoutX="325.0" layoutY="174.0" prefHeight="20.0" prefWidth="20.0" visible="false" />
+            <JFXButton buttonType="RAISED" defaultButton="true" focusTraversable="false" layoutX="48.0" layoutY="280.0" mnemonicParsing="false" onAction="#onLoginClick" prefHeight="44.0" prefWidth="288.0" styleClass="login_signupButtons" stylesheets="@StyleSheet.css" text="Login" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <Label layoutX="141.0" layoutY="358.0" onMouseClicked="#onForgotButtonClick" text="Forgot your password?" textAlignment="CENTER" textFill="WHITE" underline="true">
+               <font>
+                  <Font size="10.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Label>
+         </AnchorPane>
+         <AnchorPane fx:id="ChangePassword_Anchor" layoutX="485.0" layoutY="64.0" prefHeight="387.0" prefWidth="360.0" styleClass="Side-AnchorPane" stylesheets="@StyleSheet.css" visible="false">
+            <ImageView fitHeight="387.0" fitWidth="360.0" opacity="0.13" pickOnBounds="true">
+               <Image url="@../Images/rounded_corners2.png" />
+            </ImageView>
+            <Label layoutX="85.0" layoutY="45.0" text="Forgot your password" textFill="WHITE">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="Login_UserField1111" focusColor="#dd0000" labelFloat="true" layoutX="67.0" layoutY="118.0" prefHeight="25.0" prefWidth="253.0" promptText="New Password" styleClass="jfx-field" stylesheets="@StyleSheet.css" unFocusColor="WHITE">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </JFXTextField>
+             <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="37.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true">
+                 <Image url="@../Images/Lock.png" />
+             </ImageView>
+             <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="327.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                 <Image url="@../Images/Error.png" />
+             </ImageView>
+            <Label layoutX="327.0" layoutY="118.0" prefHeight="20.0" prefWidth="20.0" visible="false" />
+            <JFXTextField fx:id="Login_UserField11111" focusColor="#dd0000" labelFloat="true" layoutX="67.0" layoutY="169.0" prefHeight="25.0" prefWidth="253.0" promptText="Confirm Password" styleClass="jfx-field" stylesheets="@StyleSheet.css" unFocusColor="WHITE">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </JFXTextField>
+             <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="37.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true">
+                 <Image url="@../Images/Lock2.png" />
+             </ImageView>
+             <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="327.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                 <Image url="@../Images/Error.png" />
+             </ImageView>
+            <Label layoutX="327.0" layoutY="169.0" prefHeight="20.0" prefWidth="20.0" visible="false" />
+            <JFXButton buttonType="RAISED" defaultButton="true" focusTraversable="false" layoutX="48.0" layoutY="280.0" mnemonicParsing="false" onAction="#onFinishChangePassClick" prefHeight="44.0" prefWidth="288.0" styleClass="login_signupButtons" stylesheets="@StyleSheet.css" text="Finish" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <Label layoutX="179.0" layoutY="356.0" onMouseClicked="#onBackChangePassClick" text="Back" textFill="WHITE" underline="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Label>
+         </AnchorPane>
+         <AnchorPane fx:id="AnswerQuestion_Anchor" layoutX="485.0" layoutY="64.0" prefHeight="387.0" prefWidth="360.0" styleClass="Side-AnchorPane" stylesheets="@StyleSheet.css" visible="false">
+            <ImageView fitHeight="387.0" fitWidth="360.0" opacity="0.13" pickOnBounds="true">
+               <Image url="@../Images/rounded_corners2.png" />
+            </ImageView>
+            <Label layoutX="85.0" layoutY="45.0" text="Forgot your password" textFill="WHITE">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="SecQuestionAnsQuestion_Field" disable="true" editable="false" focusColor="#dd0000" focusTraversable="false" labelFloat="true" layoutX="67.0" layoutY="118.0" prefHeight="25.0" prefWidth="253.0" promptText="Security Question" styleClass="jfx-field" stylesheets="@StyleSheet.css" unFocusColor="WHITE">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="SecAnswerAnsQuestion_Field" focusColor="#dd0000" labelFloat="true" layoutX="67.0" layoutY="169.0" prefHeight="25.0" prefWidth="253.0" promptText="Security Answer" styleClass="jfx-field" stylesheets="@StyleSheet.css" unFocusColor="WHITE">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </JFXTextField>
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="37.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../Images/Shield.png" />
+            </ImageView>
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="37.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../Images/Key.png" />
+            </ImageView>
+            <ImageView fx:id="SecQuestionAnsQuestion_Image" fitHeight="20.0" fitWidth="20.0" layoutX="327.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <Image url="@../Images/Error.png" />
+            </ImageView>
+            <Label fx:id="SecQuestionAnsQuestion_Label" layoutX="327.0" layoutY="118.0" prefHeight="20.0" prefWidth="20.0" visible="false" />
+            <ImageView fx:id="SecAnswerAnsQuestion_Image" fitHeight="20.0" fitWidth="20.0" layoutX="327.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <Image url="@../Images/Error.png" />
+            </ImageView>
+            <Label fx:id="SecAnswerAnsQuestion_Label" layoutX="327.0" layoutY="169.0" prefHeight="20.0" prefWidth="20.0" visible="false" />
+            <JFXButton buttonType="RAISED" defaultButton="true" focusTraversable="false" layoutX="48.0" layoutY="280.0" mnemonicParsing="false" onAction="#onNextAnswerQuestionClick" prefHeight="44.0" prefWidth="288.0" styleClass="login_signupButtons" stylesheets="@StyleSheet.css" text="Next" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <Label layoutX="179.0" layoutY="356.0" onMouseClicked="#onBackAnswerQuestionClick" text="Back" textFill="WHITE" underline="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Label>
+         </AnchorPane>
+         <AnchorPane fx:id="EnterUsername_Anchor" layoutX="485.0" layoutY="64.0" prefHeight="387.0" prefWidth="360.0" styleClass="Side-AnchorPane" stylesheets="@StyleSheet.css" visible="false">
+            <ImageView fitHeight="387.0" fitWidth="360.0" opacity="0.13" pickOnBounds="true">
+               <Image url="@../Images/rounded_corners2.png" />
+            </ImageView>
+            <Label layoutX="85.0" layoutY="45.0" text="Forgot your password" textFill="WHITE">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="EnterUsername_Field" focusColor="#dd0000" labelFloat="true" layoutX="67.0" layoutY="165.0" prefHeight="25.0" prefWidth="253.0" promptText="Username" styleClass="jfx-field" stylesheets="@StyleSheet.css" unFocusColor="WHITE">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </JFXTextField>
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="37.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../Images/User.png" />
+            </ImageView>
+            <ImageView fx:id="EnterUsername_Image" fitHeight="20.0" fitWidth="20.0" layoutX="327.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <Image url="@../Images/Error.png" />
+            </ImageView>
+            <Label fx:id="EnterUsername_Label" layoutX="327.0" layoutY="165.0" prefHeight="20.0" prefWidth="20.0" visible="false" />
+            <JFXButton buttonType="RAISED" defaultButton="true" focusTraversable="false" layoutX="48.0" layoutY="280.0" mnemonicParsing="false" onAction="#onNextEnterUsernameClick" prefHeight="44.0" prefWidth="288.0" styleClass="login_signupButtons" stylesheets="@StyleSheet.css" text="Next" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <Label layoutX="179.0" layoutY="356.0" onMouseClicked="#onExitAddUsernameClick" text="Exit" textFill="WHITE" underline="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Label>
+         </AnchorPane>
+         <AnchorPane fx:id="mainRight_Anchor" layoutY="5.0" prefHeight="516.0" prefWidth="505.0" styleClass="main-AnchorPane" stylesheets="@StyleSheet.css">
+            <ImageView fitHeight="517.0" fitWidth="714.0" layoutX="-223.0" layoutY="-21.0" opacity="0.13" pickOnBounds="true">
+               <Image url="@../Images/Background.png" />
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="177.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../Images/logo.png" />
+            </ImageView>
+            <JFXButton cancelButton="true" focusTraversable="false" layoutX="393.0" layoutY="22.0" mnemonicParsing="false" onAction="#onMinimizeButtonClick" prefHeight="35.0" prefWidth="41.0" styleClass="MinExitButtons" stylesheets="@StyleSheet.css" text="–" textFill="#dddddd">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton cancelButton="true" focusTraversable="false" layoutX="438.0" layoutY="22.0" mnemonicParsing="false" onAction="#onExitButtonClick" prefHeight="35.0" prefWidth="41.0" styleClass="MinExitButtons" stylesheets="@StyleSheet.css" text="X" textAlignment="CENTER" textFill="#dddddd">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXButton>
+            <Label layoutX="39.0" layoutY="169.0" text="Welcome to Hayabusa Project v2.3" textFill="#f5f5f5">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Label>
+            <Label layoutX="89.0" layoutY="236.0" text="The application that helps professional drivers&#10;keep track of their routes" textFill="WHITE">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="CommentAboveLogin_SingUpButton" layoutX="177.0" layoutY="386.0" text="Don't you have an account yet?" textFill="WHITE">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="Login_SingUp_Button" buttonType="RAISED" focusTraversable="false" layoutX="109.0" layoutY="411.0" mnemonicParsing="false" onAction="#onLogin_SingUpButtonClick" prefHeight="44.0" prefWidth="288.0" styleClass="login_signupButtons" stylesheets="@StyleSheet.css" text="Sing up" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+         </AnchorPane>
+      </AnchorPane>
+   </children>
+</StackPane>
