@@ -1,11 +1,12 @@
-package Core.Components.GroupOfComponents;
+package Core.torubbish.GroupOfComponents;
 //
 // Author: GakPower
 // 
 // Date: 23-Jun-2018 (8:23 PM)
 //
 
-import Core.Components.Component;
+import Core.Components.GroupOfComponents.ErrorLabel;
+import Core.torubbish.Component;
 
 public class GroupOfInfo implements GroupOfComponents {
 
@@ -57,6 +58,7 @@ public class GroupOfInfo implements GroupOfComponents {
         return false;
     }
 
+
     private boolean isInputMoreThanMaxLength(){
         return component.getText().length() > getMaxInputLength();
     }
@@ -68,5 +70,20 @@ public class GroupOfInfo implements GroupOfComponents {
 
     public void setInput(String newText){
         component.setText(newText);
+    }
+
+    @Override
+    public void showLabel() {
+        errorLabel.show();
+    }
+
+    @Override
+    public void hideLabel() {
+        errorLabel.hide();
+    }
+
+    @Override
+    public void setErrorLabelText(String newText) {
+        errorLabel.setTooltipText(newText);
     }
 }

@@ -2,8 +2,11 @@
   <library name="jfoenix-8.0.4">
     <CLASSES>
       <root url="jar://D:/Dependencies/jfoenix-8.0.4.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/jfoenix-8.0.4.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ideaLibSources/jfoenix-8.0.4-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 public class AnimationControls {
     public static void translateAndFadeOutInDuration(Node toHide, double toX, Duration inDuration){
-        Animation.translateAnimation(inDuration, toHide, toX).play();
+        Animation.translateAnimationToX(inDuration, toHide, toX).play();
         Animation.fadeOutAnimation(inDuration, toHide).play();
         setVisibleFalseInNewThread(toHide, (int) inDuration.toMillis());
     }

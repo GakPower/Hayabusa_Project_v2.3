@@ -1,4 +1,9 @@
-package Core.Components;
+package Core.torubbish;
+//
+// Author: GakPower
+// 
+// Date: 22-Jun-2018 (9:18 PM)
+//
 
 import com.jfoenix.controls.JFXComboBox;
 

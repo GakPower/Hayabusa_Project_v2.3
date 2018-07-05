@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="hsqldb">
     <CLASSES>
-      <root url="jar://D:/Dependencies/hsqldb/lib/hsqldb.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/hsqldb-2.4.1/hsqldb/lib/hsqldb.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

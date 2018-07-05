@@ -29,6 +29,8 @@
 .MinExitButtons {
     -jfx-button-type: FLAT;
     -fx-background-color: transparent;
+    -fx-background-radius: 5em;
+    -fx-border-radius: 5em;
 }
 .MinExitButtons:hover {
     -jfx-button-type: FLAT;
@@ -61,6 +63,7 @@
     -fx-background-radius: 5em;
     -fx-border-color: -fx-primary;
     -fx-border-radius: 5em;
+    -fx-text-fill: Black;
 }
 
 .dialogButton:hover {
@@ -68,6 +71,7 @@
     -fx-background-radius: 5em;
     -fx-border-color: -fx-secondary;
     -fx-border-radius: 5em;
+    -fx-text-fill: White;
 }
 
 .jfx-dialog-overlay-pane > StackPane {

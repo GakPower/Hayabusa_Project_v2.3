@@ -41,7 +41,7 @@
                </font>
             </JFXPasswordField>
             <JFXComboBox fx:id="SecQuestionSingUp_Combo" editable="true" focusColor="#dd0000" labelFloat="true" layoutX="65.0" layoutY="276.0" prefHeight="25.0" prefWidth="253.0" promptText="Security Question" styleClass="jfx-field" stylesheets="@StyleSheet.css" unFocusColor="WHITE" />
-            <JFXTextField fx:id="SecAnsSingUp_Field" focusColor="#dd0000" labelFloat="true" layoutX="65.0" layoutY="324.0" prefHeight="25.0" prefWidth="253.0" promptText="Security Question" styleClass="jfx-field" stylesheets="@StyleSheet.css" unFocusColor="WHITE">
+            <JFXTextField fx:id="SecAnsSingUp_Field" focusColor="#dd0000" labelFloat="true" layoutX="65.0" layoutY="324.0" prefHeight="25.0" prefWidth="253.0" promptText="Security Answer" styleClass="jfx-field" stylesheets="@StyleSheet.css" unFocusColor="WHITE">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
@@ -151,30 +151,22 @@
                   <Font size="22.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="Login_UserField1111" focusColor="#dd0000" labelFloat="true" layoutX="67.0" layoutY="118.0" prefHeight="25.0" prefWidth="253.0" promptText="New Password" styleClass="jfx-field" stylesheets="@StyleSheet.css" unFocusColor="WHITE">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </JFXTextField>
+            <JFXPasswordField fx:id="NewPasswordForget_Field" focusColor="#dd0000" layoutX="67.0" layoutY="118.0" prefHeight="25.0" prefWidth="253.0" promptText="New Password" styleClass="jfx-field" stylesheets="@StyleSheet.css" unFocusColor="WHITE" />
+            <JFXPasswordField fx:id="ConfirmPasswordForget_Field" focusColor="#dd0000" layoutX="67.0" layoutY="169.0" prefHeight="25.0" prefWidth="253.0" promptText="Confirm Password" styleClass="jfx-field" stylesheets="@StyleSheet.css" unFocusColor="WHITE" />
              <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="37.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true">
                  <Image url="@../Images/Lock.png" />
              </ImageView>
-             <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="327.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true" visible="false">
-                 <Image url="@../Images/Error.png" />
-             </ImageView>
-            <Label layoutX="327.0" layoutY="118.0" prefHeight="20.0" prefWidth="20.0" visible="false" />
-            <JFXTextField fx:id="Login_UserField11111" focusColor="#dd0000" labelFloat="true" layoutX="67.0" layoutY="169.0" prefHeight="25.0" prefWidth="253.0" promptText="Confirm Password" styleClass="jfx-field" stylesheets="@StyleSheet.css" unFocusColor="WHITE">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </JFXTextField>
              <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="37.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true">
                  <Image url="@../Images/Lock2.png" />
              </ImageView>
-             <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="327.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true" visible="false">
+             <ImageView fx:id="NewPasswordForget_Image" fitHeight="20.0" fitWidth="20.0" layoutX="327.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true" visible="false">
                  <Image url="@../Images/Error.png" />
              </ImageView>
-            <Label layoutX="327.0" layoutY="169.0" prefHeight="20.0" prefWidth="20.0" visible="false" />
+            <Label fx:id="NewPasswordForget_Label" layoutX="327.0" layoutY="118.0" prefHeight="20.0" prefWidth="20.0" visible="false" />
+             <ImageView fx:id="ConfirmPasswordForget_Image" fitHeight="20.0" fitWidth="20.0" layoutX="327.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                 <Image url="@../Images/Error.png" />
+             </ImageView>
+            <Label fx:id="ConfirmPasswordForget_Label" layoutX="327.0" layoutY="169.0" prefHeight="20.0" prefWidth="20.0" visible="false" />
             <JFXButton buttonType="RAISED" defaultButton="true" focusTraversable="false" layoutX="48.0" layoutY="280.0" mnemonicParsing="false" onAction="#onFinishChangePassClick" prefHeight="44.0" prefWidth="288.0" styleClass="login_signupButtons" stylesheets="@StyleSheet.css" text="Finish" textFill="WHITE">
                <font>
                   <Font size="20.0" />
@@ -198,12 +190,12 @@
                   <Font size="22.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="SecQuestionAnsQuestion_Field" disable="true" editable="false" focusColor="#dd0000" focusTraversable="false" labelFloat="true" layoutX="67.0" layoutY="118.0" prefHeight="25.0" prefWidth="253.0" promptText="Security Question" styleClass="jfx-field" stylesheets="@StyleSheet.css" unFocusColor="WHITE">
+            <JFXTextField fx:id="SecQuestionForget_Field" editable="false" focusColor="#dd0000" focusTraversable="false" labelFloat="true" layoutX="67.0" layoutY="118.0" prefHeight="25.0" prefWidth="253.0" promptText="Security Question" styleClass="jfx-field" stylesheets="@StyleSheet.css" unFocusColor="WHITE">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="SecAnswerAnsQuestion_Field" focusColor="#dd0000" labelFloat="true" layoutX="67.0" layoutY="169.0" prefHeight="25.0" prefWidth="253.0" promptText="Security Answer" styleClass="jfx-field" stylesheets="@StyleSheet.css" unFocusColor="WHITE">
+            <JFXTextField fx:id="SecAnswerForget_Field" focusColor="#dd0000" labelFloat="true" layoutX="67.0" layoutY="169.0" prefHeight="25.0" prefWidth="253.0" promptText="Security Answer" styleClass="jfx-field" stylesheets="@StyleSheet.css" unFocusColor="WHITE">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
@@ -214,14 +206,14 @@
             <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="37.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true">
                <Image url="@../Images/Key.png" />
             </ImageView>
-            <ImageView fx:id="SecQuestionAnsQuestion_Image" fitHeight="20.0" fitWidth="20.0" layoutX="327.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <ImageView fx:id="SecQuestionForget_Image" fitHeight="20.0" fitWidth="20.0" layoutX="327.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <Image url="@../Images/Error.png" />
             </ImageView>
-            <Label fx:id="SecQuestionAnsQuestion_Label" layoutX="327.0" layoutY="118.0" prefHeight="20.0" prefWidth="20.0" visible="false" />
-            <ImageView fx:id="SecAnswerAnsQuestion_Image" fitHeight="20.0" fitWidth="20.0" layoutX="327.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <Label fx:id="SecQuestionForget_Label" layoutX="327.0" layoutY="118.0" prefHeight="20.0" prefWidth="20.0" visible="false" />
+            <ImageView fx:id="SecAnswerForget_Image" fitHeight="20.0" fitWidth="20.0" layoutX="327.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <Image url="@../Images/Error.png" />
             </ImageView>
-            <Label fx:id="SecAnswerAnsQuestion_Label" layoutX="327.0" layoutY="169.0" prefHeight="20.0" prefWidth="20.0" visible="false" />
+            <Label fx:id="SecAnswerForget_Label" layoutX="327.0" layoutY="169.0" prefHeight="20.0" prefWidth="20.0" visible="false" />
             <JFXButton buttonType="RAISED" defaultButton="true" focusTraversable="false" layoutX="48.0" layoutY="280.0" mnemonicParsing="false" onAction="#onNextAnswerQuestionClick" prefHeight="44.0" prefWidth="288.0" styleClass="login_signupButtons" stylesheets="@StyleSheet.css" text="Next" textFill="WHITE">
                <font>
                   <Font size="20.0" />
@@ -245,7 +237,7 @@
                   <Font size="22.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="EnterUsername_Field" focusColor="#dd0000" labelFloat="true" layoutX="67.0" layoutY="165.0" prefHeight="25.0" prefWidth="253.0" promptText="Username" styleClass="jfx-field" stylesheets="@StyleSheet.css" unFocusColor="WHITE">
+            <JFXTextField fx:id="UsernameForget_Field" focusColor="#dd0000" labelFloat="true" layoutX="67.0" layoutY="165.0" prefHeight="25.0" prefWidth="253.0" promptText="Username" styleClass="jfx-field" stylesheets="@StyleSheet.css" unFocusColor="WHITE">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
@@ -271,7 +263,7 @@
                </cursor>
             </Label>
          </AnchorPane>
-         <AnchorPane fx:id="mainRight_Anchor" layoutY="5.0" prefHeight="516.0" prefWidth="505.0" styleClass="main-AnchorPane" stylesheets="@StyleSheet.css">
+         <AnchorPane fx:id="main_Anchor" layoutY="5.0" prefHeight="516.0" prefWidth="505.0" styleClass="main-AnchorPane" stylesheets="@StyleSheet.css">
             <ImageView fitHeight="517.0" fitWidth="714.0" layoutX="-223.0" layoutY="-21.0" opacity="0.13" pickOnBounds="true">
                <Image url="@../Images/Background.png" />
             </ImageView>

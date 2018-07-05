@@ -1,4 +1,9 @@
-package Core.Components;
+package Core.torubbish;
+//
+// Author: GakPower
+// 
+// Date: 22-Jun-2018 (9:15 PM)
+//
 
 import com.jfoenix.controls.JFXPasswordField;
 
@@ -27,4 +32,5 @@ public class PasswordField implements Component {
     public boolean inputIsNullOrEmpty() {
         return passwordField.getText() == null || passwordField.getText().isEmpty();
     }
+
 }

@@ -1,11 +1,12 @@
-package Core.Components.GroupOfComponents;
+package Core.torubbish.GroupOfComponents;
 //
 // Author: GakPower
 // 
 // Date: 23-Jun-2018 (5:24 PM)
 //
 
-import Core.Components.Component;
+import Core.Components.GroupOfComponents.ErrorLabel;
+import Core.torubbish.Component;
 
 import java.sql.SQLException;
 
@@ -93,6 +94,11 @@ public class GroupOfPassword implements GroupOfComponents{
         return false;
     }
 
+    @Override
+    public void setInput(String newText) {
+        component.setText(newText);
+    }
+
     private boolean isInputMoreThanMaxLength(){
         return getInput().length() > getMaxInputLength();
     }
@@ -100,5 +106,20 @@ public class GroupOfPassword implements GroupOfComponents{
     @Override
     public String getInput() {
         return component.getText();
+    }
+
+    @Override
+    public void showLabel() {
+        errorLabel.show();
+    }
+
+    @Override
+    public void hideLabel() {
+        errorLabel.hide();
+    }
+
+    @Override
+    public void setErrorLabelText(String newText) {
+        errorLabel.setTooltipText(newText);
     }
 }

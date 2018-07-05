@@ -1,11 +1,12 @@
-package Core.Components.GroupOfComponents;
+package Core.torubbish.GroupOfComponents;
 //
 // Author: GakPower
 // 
 // Date: 23-Jun-2018 (5:24 PM)
 //
 
-import Core.Components.Component;
+import Core.Components.GroupOfComponents.ErrorLabel;
+import Core.torubbish.Component;
 
 public class GroupOfComboBox implements GroupOfComponents {
 
@@ -54,7 +55,12 @@ public class GroupOfComboBox implements GroupOfComponents {
 
     @Override
     public boolean isForgetPassInputOK() {
-        return Boolean.parseBoolean(null);
+        return false;
+    }
+
+    @Override
+    public void setInput(String newText) {
+        component.setText(newText);
     }
 
     private boolean isInputMoreThanMaxLength(){
@@ -64,5 +70,20 @@ public class GroupOfComboBox implements GroupOfComponents {
     @Override
     public String getInput() {
         return component.getText();
+    }
+
+    @Override
+    public void showLabel() {
+        errorLabel.show();
+    }
+
+    @Override
+    public void hideLabel() {
+        errorLabel.hide();
+    }
+
+    @Override
+    public void setErrorLabelText(String newText) {
+        errorLabel.setTooltipText(newText);
     }
 }

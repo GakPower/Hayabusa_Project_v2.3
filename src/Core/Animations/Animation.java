@@ -8,6 +8,7 @@ package Core.Animations;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
+import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Node;
 import javafx.util.Duration;
@@ -35,9 +36,16 @@ public class Animation {
         return scaleTransition;
     }
 
-    public static TranslateTransition translateAnimation(Duration duration, Node node, double ToX){
+    public static TranslateTransition translateAnimationToX(Duration duration, Node node, double ToX){
         TranslateTransition translateTransition = new TranslateTransition(duration, node);
         translateTransition.setToX(ToX);
+
+        return translateTransition;
+    }
+
+    public static TranslateTransition translateAnimationToY(Duration duration, Node node, double ToY){
+        TranslateTransition translateTransition = new TranslateTransition(duration, node);
+        translateTransition.setToY(ToY);
 
         return translateTransition;
     }
@@ -55,5 +63,21 @@ public class Animation {
         fadeIn.setToValue(100);
 
         return fadeIn;
+    }
+
+    public static SequentialTransition bounceAnimation(double durationInMilliseconds, Node node){
+        double y = node.getTranslateY();
+
+        SequentialTransition sequentialTransition = new SequentialTransition(
+                translateAnimationToY(Duration.millis(0.23*durationInMilliseconds), node, y - 15),
+                translateAnimationToY(Duration.millis(0.1*durationInMilliseconds), node, y),
+                translateAnimationToY(Duration.millis(0.17*durationInMilliseconds), node, y - 8),
+                translateAnimationToY(Duration.millis(0.1*durationInMilliseconds), node, y),
+                translateAnimationToY(Duration.millis(0.1*durationInMilliseconds), node, y - 2),
+                translateAnimationToY(Duration.millis(0.1*durationInMilliseconds), node, y)
+        );
+        sequentialTransition.setDelay(Duration.millis(0.2*durationInMilliseconds));
+
+        return sequentialTransition;
     }
 }

@@ -86,9 +86,7 @@ public class HyperSQL {
         }
     }
     private void tryExecCommand(String command) throws SQLException{
-
         resultSet = createResultSetForExecutionWithCommand(command);
-
     }
     private ResultSet createResultSetForExecutionWithCommand(String command)
             throws SQLException{
