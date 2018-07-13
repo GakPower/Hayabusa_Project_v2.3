@@ -1,5 +1,6 @@
 package Core.Components.GroupOfComponents.GroupOfSignUpComponents;
 
+import Core.Components.ComboBox;
 import Core.Components.Component;
 import Core.Components.GroupOfComponents.ErrorLabel;
 import Core.Components.GroupOfComponents.GroupOfComponents;
@@ -7,6 +8,13 @@ import Core.Components.GroupOfComponents.GroupOfComponents;
 public class GroupOfSignUpComboBox extends GroupOfComponents {
     public GroupOfSignUpComboBox(Component component, ErrorLabel errorLabel) {
         super(component, errorLabel);
+        ComboBox comboBox = (ComboBox) component;
+        comboBox.add("What was your favorite place to visit as a child?");
+        comboBox.add("Who is your favorite actor, musician, or artist?");
+        comboBox.add("What was the make of your first car?");
+        comboBox.add("What is your favorite website?");
+        comboBox.add("What is the name of your first grade teacher?");
+        comboBox.add("What is your favorite movie?");
     }
 
     @Override

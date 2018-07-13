@@ -72,11 +72,11 @@ public class Animation {
                 translateAnimationToY(Duration.millis(0.23*durationInMilliseconds), node, y - 15),
                 translateAnimationToY(Duration.millis(0.1*durationInMilliseconds), node, y),
                 translateAnimationToY(Duration.millis(0.17*durationInMilliseconds), node, y - 8),
-                translateAnimationToY(Duration.millis(0.1*durationInMilliseconds), node, y),
-                translateAnimationToY(Duration.millis(0.1*durationInMilliseconds), node, y - 2),
-                translateAnimationToY(Duration.millis(0.1*durationInMilliseconds), node, y)
+                translateAnimationToY(Duration.millis(0.133*durationInMilliseconds), node, y),
+                translateAnimationToY(Duration.millis(0.133*durationInMilliseconds), node, y - 2),
+                translateAnimationToY(Duration.millis(0.133*durationInMilliseconds), node, y)
         );
-        sequentialTransition.setDelay(Duration.millis(0.2*durationInMilliseconds));
+        sequentialTransition.setDelay(Duration.millis(0.1*durationInMilliseconds));
 
         return sequentialTransition;
     }

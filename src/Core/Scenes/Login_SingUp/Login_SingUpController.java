@@ -7,7 +7,7 @@ import Core.Components.ComponentFactories.GroupFactory;
 import Core.Components.GroupOfComponents.ErrorLabel;
 import Core.Components.GroupOfComponents.GroupOfComponents;
 import Core.Components.GroupOfComponents.GroupType;
-import Core.Dialog;
+import Core.Scenes.Dialog;
 import Core.SQL.HyperSQL;
 import Core.SQL.HyperSQLControl;
 import Core.Scenes.Scenes;
@@ -29,26 +29,28 @@ public class Login_SingUpController {
     private static final int DURATION_INT = 500;
     private static final Duration DURATION = Duration.millis(DURATION_INT);
 
+    @FXML private StackPane mainLogin_SignUp_Stack;
     @FXML private AnchorPane SignUp_Anchor;
     @FXML private AnchorPane main_Anchor;
     @FXML private AnchorPane Login_Anchor;
-    @FXML private StackPane mainLogin_SignUp_Stack;
-    @FXML private Label CommentAboveLogin_SingUpButton;
-    @FXML private JFXButton Login_SingUp_Button;
-
     @FXML private AnchorPane EnterUsername_Anchor;
     @FXML private AnchorPane AnswerQuestion_Anchor;
     @FXML private AnchorPane ChangePassword_Anchor;
+    @FXML private Label CommentAboveLogin_SingUpButton;
+    @FXML private JFXButton Login_SingUp_Button;
+    @FXML private JFXCheckBox RememberMe_CheckBox;
+
+    @FXML private JFXTextField UsernameLogin_Field;
+    @FXML private JFXPasswordField PasswordLogin_Field;
     @FXML private Label UsernameLogin_Label;
     @FXML private ImageView UsernameLogin_ImageView;
     @FXML private Label PasswordLogin_Label;
     @FXML private ImageView PasswordLogin_ImageView;
-    @FXML private JFXTextField UsernameLogin_Field;
-    @FXML private JFXPasswordField PasswordLogin_Field;
-    @FXML private JFXCheckBox RememberMe_CheckBox;
 
     private ErrorLabel UsernameLogin_ErrorLabel;
     private ErrorLabel PasswordLogin_ErrorLabel;
+    private Component UsernameLogin_Comp;
+    private Component PasswordLogin_Comp;
     private GroupOfComponents UsernameLogin_Group;
     private GroupOfComponents PasswordLogin_Group;
 
@@ -74,6 +76,11 @@ public class Login_SingUpController {
     private ErrorLabel PasswordConfirmSingUp_ErrorLabel;
     private ErrorLabel SecQuestionSingUp_ErrorLabel;
     private ErrorLabel SecAnsSingUp_ErrorLabel;
+    private Component UsernameSingUp_Comp;
+    private Component PasswordSingUp_Comp;
+    private Component PasswordConfirmSingUp_Comp;
+    private Component SecQuestionSingUp_Comp;
+    private Component SecAnsSingUp_Comp;
     private GroupOfComponents UsernameSingUp_Group;
     private GroupOfComponents PasswordSingUp_Group;
     private GroupOfComponents PasswordConfirmSingUp_Group;
@@ -85,6 +92,7 @@ public class Login_SingUpController {
     @FXML private ImageView EnterUsername_Image;
 
     private ErrorLabel UsernameForgetPass_ErrorLabel;
+    private Component UsernameForget_Comp;
     private GroupOfComponents UsernameForgetPass_Group;
 
     @FXML private JFXTextField SecQuestionForget_Field;
@@ -96,6 +104,8 @@ public class Login_SingUpController {
 
     private ErrorLabel SecQuestionForget_ErrorLabel;
     private ErrorLabel SecAnswerForget_ErrorLabel;
+    private Component SecQuestionForge_Comp;
+    private Component SecAnswerForget_Comp;
     private GroupOfComponents SecQuestionForget_Group;
     private GroupOfComponents SecAnswerForget_Group;
 
@@ -108,6 +118,8 @@ public class Login_SingUpController {
 
     private ErrorLabel NewPasswordForget_ErrorLabel;
     private ErrorLabel ConfirmPasswordForget_ErrorLabel;
+    private Component NewPasswordForget_Comp;
+    private Component ConfirmPasswordForget_Comp;
     private GroupOfComponents NewPasswordForget_Group;
     private GroupOfComponents ConfirmPasswordForget_Group;
 
@@ -119,37 +131,52 @@ public class Login_SingUpController {
         initGroups();
         setRememberedUsernameIfInDB();
     }
-
     private void IfFirstTimeExecutedShowSignUp() {
-        if (firstTimeExecuted()) {
+        if (isFirstTimeExecuted()) {
             onLogin_SingUpButtonClick();
         }
     }
-
-    private boolean firstTimeExecuted() {
+    private boolean isFirstTimeExecuted() {
         return !file.exists() || (file.exists() && !sqlControl.hasMoreThen1User());
     }
-
     private void initGroups() {
+        initComponents();
         initErrorLabels();
-        UsernameLogin_Group = GroupFactory.createGroup(GroupType.LOGIN, ComponentType.USERNAME, new TextField(UsernameLogin_Field), UsernameLogin_ErrorLabel);
-        PasswordLogin_Group = GroupFactory.createGroup(GroupType.LOGIN, ComponentType.PASSWORD, new PasswordField(PasswordLogin_Field), PasswordLogin_ErrorLabel);
+        UsernameLogin_Group = GroupFactory.createGroup(GroupType.LOGIN, ComponentType.USERNAME, UsernameLogin_Comp, UsernameLogin_ErrorLabel);
+        PasswordLogin_Group = GroupFactory.createGroup(GroupType.LOGIN, ComponentType.PASSWORD, PasswordLogin_Comp, PasswordLogin_ErrorLabel);
 
-        UsernameSingUp_Group = GroupFactory.createGroup(GroupType.SIGNUP, ComponentType.USERNAME, new TextField(UsernameSingUp_Field), UsernameSingUp_ErrorLabel);
-        PasswordSingUp_Group = GroupFactory.createGroup(GroupType.SIGNUP, ComponentType.PASSWORD, new PasswordField(PasswordSingUp_Field), PasswordSingUp_ErrorLabel);
-        PasswordConfirmSingUp_Group = GroupFactory.createGroup(GroupType.SIGNUP, ComponentType.CONFIRMPASSWORD, new PasswordField(PasswordConfirmSingUp_Field), PasswordConfirmSingUp_ErrorLabel);
-        SecQuestionSingUp_Group = GroupFactory.createGroup(GroupType.SIGNUP, ComponentType.COMBOBOX, new ComboBox(SecQuestionSingUp_Combo), SecQuestionSingUp_ErrorLabel);
-        SecAnsSingUp_Group = GroupFactory.createGroup(GroupType.SIGNUP, ComponentType.INFO, new TextField(SecAnsSingUp_Field), SecAnsSingUp_ErrorLabel);
+        UsernameSingUp_Group = GroupFactory.createGroup(GroupType.SIGNUP, ComponentType.USERNAME, UsernameSingUp_Comp, UsernameSingUp_ErrorLabel);
+        PasswordSingUp_Group = GroupFactory.createGroup(GroupType.SIGNUP, ComponentType.PASSWORD, PasswordSingUp_Comp, PasswordSingUp_ErrorLabel);
+        PasswordConfirmSingUp_Group = GroupFactory.createGroup(GroupType.SIGNUP, ComponentType.CONFIRMPASSWORD, PasswordConfirmSingUp_Comp, PasswordConfirmSingUp_ErrorLabel);
+        SecQuestionSingUp_Group = GroupFactory.createGroup(GroupType.SIGNUP, ComponentType.COMBOBOX, SecQuestionSingUp_Comp, SecQuestionSingUp_ErrorLabel);
+        SecAnsSingUp_Group = GroupFactory.createGroup(GroupType.SIGNUP, ComponentType.INFO, SecAnsSingUp_Comp, SecAnsSingUp_ErrorLabel);
 
-        UsernameForgetPass_Group = GroupFactory.createGroup(GroupType.FORGETPASS, ComponentType.USERNAME, new TextField(UsernameForget_Field), UsernameForgetPass_ErrorLabel);
+        UsernameForgetPass_Group = GroupFactory.createGroup(GroupType.FORGETPASS, ComponentType.USERNAME, UsernameForget_Comp, UsernameForgetPass_ErrorLabel);
 
-        SecQuestionForget_Group = GroupFactory.createGroup(GroupType.FORGETPASS, ComponentType.INFO, new TextField(SecQuestionForget_Field), SecQuestionForget_ErrorLabel);
-        SecAnswerForget_Group = GroupFactory.createGroup(GroupType.FORGETPASS, ComponentType.INFO, new TextField(SecAnswerForget_Field), SecAnswerForget_ErrorLabel);
+        SecQuestionForget_Group = GroupFactory.createGroup(GroupType.FORGETPASS, ComponentType.INFO, SecQuestionForge_Comp, SecQuestionForget_ErrorLabel);
+        SecAnswerForget_Group = GroupFactory.createGroup(GroupType.FORGETPASS, ComponentType.INFO, SecAnswerForget_Comp, SecAnswerForget_ErrorLabel);
 
-        NewPasswordForget_Group = GroupFactory.createGroup(GroupType.FORGETPASS, ComponentType.PASSWORD, new PasswordField(NewPasswordForget_Field), NewPasswordForget_ErrorLabel);
-        ConfirmPasswordForget_Group = GroupFactory.createGroup(GroupType.FORGETPASS, ComponentType.PASSWORD, new PasswordField(ConfirmPasswordForget_Field), ConfirmPasswordForget_ErrorLabel);
+        NewPasswordForget_Group = GroupFactory.createGroup(GroupType.FORGETPASS, ComponentType.PASSWORD, NewPasswordForget_Comp, NewPasswordForget_ErrorLabel);
+        ConfirmPasswordForget_Group = GroupFactory.createGroup(GroupType.FORGETPASS, ComponentType.PASSWORD, ConfirmPasswordForget_Comp, ConfirmPasswordForget_ErrorLabel);
     }
+    private void initComponents() {
+        UsernameLogin_Comp = ComponentFactory.createComponent(UsernameLogin_Field);
+        PasswordLogin_Comp = ComponentFactory.createComponent(PasswordLogin_Field);
 
+        UsernameSingUp_Comp = ComponentFactory.createComponent(UsernameSingUp_Field);
+        PasswordSingUp_Comp = ComponentFactory.createComponent(PasswordSingUp_Field);
+        PasswordConfirmSingUp_Comp = ComponentFactory.createComponent(PasswordConfirmSingUp_Field);
+        SecQuestionSingUp_Comp = ComponentFactory.createComponent(SecQuestionSingUp_Combo);
+        SecAnsSingUp_Comp = ComponentFactory.createComponent(SecAnsSingUp_Field);
+
+        UsernameForget_Comp = ComponentFactory.createComponent(UsernameForget_Field);
+
+        SecQuestionForge_Comp = ComponentFactory.createComponent(SecQuestionForget_Field);
+        SecAnswerForget_Comp = ComponentFactory.createComponent(SecAnswerForget_Field);
+
+        NewPasswordForget_Comp = ComponentFactory.createComponent(NewPasswordForget_Field);
+        ConfirmPasswordForget_Comp = ComponentFactory.createComponent(ConfirmPasswordForget_Field);
+    }
     private void initErrorLabels() {
         UsernameLogin_ErrorLabel = new ErrorLabel(UsernameLogin_Label, UsernameLogin_ImageView);
         PasswordLogin_ErrorLabel = new ErrorLabel(PasswordLogin_Label, PasswordLogin_ImageView);
@@ -168,7 +195,6 @@ public class Login_SingUpController {
         NewPasswordForget_ErrorLabel = new ErrorLabel(NewPasswordForget_Label, NewPasswordForget_Image);
         ConfirmPasswordForget_ErrorLabel = new ErrorLabel(ConfirmPasswordForget_Label, ConfirmPasswordForget_Image);
     }
-
     private void setRememberedUsernameIfInDB() {
         if (wasCheckBoxSelected()) {
             RememberMe_CheckBox.setSelected(true);

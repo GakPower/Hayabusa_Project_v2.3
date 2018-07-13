@@ -60,9 +60,9 @@ public class HyperSQLControl {
         return number > 0;
     }
 
-    public void createTable(String table, String parameters){
+    public void createTable(String tableName, String parameters){
         sql.connDB();
-        sql.execUpdateCommand("CREATE TABLE "+table+"("+parameters+");");
+        sql.execUpdateCommand("CREATE TABLE "+tableName+"("+parameters+");");
         sql.shutDB();
     }
 

@@ -7,7 +7,6 @@ package Core.Animations;
 
 import javafx.scene.Node;
 import javafx.util.Duration;
-
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
