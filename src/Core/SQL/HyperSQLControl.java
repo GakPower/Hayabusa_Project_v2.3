@@ -163,9 +163,10 @@ public class HyperSQLControl {
     private String tryGetAnswerForQuestion(String question) throws SQLException {
         String answer = "";
         sql.connDB();
-        sql.execCommand("SELECT Answer FROM SecurityCombo WHERE ID="+getIDForQuestion(question)+";");
+        sql.execCommand("SELECT Answer FROM SecurityCombo WHERE Question=\'"+question+"\';");
         if (sql.getResultSet().next()){
-            answer= sql.getResultSet().getString(1);
+            answer = sql.getResultSet().getString(1);
+            System.out.println(answer);
         }
         sql.shutDB();
         return answer;
@@ -201,7 +202,7 @@ public class HyperSQLControl {
     private String tryGetQuestionForUser(String Username) throws SQLException {
         int questionID = 1;
         sql.connDB();
-        sql.execCommand("SELECT SafeQuestion FROM Users WHERE Username=\'"+Username+"\'");
+        sql.execCommand("SELECT SafeQuestion FROM Users WHERE Username=\'"+Username+"\';");
         if (sql.getResultSet().next()) {
             questionID = sql.getResultSet().getInt(1);
         }
@@ -232,7 +233,7 @@ public class HyperSQLControl {
     private boolean tryDoesUsernameExists(String Username) throws SQLException {
         sql.connDB();
 
-        sql.execCommand("SELECT Username FROM Users WHERE Username=\'"+Username+"\'");
+        sql.execCommand("SELECT Username FROM Users WHERE Username=\'"+Username+"\';");
 
         boolean result = sql.getResultSet().next();
 
@@ -253,7 +254,7 @@ public class HyperSQLControl {
         boolean result = false;
         sql.connDB();
 
-        sql.execCommand("SELECT Password FROM Users WHERE Password=\'"+Username+"\';");
+        sql.execCommand("SELECT Password FROM Users WHERE Username=\'"+Username+"\';");
         if (sql.getResultSet().next()){
             String PasswordOnDB = sql.getResultSet().getString(1);
             result = PasswordOnDB.equals(Password);
@@ -264,7 +265,7 @@ public class HyperSQLControl {
     }
     public void changePasswordWithUsername(String Username, String NewPassword) {
         sql.connDB();
-        sql.execUpdateCommand("UPDATE Users SET Password=\'"+NewPassword+" WHERE Username=\'"+Username+"\'");
+        sql.execUpdateCommand("UPDATE USERS SET Password=\'"+NewPassword+"\' WHERE Username=\'"+Username+"\';");
         sql.shutDB();
     }
 }

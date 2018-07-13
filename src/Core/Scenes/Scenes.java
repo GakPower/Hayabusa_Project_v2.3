@@ -43,7 +43,7 @@ public class Scenes {
         }
     }
     private Parent tryInitRoot(String fxmlPath) throws IOException {
-        return FXMLLoader.load(getClass().getResource(fxmlPath));
+        return FXMLLoader.load(getClass().getClassLoader().getResource(fxmlPath));
     }
 
     private Scene createScene(){

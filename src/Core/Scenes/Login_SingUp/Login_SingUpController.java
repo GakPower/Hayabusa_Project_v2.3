@@ -29,39 +29,23 @@ public class Login_SingUpController {
     private static final int DURATION_INT = 500;
     private static final Duration DURATION = Duration.millis(DURATION_INT);
 
-    @FXML
-    private AnchorPane SignUp_Anchor;
-    @FXML
-    private AnchorPane main_Anchor;
-    @FXML
-    private AnchorPane Login_Anchor;
-    @FXML
-    private StackPane mainLogin_SignUp_Stack;
-    @FXML
-    private Label CommentAboveLogin_SingUpButton;
-    @FXML
-    private JFXButton Login_SingUp_Button;
+    @FXML private AnchorPane SignUp_Anchor;
+    @FXML private AnchorPane main_Anchor;
+    @FXML private AnchorPane Login_Anchor;
+    @FXML private StackPane mainLogin_SignUp_Stack;
+    @FXML private Label CommentAboveLogin_SingUpButton;
+    @FXML private JFXButton Login_SingUp_Button;
 
-    @FXML
-    private AnchorPane EnterUsername_Anchor;
-    @FXML
-    private AnchorPane AnswerQuestion_Anchor;
-    @FXML
-    private AnchorPane ChangePassword_Anchor;
-    @FXML
-    private Label UsernameLogin_Label;
-    @FXML
-    private ImageView UsernameLogin_ImageView;
-    @FXML
-    private Label PasswordLogin_Label;
-    @FXML
-    private ImageView PasswordLogin_ImageView;
-    @FXML
-    private JFXTextField UsernameLogin_Field;
-    @FXML
-    private JFXPasswordField PasswordLogin_Field;
-    @FXML
-    private JFXCheckBox RememberMe_CheckBox;
+    @FXML private AnchorPane EnterUsername_Anchor;
+    @FXML private AnchorPane AnswerQuestion_Anchor;
+    @FXML private AnchorPane ChangePassword_Anchor;
+    @FXML private Label UsernameLogin_Label;
+    @FXML private ImageView UsernameLogin_ImageView;
+    @FXML private Label PasswordLogin_Label;
+    @FXML private ImageView PasswordLogin_ImageView;
+    @FXML private JFXTextField UsernameLogin_Field;
+    @FXML private JFXPasswordField PasswordLogin_Field;
+    @FXML private JFXCheckBox RememberMe_CheckBox;
 
     private ErrorLabel UsernameLogin_ErrorLabel;
     private ErrorLabel PasswordLogin_ErrorLabel;
@@ -69,36 +53,21 @@ public class Login_SingUpController {
     private GroupOfComponents PasswordLogin_Group;
 
 
-    @FXML
-    private JFXTextField UsernameSingUp_Field;
-    @FXML
-    private JFXPasswordField PasswordSingUp_Field;
-    @FXML
-    private JFXPasswordField PasswordConfirmSingUp_Field;
-    @FXML
-    private JFXComboBox<String> SecQuestionSingUp_Combo;
-    @FXML
-    private JFXTextField SecAnsSingUp_Field;
-    @FXML
-    private Label UsernameSingUp_Label;
-    @FXML
-    private ImageView UsernameSingUp_Image;
-    @FXML
-    private Label PasswordSingUp_Label;
-    @FXML
-    private ImageView PasswordSingUp_Image;
-    @FXML
-    private Label PasswordConfirmSingUp_Label;
-    @FXML
-    private ImageView PasswordConfirmSingUp_Image;
-    @FXML
-    private Label SecQuestionSingUp_Label;
-    @FXML
-    private ImageView SecQuestionSingUp_Image;
-    @FXML
-    private Label SecAnsSingUp_Label;
-    @FXML
-    private ImageView SecAnsSingUp_Image;
+    @FXML private JFXTextField UsernameSingUp_Field;
+    @FXML private JFXPasswordField PasswordSingUp_Field;
+    @FXML private JFXPasswordField PasswordConfirmSingUp_Field;
+    @FXML private JFXComboBox<String> SecQuestionSingUp_Combo;
+    @FXML private JFXTextField SecAnsSingUp_Field;
+    @FXML private Label UsernameSingUp_Label;
+    @FXML private ImageView UsernameSingUp_Image;
+    @FXML private Label PasswordSingUp_Label;
+    @FXML private ImageView PasswordSingUp_Image;
+    @FXML private Label PasswordConfirmSingUp_Label;
+    @FXML private ImageView PasswordConfirmSingUp_Image;
+    @FXML private Label SecQuestionSingUp_Label;
+    @FXML private ImageView SecQuestionSingUp_Image;
+    @FXML private Label SecAnsSingUp_Label;
+    @FXML private ImageView SecAnsSingUp_Image;
 
     private ErrorLabel UsernameSingUp_ErrorLabel;
     private ErrorLabel PasswordSingUp_ErrorLabel;
@@ -111,46 +80,31 @@ public class Login_SingUpController {
     private GroupOfComponents SecQuestionSingUp_Group;
     private GroupOfComponents SecAnsSingUp_Group;
 
-    @FXML
-    private JFXTextField UsernameForget_Field;
-    @FXML
-    private Label EnterUsername_Label;
-    @FXML
-    private ImageView EnterUsername_Image;
+    @FXML private JFXTextField UsernameForget_Field;
+    @FXML private Label EnterUsername_Label;
+    @FXML private ImageView EnterUsername_Image;
 
     private ErrorLabel UsernameForgetPass_ErrorLabel;
     private GroupOfComponents UsernameForgetPass_Group;
 
-    @FXML
-    private JFXTextField SecQuestionForget_Field;
-    @FXML
-    private JFXTextField SecAnswerForget_Field;
-    @FXML
-    private Label SecQuestionForget_Label;
-    @FXML
-    private ImageView SecQuestionForget_Image;
-    @FXML
-    private Label SecAnswerForget_Label;
-    @FXML
-    private ImageView SecAnswerForget_Image;
+    @FXML private JFXTextField SecQuestionForget_Field;
+    @FXML private JFXTextField SecAnswerForget_Field;
+    @FXML private Label SecQuestionForget_Label;
+    @FXML private ImageView SecQuestionForget_Image;
+    @FXML private Label SecAnswerForget_Label;
+    @FXML private ImageView SecAnswerForget_Image;
 
     private ErrorLabel SecQuestionForget_ErrorLabel;
     private ErrorLabel SecAnswerForget_ErrorLabel;
     private GroupOfComponents SecQuestionForget_Group;
     private GroupOfComponents SecAnswerForget_Group;
 
-    @FXML
-    private JFXPasswordField NewPasswordForget_Field;
-    @FXML
-    private JFXPasswordField ConfirmPasswordForget_Field;
-    @FXML
-    private Label NewPasswordForget_Label;
-    @FXML
-    private ImageView NewPasswordForget_Image;
-    @FXML
-    private Label ConfirmPasswordForget_Label;
-    @FXML
-    private ImageView ConfirmPasswordForget_Image;
+    @FXML private JFXPasswordField NewPasswordForget_Field;
+    @FXML private JFXPasswordField ConfirmPasswordForget_Field;
+    @FXML private Label NewPasswordForget_Label;
+    @FXML private ImageView NewPasswordForget_Image;
+    @FXML private Label ConfirmPasswordForget_Label;
+    @FXML private ImageView ConfirmPasswordForget_Image;
 
     private ErrorLabel NewPasswordForget_ErrorLabel;
     private ErrorLabel ConfirmPasswordForget_ErrorLabel;
@@ -160,8 +114,7 @@ public class Login_SingUpController {
     private AnchorPane activeAnchorPane = Login_Anchor;
 
 
-    @FXML
-    private void initialize() {
+    @FXML private void initialize() {
         IfFirstTimeExecutedShowSignUp();
         initGroups();
         setRememberedUsernameIfInDB();
@@ -222,45 +175,52 @@ public class Login_SingUpController {
             UsernameLogin_Field.setText(sqlControl.getRememberMeUsername());
         }
     }
-
     private boolean wasCheckBoxSelected() {
         return sqlControl.getRememberMeBoolean();
     }
 
-    @FXML
-    private void onLoginClick() {
+    @FXML private void onLoginClick() {
         hideLoginErrorLabels();
-        loginIfInputIsOK();
-        storeUsernameIfCheckBoxIsSelected();
-        clearLoginInput();
+        if (isLoginInputOK()) {
+            changeSceneToApp();
+            storeUsernameIfCheckBoxIsSelected();
+            clearLoginInput();
+        }
     }
-
     private void hideLoginErrorLabels() {
         UsernameLogin_Group.hideErrorLabel();
         PasswordLogin_Group.hideErrorLabel();
     }
-
-    private void loginIfInputIsOK() {
-        if (isLoginInputOK()) {
-            Scenes.changeScene(Scenes.getFromMap("App"));
-        }
-    }
-
     private boolean isLoginInputOK() {
-        return UsernameLogin_Group.isInputOK(null) && PasswordLogin_Group.isInputOK(UsernameLogin_Group.getInput());
-    }
+        boolean username = UsernameLogin_Group.isInputOK(null);
+        boolean password = PasswordLogin_Group.isInputOK(UsernameLogin_Group.getInput());
 
+        return username && password;
+    }
+    private void changeSceneToApp() {
+        Scenes.changeScene(Scenes.getFromMap("App"));
+    }
     private void clearLoginInput() {
         UsernameLogin_Group.clearInput();
         PasswordLogin_Group.clearInput();
     }
-    @FXML
-    private void onSignUpClick() {
+    private void storeUsernameIfCheckBoxIsSelected(){
+        sqlControl.setRememberMe(RememberMe_CheckBox.isSelected(), UsernameLogin_Group.getInput());
+    }
+
+    @FXML private void onSignUpClick() {
         hideSignUpErrorLabels();
         if (isSignUpInputOK()) {
             showSignUpDialog();
             storeInfoToDBInNewThreadAncClearInput();
         }
+    }
+    private void hideSignUpErrorLabels(){
+        UsernameSingUp_Group.hideErrorLabel();
+        PasswordSingUp_Group.hideErrorLabel();
+        PasswordConfirmSingUp_Group.hideErrorLabel();
+        SecQuestionSingUp_Group.hideErrorLabel();
+        SecAnsSingUp_Group.hideErrorLabel();
     }
     private boolean isSignUpInputOK() {
         boolean isUsernameOK = UsernameSingUp_Group.isInputOK(UsernameSingUp_Group.getInput());
@@ -270,20 +230,6 @@ public class Login_SingUpController {
         boolean isSecAnsOK = SecAnsSingUp_Group.isInputOK(null);
 
         return isUsernameOK && isPasswordOK && isPasswordConfirmOK && isSecQuestionOK && isSecAnsOK;
-    }
-
-    private void storeInfoToDBInNewThreadAncClearInput(){
-        new Thread(()-> {
-            storeInfoToDB();
-            clearSingUpInput();
-        }).start();
-    }
-    private void hideSignUpErrorLabels(){
-        UsernameSingUp_Group.hideErrorLabel();
-        PasswordSingUp_Group.hideErrorLabel();
-        PasswordConfirmSingUp_Group.hideErrorLabel();
-        SecQuestionSingUp_Group.hideErrorLabel();
-        SecAnsSingUp_Group.hideErrorLabel();
     }
     private void showSignUpDialog() {
         Dialog dialog = new Dialog(mainLogin_SignUp_Stack,
@@ -296,6 +242,12 @@ public class Login_SingUpController {
             dialog.close();
             onLogin_SingUpButtonClick();
         });
+    }
+    private void storeInfoToDBInNewThreadAncClearInput(){
+        new Thread(()-> {
+            storeInfoToDB();
+            clearSingUpInput();
+        }).start();
     }
     private void clearSingUpInput(){
         UsernameSingUp_Group.clearInput();
@@ -318,15 +270,12 @@ public class Login_SingUpController {
 
         sqlControl.storeSignInInfoToTable(info, "Users");
     }
+
     private void storeQuestionToDB() {
         sqlControl.addInfoToTable("SecurityCombo", sqlControl.getNextIDFromTable("SecurityCombo") +
                 ", \'" + UsernameSingUp_Group.getInput() + "\', " +
                 "\'" + SecQuestionSingUp_Group.getInput() + "\', " +
                 "\'" + SecAnsSingUp_Group.getInput()+"\'");
-    }
-
-    private void storeUsernameIfCheckBoxIsSelected(){
-        sqlControl.setRememberMe(RememberMe_CheckBox.isSelected(), UsernameLogin_Group.getInput());
     }
 
     @FXML private void onLogin_SingUpButtonClick(){
@@ -344,10 +293,10 @@ public class Login_SingUpController {
         }
 
     }
-    private boolean isButtonTextEqualToSingUp(){
+    private boolean isButtonTextEqualToSingUp() {
         return Login_SingUp_Button.getText().equals("Sing up");
     }
-    private void animationSignUpIn(){
+    private void animationSignUpIn() {
         Animation.scaleAnimationToX(DURATION, SignUp_Anchor, 1).play();
         Animation.fadeInAnimation(DURATION, SignUp_Anchor).play();
 
@@ -355,7 +304,7 @@ public class Login_SingUpController {
 
         AnimationControls.translateAndFadeOutInDuration(Login_Anchor, -345, DURATION);
     }
-    private void animationSignUpOut(){
+    private void animationSignUpOut() {
         Animation.scaleAnimationToX(DURATION, SignUp_Anchor, 0.1).play();
         Animation.fadeOutAnimation(DURATION, SignUp_Anchor).play();
 
@@ -366,11 +315,11 @@ public class Login_SingUpController {
         Login_Anchor.setVisible(true);
     }
 
-    @FXML private void onFinishChangePassClick(){
+    @FXML private void onFinishChangePassClick() {
         if (NewPasswordForget_Group.isInputOK(null) && ConfirmPasswordForget_Group.isInputOK(NewPasswordForget_Group.getInput())) {
             showForgetDialog();
             changePasswordInNewThreadAncClearInput();
-            activeAnchorPane = ChangePassword_Anchor;
+            activeAnchorPane = Login_Anchor;
         }
     }
     private void showForgetDialog() {
@@ -382,10 +331,10 @@ public class Login_SingUpController {
                 main_Anchor, ChangePassword_Anchor);
         dialog.getButton().setOnAction(event -> {
             dialog.close();
-            onExitAddUsernameClick();
+            AnimationControls.hideAndShowWithAnimationInDuration(ChangePassword_Anchor, Login_Anchor, DURATION);
         });
     }
-    private void changePasswordInNewThreadAncClearInput(){
+    private void changePasswordInNewThreadAncClearInput() {
         new Thread(()-> {
             sqlControl.changePasswordWithUsername(UsernameForgetPass_Group.getInput(), NewPasswordForget_Group.getInput());
             cleanForgetFields();
@@ -393,7 +342,7 @@ public class Login_SingUpController {
     }
     private void cleanForgetFields() {
         UsernameForgetPass_Group.clearInput();
-        SecAnsSingUp_Group.clearInput();
+        SecAnswerForget_Group.clearInput();
         SecQuestionForget_Group.clearInput();
         NewPasswordForget_Group.clearInput();
         ConfirmPasswordForget_Group.clearInput();
@@ -417,7 +366,7 @@ public class Login_SingUpController {
     }
     @FXML private void onBackChangePassClick(){
         AnimationControls.hideAndShowWithAnimationInDuration(ChangePassword_Anchor, AnswerQuestion_Anchor, DURATION);
-        activeAnchorPane = AnswerQuestion_Anchor;
+        activeAnchorPane = ChangePassword_Anchor;
     }
     @FXML private void onBackAnswerQuestionClick(){
         AnimationControls.hideAndShowWithAnimationInDuration(AnswerQuestion_Anchor, EnterUsername_Anchor, DURATION);

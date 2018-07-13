@@ -17,7 +17,7 @@ public class Main extends Application {
     private final static HyperSQLControl sqlControl = new HyperSQLControl(sql);
 
     @Override
-    public void start(Stage primaryStage){
+    public void start(Stage primaryStage) {
         stage = primaryStage;
 
         stage.setTitle("Hayabusa Project");
@@ -26,8 +26,8 @@ public class Main extends Application {
 
         Scenes scenes = Scenes.getInstance();
 
-        scenes.addScene("Login", "Login_SingUp/Login_SingUp.fxml");
-        scenes.addScene("App", "App/App.fxml");
+        scenes.addScene("Login", "Core/Scenes/Login_SingUp/Login_SingUp.fxml");
+        scenes.addScene("App", "Core/Scenes/App/App.fxml");
 
         stage.setScene(Scenes.getFromMap("Login"));
 

@@ -105,7 +105,11 @@ public class HyperSQL {
     }
     private void tryExecUpdateCommand(String command)
             throws SQLException{
+
         initStatement().executeUpdate(command);
+
+        //PreparedStatement preparedStatement = connection.prepareStatement(command);
+        //preparedStatement.executeUpdate();
     }
 
     public ResultSet getResultSet(){

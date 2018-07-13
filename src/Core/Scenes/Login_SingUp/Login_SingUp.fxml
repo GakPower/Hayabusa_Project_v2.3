@@ -7,6 +7,7 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -151,8 +152,8 @@
                   <Font size="22.0" />
                </font>
             </Label>
-            <JFXPasswordField fx:id="NewPasswordForget_Field" focusColor="#dd0000" layoutX="67.0" layoutY="118.0" prefHeight="25.0" prefWidth="253.0" promptText="New Password" styleClass="jfx-field" stylesheets="@StyleSheet.css" unFocusColor="WHITE" />
-            <JFXPasswordField fx:id="ConfirmPasswordForget_Field" focusColor="#dd0000" layoutX="67.0" layoutY="169.0" prefHeight="25.0" prefWidth="253.0" promptText="Confirm Password" styleClass="jfx-field" stylesheets="@StyleSheet.css" unFocusColor="WHITE" />
+            <JFXPasswordField fx:id="NewPasswordForget_Field" focusColor="#dd0000" labelFloat="true" layoutX="67.0" layoutY="118.0" prefHeight="25.0" prefWidth="253.0" promptText="New Password" styleClass="jfx-field" stylesheets="@StyleSheet.css" unFocusColor="WHITE" />
+            <JFXPasswordField fx:id="ConfirmPasswordForget_Field" focusColor="#dd0000" labelFloat="true" layoutX="67.0" layoutY="169.0" prefHeight="25.0" prefWidth="253.0" promptText="Confirm Password" styleClass="jfx-field" stylesheets="@StyleSheet.css" unFocusColor="WHITE" />
              <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="37.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true">
                  <Image url="@../Images/Lock.png" />
              </ImageView>
@@ -267,8 +268,11 @@
             <ImageView fitHeight="517.0" fitWidth="714.0" layoutX="-223.0" layoutY="-21.0" opacity="0.13" pickOnBounds="true">
                <Image url="@../Images/Background.png" />
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="177.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView blendMode="SRC_ATOP" fitHeight="150.0" fitWidth="200.0" layoutX="177.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
                <Image url="@../Images/logo.png" />
+               <effect>
+                  <DropShadow blurType="ONE_PASS_BOX" color="#000000dd" height="5.0" radius="2.0" width="5.0" />
+               </effect>
             </ImageView>
             <JFXButton cancelButton="true" focusTraversable="false" layoutX="393.0" layoutY="22.0" mnemonicParsing="false" onAction="#onMinimizeButtonClick" prefHeight="35.0" prefWidth="41.0" styleClass="MinExitButtons" stylesheets="@StyleSheet.css" text="–" textFill="#dddddd">
                <font>
