@@ -1,0 +1,7 @@
+.jfx-field {
+    -fx-prompt-text-fill: White;
+    -fx-text-inner-color: White;
+    -fx-background-color: transparent;
+    -fx-font-weight: Bold;
+    -fx-font-size: 13px;
+}

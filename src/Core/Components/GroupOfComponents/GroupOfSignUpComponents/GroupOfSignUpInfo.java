@@ -7,6 +7,7 @@ import Core.Components.GroupOfComponents.GroupOfComponents;
 public class GroupOfSignUpInfo extends GroupOfComponents {
     public GroupOfSignUpInfo(Component component, ErrorLabel errorLabel) {
         super(component, errorLabel);
+        setMaxInputLength(50);
     }
 
     @Override

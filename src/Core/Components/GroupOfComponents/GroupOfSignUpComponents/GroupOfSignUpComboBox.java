@@ -15,6 +15,8 @@ public class GroupOfSignUpComboBox extends GroupOfComponents {
         comboBox.add("What is your favorite website?");
         comboBox.add("What is the name of your first grade teacher?");
         comboBox.add("What is your favorite movie?");
+
+        setMaxInputLength(100);
     }
 
     @Override

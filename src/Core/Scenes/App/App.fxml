@@ -1,10 +1,511 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTimePicker?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Core.Scenes.App.AppController">
-   <children>
-      <AnchorPane layoutX="200.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: blue;" />
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1500.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Core.Scenes.App.AppController">
+   <AnchorPane prefHeight="720.0" prefWidth="91.0" style="-fx-background-color: #980B0B; -fx-background-radius: 15px;">
+      <ImageView fitHeight="526.0" fitWidth="91.0" layoutY="97.0" opacity="0.13" pickOnBounds="true">
+         <Image url="@../Images/Background.jpg" />
+      </ImageView>
+      <AnchorPane fx:id="userButt" prefHeight="97.0" prefWidth="91.0" style="-fx-background-color: #660000; -fx-background-radius: 15px 15px 0px 0px;">
+         <ImageView fx:id="NameIcon" fitHeight="30.0" fitWidth="30.0" layoutX="31.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../Images/UserAppDark.png" />
+         </ImageView>
+         <Label fx:id="Name" layoutX="13.0" layoutY="55.0" style="-fx-border-color: #d4d4d4; -fx-border-radius: 5em;" text=" GakPower " textFill="#d4d4d4">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="67.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../Images/Power.png" />
+         </ImageView>
+      </AnchorPane>
+      <AnchorPane fx:id="tableButt" layoutY="205.0" prefHeight="84.0" prefWidth="91.0" style="-fx-background-color: transparent;">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <ImageView fx:id="TableIcon" fitHeight="30.0" fitWidth="30.0" layoutX="31.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../Images/Table.png" />
+         </ImageView>
+      </AnchorPane>
+      <AnchorPane fx:id="addButt" layoutY="322.0" prefHeight="84.0" prefWidth="91.0" style="-fx-background-color: transparent;">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <ImageView fx:id="AddIcon" fitHeight="30.0" fitWidth="30.0" layoutX="31.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../Images/Add.png" />
+         </ImageView>
+      </AnchorPane>
+      <AnchorPane fx:id="statButt" layoutY="439.0" prefHeight="84.0" prefWidth="91.0" style="-fx-background-color: transparent;">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <ImageView fx:id="StatIcon" fitHeight="30.0" fitWidth="30.0" layoutX="31.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../Images/Statistics.png" />
+         </ImageView>
+      </AnchorPane>
+      <AnchorPane fx:id="settButt" layoutY="623.0" prefHeight="97.0" prefWidth="91.0" style="-fx-background-color: #660000; -fx-background-radius: 0px 0px 15px 15px;">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <ImageView fx:id="SettingsIcon" fitHeight="30.0" fitWidth="30.0" layoutX="31.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../Images/SettingsDark.png" />
+         </ImageView>
+      </AnchorPane>
+      <AnchorPane layoutX="67.0" layoutY="97.0" prefHeight="21.0" prefWidth="21.0" />
+   </AnchorPane>
+   <ImageView fx:id="arrowUser" fitHeight="25.0" fitWidth="25.0" layoutX="88.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+      <Image url="@../Images/Arrow.png" />
+   </ImageView>
+   <ImageView fx:id="arrowTable" fitHeight="25.0" fitWidth="25.0" layoutX="89.0" layoutY="233.0" pickOnBounds="true" preserveRatio="true">
+      <Image url="@../Images/Arrow.png" />
+   </ImageView>
+   <ImageView fx:id="arrowAdd" fitHeight="25.0" fitWidth="25.0" layoutX="89.0" layoutY="354.0" pickOnBounds="true" preserveRatio="true">
+      <Image url="@../Images/Arrow.png" />
+   </ImageView>
+   <ImageView fx:id="arrowStat" fitHeight="25.0" fitWidth="25.0" layoutX="89.0" layoutY="470.0" pickOnBounds="true" preserveRatio="true">
+      <Image url="@../Images/Arrow.png" />
+   </ImageView>
+   <ImageView fx:id="arrowSett" fitHeight="25.0" fitWidth="25.0" layoutX="88.0" layoutY="660.0" pickOnBounds="true" preserveRatio="true">
+      <Image url="@../Images/Arrow.png" />
+   </ImageView>
+   <AnchorPane fx:id="Userwin" layoutX="102.0" prefHeight="720.0" prefWidth="1398.0" style="-fx-background-color: #2C2D35; -fx-background-radius: 15px;" visible="false">
+      <ImageView fitHeight="97.0" fitWidth="100.0" layoutX="651.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../Images/UserBig.png" />
+      </ImageView>
+      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="571.0" layoutY="333.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="256.0" style="-fx-background-color: transparent; -fx-background-radius: 5em; -fx-border-color: white; -fx-border-radius: 5em; -fx-border-width: 5px 5px 5px 5px;" text="Change Password" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="exitButUser" focusTraversable="false" layoutX="1358.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: transparent; -fx-background-radius: 0px 15px 0px 0px;" text="X" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton focusTraversable="false" layoutX="1318.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: transparent; -fx-background-radius: 0px;" text="–" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
+      <Label layoutX="623.0" layoutY="189.0" text="GakPower" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="32.0" />
+         </font>
+      </Label>
+   </AnchorPane>
+   <AnchorPane fx:id="Tablewin" layoutX="102.0" prefHeight="720.0" prefWidth="1398.0" style="-fx-background-color: #2C2D35; -fx-background-radius: 15px;" visible="false">
+      <JFXButton fx:id="exitButTable" focusTraversable="false" layoutX="1358.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: transparent; -fx-background-radius: 0px 15px 0px 0px;" text="X" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton focusTraversable="false" layoutX="1318.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: transparent; -fx-background-radius: 0px;" text="–" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
+   </AnchorPane>
+   <AnchorPane fx:id="Addwin" layoutX="102.0" prefHeight="720.0" prefWidth="1398.0" style="-fx-background-color: #2C2D35; -fx-background-radius: 15px;">
+      <JFXButton fx:id="exitButAdd" focusTraversable="false" layoutX="1358.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: transparent; -fx-background-radius: 0px 15px 0px 0px;" text="X" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton focusTraversable="false" layoutX="1318.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: transparent; -fx-background-radius: 0px;" text="–" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" defaultButton="true" focusTraversable="false" layoutX="932.0" layoutY="585.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="293.0" ripplerFill="#fffdfd" style="-fx-background-color: transparent; -fx-background-radius: 30px; -fx-border-color: #980B0B; -fx-border-radius: 30px; -fx-border-width: 5px;" text="Save / Add" textAlignment="CENTER" textFill="#980b0b">
+         <font>
+            <Font name="System Bold" size="26.0" />
+         </font>
+      </JFXButton>
+      <AnchorPane layoutX="91.0" layoutY="42.0" prefHeight="635.0" prefWidth="370.0" style="-fx-border-color: #980B0B; -fx-border-width: 2px; -fx-border-radius: 8px;">
+         <VBox alignment="CENTER" fillWidth="false" layoutX="68.0" layoutY="25.0" prefHeight="543.0" prefWidth="240.0">
+            <JFXDatePicker fx:id="DepDate" defaultColor="#980b0b" editable="false" prefHeight="30.0" prefWidth="240.0" promptText="Depart Date" styleClass="jfx-date-picker" >
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </JFXDatePicker>
+            <JFXTimePicker fx:id="DepTime" defaultColor="#980b0b" prefHeight="30.0" prefWidth="240.0" promptText="Depart Time" styleClass="jfx-time-picker" >
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+            </JFXTimePicker>
+            <JFXComboBox fx:id="DepProduct" editable="true" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="Exportation Product" styleClass="jfx-combo-box" >
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+            </JFXComboBox>
+            <JFXComboBox fx:id="DepEnterprise" editable="true" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="Enterprise" styleClass="jfx-combo-box" >
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+            </JFXComboBox>
+            <JFXComboBox fx:id="DepShip" editable="true" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="Departure Ship" styleClass="jfx-combo-box" >
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+            </JFXComboBox>
+            <JFXComboBox fx:id="DepPort" editable="true" focusColor="#980b0b" labelFloat="true" layoutX="62.0" prefHeight="30.0" prefWidth="240.0" promptText="Port (From - To)" styleClass="jfx-combo-box" >
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+            </JFXComboBox>
+            <JFXComboBox fx:id="DepUnloadingLoc" editable="true" focusColor="#980b0b" labelFloat="true" layoutX="62.0" layoutY="412.0" prefHeight="30.0" prefWidth="240.0" promptText="Unloading Locations( - )" styleClass="jfx-combo-box" >
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+            </JFXComboBox>
+         </VBox>
+         <Label fx:id="DepProduct_Error" layoutX="37.0" layoutY="240.0" prefHeight="20.0" prefWidth="20.0" text="Label" />
+         <Label fx:id="DepEnterprise_Error" layoutX="37.0" layoutY="327.0" prefHeight="20.0" prefWidth="20.0" text="Label" />
+         <Label fx:id="DepShip_Error" layoutX="37.0" layoutY="411.0" prefHeight="20.0" prefWidth="20.0" text="Label" />
+         <Label fx:id="DepPort_Error" layoutX="37.0" layoutY="498.0" prefHeight="20.0" prefWidth="20.0" text="Label" />
+         <Label fx:id="DepUnloadingLoc_Error" layoutX="37.0" layoutY="575.0" prefHeight="20.0" prefWidth="20.0" text="Label" />
+         <ImageView fx:id="DepProduct_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="37.0" layoutY="240.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../Images/Error.png" />
+         </ImageView>
+         <ImageView fx:id="DepEnterprise_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="37.0" layoutY="327.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../Images/Error.png" />
+         </ImageView>
+         <ImageView fx:id="DepShip_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="37.0" layoutY="411.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../Images/Error.png" />
+         </ImageView>
+         <ImageView fx:id="DepPort_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="37.0" layoutY="498.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../Images/Error.png" />
+         </ImageView>
+         <ImageView fx:id="DepUnloadingLoc_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="37.0" layoutY="575.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../Images/Error.png" />
+         </ImageView>
+         <Label layoutX="28.0" layoutY="-17.0" prefHeight="32.0" prefWidth="185.0" style="-fx-background-color: #2C2D35;" text=" Departure Menu " textAlignment="CENTER" textFill="#980b0b">
+            <font>
+               <Font name="System Bold" size="22.0" />
+            </font>
+         </Label>
+         <JFXButton fx:id="DepProduct_Butt" buttonType="RAISED" ellipsisString="" layoutX="316.0" layoutY="233.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" style="-fx-background-color: transparent; -fx-background-radius: 5em; -fx-border-color: #980B0B; -fx-border-radius: 5em;" textAlignment="CENTER" textOverrun="CLIP">
+            <graphic>
+               <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../Images/Minus.png" />
+               </ImageView>
+            </graphic>
+            <font>
+               <Font size="1.0" />
+            </font>
+         </JFXButton>
+         <JFXButton fx:id="DepEnterpise_But" buttonType="RAISED" ellipsisString="" layoutX="316.0" layoutY="320.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" style="-fx-background-color: transparent; -fx-background-radius: 5em; -fx-border-color: #980B0B; -fx-border-radius: 5em;" textAlignment="CENTER" textOverrun="CLIP">
+            <graphic>
+               <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../Images/Minus.png" />
+               </ImageView>
+            </graphic>
+            <font>
+               <Font size="1.0" />
+            </font>
+         </JFXButton>
+         <JFXButton fx:id="DepShip_But" buttonType="RAISED" ellipsisString="" layoutX="316.0" layoutY="404.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" style="-fx-background-color: transparent; -fx-background-radius: 5em; -fx-border-color: #980B0B; -fx-border-radius: 5em;" textAlignment="CENTER" textOverrun="CLIP">
+            <graphic>
+               <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../Images/Minus.png" />
+               </ImageView>
+            </graphic>
+            <font>
+               <Font size="1.0" />
+            </font>
+         </JFXButton>
+         <JFXButton fx:id="DepPort_But" buttonType="RAISED" ellipsisString="" layoutX="316.0" layoutY="491.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" style="-fx-background-color: transparent; -fx-background-radius: 5em; -fx-border-color: #980B0B; -fx-border-radius: 5em;" textAlignment="CENTER" textOverrun="CLIP">
+            <graphic>
+               <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../Images/Minus.png" />
+               </ImageView>
+            </graphic>
+            <font>
+               <Font size="1.0" />
+            </font>
+         </JFXButton>
+         <JFXButton fx:id="DepUnloadingLoc_But" buttonType="RAISED" ellipsisString="" layoutX="316.0" layoutY="578.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" style="-fx-background-color: transparent; -fx-background-radius: 5em; -fx-border-color: #980B0B; -fx-border-radius: 5em;" textAlignment="CENTER" textOverrun="CLIP">
+            <graphic>
+               <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../Images/Minus.png" />
+               </ImageView>
+            </graphic>
+            <font>
+               <Font size="1.0" />
+            </font>
+         </JFXButton>
+      </AnchorPane>
+      <AnchorPane layoutX="489.0" layoutY="43.0" prefHeight="635.0" prefWidth="370.0" style="-fx-border-color: #980B0B; -fx-border-width: 2px; -fx-border-radius: 8px;">
+         <VBox alignment="CENTER" fillWidth="false" layoutX="68.0" layoutY="25.0" prefHeight="543.0" prefWidth="240.0">
+            <JFXDatePicker fx:id="ArrDate" defaultColor="#980b0b" editable="false" prefHeight="30.0" prefWidth="240.0" promptText="Arrival Date" >
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </JFXDatePicker>
+            <JFXTimePicker fx:id="ArrTime" defaultColor="#980b0b" prefHeight="30.0" prefWidth="240.0" promptText="Arrival Time" styleClass="jfx-time-picker" >
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+            </JFXTimePicker>
+            <JFXComboBox fx:id="ArrProduct" editable="true" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="Importation Product" styleClass="jfx-combo-box" >
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+            </JFXComboBox>
+            <JFXComboBox fx:id="ArrEnterprise" editable="true" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="Enterprise" styleClass="jfx-combo-box" >
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+            </JFXComboBox>
+            <JFXComboBox fx:id="ArrShip" editable="true" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="Arrival Ship" styleClass="jfx-combo-box" >
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+            </JFXComboBox>
+            <JFXComboBox fx:id="ArrPort" editable="true" focusColor="#980b0b" labelFloat="true" layoutX="62.0" prefHeight="30.0" prefWidth="240.0" promptText="Port (From - To)" styleClass="jfx-combo-box" >
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+            </JFXComboBox>
+            <JFXComboBox fx:id="ArrLoadingLoc" editable="true" focusColor="#980b0b" labelFloat="true" layoutX="62.0" layoutY="412.0" prefHeight="30.0" prefWidth="240.0" promptText="Loading Locations( - )" styleClass="jfx-combo-box" >
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+            </JFXComboBox>
+         </VBox>
+         <Label fx:id="ArrProduct_Error" layoutX="37.0" layoutY="235.0" prefHeight="20.0" prefWidth="20.0" text="Label" />
+         <Label fx:id="ArrEnterprise_Error" layoutX="37.0" layoutY="322.0" prefHeight="20.0" prefWidth="20.0" text="Label" />
+         <Label fx:id="ArrShip_Error" layoutX="37.0" layoutY="406.0" prefHeight="20.0" prefWidth="20.0" text="Label" />
+         <Label fx:id="ArrPort_Error" layoutX="37.0" layoutY="493.0" prefHeight="20.0" prefWidth="20.0" text="Label" />
+         <Label fx:id="ArrLoadingLoc_Error" layoutX="37.0" layoutY="577.0" prefHeight="20.0" prefWidth="20.0" text="Label" />
+         <ImageView fx:id="ArrProduct_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="37.0" layoutY="235.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../Images/Error.png" />
+         </ImageView>
+         <ImageView fx:id="ArrEnterprise_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="37.0" layoutY="322.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../Images/Error.png" />
+         </ImageView>
+         <ImageView fx:id="ArrShip_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="37.0" layoutY="406.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../Images/Error.png" />
+         </ImageView>
+         <ImageView fx:id="ArrPort_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="37.0" layoutY="493.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../Images/Error.png" />
+         </ImageView>
+         <ImageView fx:id="ArrLoadingLoc_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="37.0" layoutY="577.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../Images/Error.png" />
+         </ImageView>
+         <Label layoutX="29.0" layoutY="-16.0" prefHeight="32.0" prefWidth="153.0" style="-fx-background-color: #2C2D35;" text=" Arrival Menu " textAlignment="CENTER" textFill="#980b0b">
+            <font>
+               <Font name="System Bold" size="22.0" />
+            </font>
+         </Label>
+         <JFXButton fx:id="ArrProduct_But" buttonType="RAISED" ellipsisString="" layoutX="316.0" layoutY="238.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" style="-fx-background-color: transparent; -fx-background-radius: 5em; -fx-border-color: #980B0B; -fx-border-radius: 5em;" textAlignment="CENTER" textOverrun="CLIP">
+            <graphic>
+               <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../Images/Minus.png" />
+               </ImageView>
+            </graphic>
+            <font>
+               <Font size="1.0" />
+            </font>
+         </JFXButton>
+         <JFXButton fx:id="ArrEnterprise_But" buttonType="RAISED" ellipsisString="" layoutX="316.0" layoutY="325.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" style="-fx-background-color: transparent; -fx-background-radius: 5em; -fx-border-color: #980B0B; -fx-border-radius: 5em;" textAlignment="CENTER" textOverrun="CLIP">
+            <graphic>
+               <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../Images/Minus.png" />
+               </ImageView>
+            </graphic>
+            <font>
+               <Font size="1.0" />
+            </font>
+         </JFXButton>
+         <JFXButton fx:id="ArrShip_But" buttonType="RAISED" ellipsisString="" layoutX="316.0" layoutY="409.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" style="-fx-background-color: transparent; -fx-background-radius: 5em; -fx-border-color: #980B0B; -fx-border-radius: 5em;" textAlignment="CENTER" textOverrun="CLIP">
+            <graphic>
+               <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../Images/Minus.png" />
+               </ImageView>
+            </graphic>
+            <font>
+               <Font size="1.0" />
+            </font>
+         </JFXButton>
+         <JFXButton fx:id="ArrPort_But" buttonType="RAISED" ellipsisString="" layoutX="316.0" layoutY="496.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" style="-fx-background-color: transparent; -fx-background-radius: 5em; -fx-border-color: #980B0B; -fx-border-radius: 5em;" textAlignment="CENTER" textOverrun="CLIP">
+            <graphic>
+               <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../Images/Minus.png" />
+               </ImageView>
+            </graphic>
+            <font>
+               <Font size="1.0" />
+            </font>
+         </JFXButton>
+         <JFXButton fx:id="ArrLoadingLoc_But" buttonType="RAISED" ellipsisString="" layoutX="316.0" layoutY="580.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" style="-fx-background-color: transparent; -fx-background-radius: 5em; -fx-border-color: #980B0B; -fx-border-radius: 5em;" textAlignment="CENTER" textOverrun="CLIP">
+            <graphic>
+               <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../Images/Minus.png" />
+               </ImageView>
+            </graphic>
+            <font>
+               <Font size="1.0" />
+            </font>
+         </JFXButton>
+      </AnchorPane>
+      <AnchorPane layoutX="893.0" layoutY="43.0" prefHeight="514.0" prefWidth="370.0" style="-fx-border-color: #980B0B; -fx-border-width: 2px; -fx-border-radius: 8px;">
+         <VBox alignment="CENTER" fillWidth="false" layoutX="65.0" layoutY="36.0" prefHeight="457.0" prefWidth="240.0">
+            <JFXComboBox fx:id="OthTruck" editable="true" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="Truck" styleClass="jfx-combo-box">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </JFXComboBox>
+            <JFXComboBox fx:id="OthCompany" editable="true" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="Company" styleClass="jfx-combo-box">
+               <VBox.margin>
+                  <Insets top="40.0" />
+               </VBox.margin>
+            </JFXComboBox>
+            <JFXTextField fx:id="OthCMR" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="CMR" styleClass="jfx-text-area">
+               <VBox.margin>
+                  <Insets top="40.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="OthIncome" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="Income" styleClass="jfx-text-area">
+               <VBox.margin>
+                  <Insets top="40.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="OthKil" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="Kilometers">
+               <VBox.margin>
+                  <Insets top="40.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextArea fx:id="OthCom" disable="true" focusColor="#980b0b" labelFloat="true" prefHeight="95.0" prefWidth="240.0" promptText="Comments">
+               <VBox.margin>
+                  <Insets top="40.0" />
+               </VBox.margin>
+            </JFXTextArea>
+         </VBox>
+         <Label fx:id="OthTruck_Error" layoutX="38.0" layoutY="40.0" prefHeight="20.0" prefWidth="20.0" text="Label" />
+         <Label fx:id="OthCompany_Error" layoutX="38.0" layoutY="115.0" prefHeight="20.0" prefWidth="20.0" text="Label" />
+         <Label fx:id="OthCMR_Error" layoutX="38.0" layoutY="196.0" prefHeight="20.0" prefWidth="20.0" text="Label" />
+         <Label fx:id="OthIncome_Error" layoutX="38.0" layoutY="274.0" prefHeight="20.0" prefWidth="20.0" text="Label" />
+         <Label fx:id="OthKil_Error" layoutX="38.0" layoutY="351.0" prefHeight="20.0" prefWidth="20.0" text="Label" />
+         <Label fx:id="OthCom_Error" layoutX="38.0" layoutY="423.0" prefHeight="20.0" prefWidth="20.0" text="Label" />
+         <ImageView fx:id="OthTruck_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="38.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../Images/Error.png" />
+         </ImageView>
+         <ImageView fx:id="OthCompany_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="38.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../Images/Error.png" />
+         </ImageView>
+         <ImageView fx:id="OthCMR_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="38.0" layoutY="196.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../Images/Error.png" />
+         </ImageView>
+         <ImageView fx:id="OthIncome_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="38.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../Images/Error.png" />
+         </ImageView>
+         <ImageView fx:id="OthKil_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="38.0" layoutY="351.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../Images/Error.png" />
+         </ImageView>
+         <ImageView fx:id="OthCom_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="38.0" layoutY="423.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../Images/Error.png" />
+         </ImageView>
+         <JFXCheckBox fx:id="ComCheck" checkedColor="#980b0b" layoutX="313.0" layoutY="443.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="47.0" text="OFF" textAlignment="CENTER" textFill="#4d4d4d" />
+         <Label layoutX="28.0" layoutY="-16.0" prefHeight="32.0" prefWidth="73.0" style="-fx-background-color: #2C2D35;" text=" Other " textAlignment="CENTER" textFill="#980b0b">
+            <font>
+               <Font name="System Bold" size="22.0" />
+            </font>
+         </Label>
+         <JFXButton fx:id="OthTruck_But" buttonType="RAISED" ellipsisString="" layoutX="316.0" layoutY="43.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" style="-fx-background-color: transparent; -fx-background-radius: 5em; -fx-border-color: #980B0B; -fx-border-radius: 5em;" textAlignment="CENTER" textOverrun="CLIP">
+            <graphic>
+               <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../Images/Minus.png" />
+               </ImageView>
+            </graphic>
+            <font>
+               <Font size="1.0" />
+            </font>
+         </JFXButton>
+         <JFXButton fx:id="OthCompany_But" buttonType="RAISED" ellipsisString="" layoutX="316.0" layoutY="118.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" style="-fx-background-color: transparent; -fx-background-radius: 5em; -fx-border-color: #980B0B; -fx-border-radius: 5em;" textAlignment="CENTER" textOverrun="CLIP">
+            <graphic>
+               <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../Images/Minus.png" />
+               </ImageView>
+            </graphic>
+            <font>
+               <Font size="1.0" />
+            </font>
+         </JFXButton>
+      </AnchorPane>
+   </AnchorPane>
+   <AnchorPane fx:id="Statwin" layoutX="102.0" prefHeight="720.0" prefWidth="1398.0" style="-fx-background-color: #2C2D35; -fx-background-radius: 15px;" visible="false">
+      <ImageView fitHeight="97.0" fitWidth="100.0" layoutX="651.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../Images/UserBig.png" />
+      </ImageView>
+      <JFXButton focusTraversable="false" layoutX="571.0" layoutY="333.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="256.0" style="-fx-background-color: transparent; -fx-background-radius: 5em; -fx-border-color: white; -fx-border-radius: 5em; -fx-border-width: 5px 5px 5px 5px;" text="Change Password" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="exitButStat" focusTraversable="false" layoutX="1358.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: transparent; -fx-background-radius: 0px 15px 0px 0px;" text="X" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton focusTraversable="false" layoutX="1318.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: transparent; -fx-background-radius: 0px;" text="–" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
+      <Label layoutX="623.0" layoutY="189.0" text="GakPower" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="32.0" />
+         </font>
+      </Label>
+   </AnchorPane>
+   <AnchorPane fx:id="Settwin" layoutX="102.0" prefHeight="720.0" prefWidth="1398.0" style="-fx-background-color: #2C2D35; -fx-background-radius: 15px;" visible="false">
+      <ImageView fitHeight="97.0" fitWidth="100.0" layoutX="651.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../Images/UserBig.png" />
+      </ImageView>
+      <JFXButton focusTraversable="false" layoutX="571.0" layoutY="333.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="256.0" style="-fx-background-color: transparent; -fx-background-radius: 5em; -fx-border-color: white; -fx-border-radius: 5em; -fx-border-width: 5px 5px 5px 5px;" text="Change Password" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="exitButSett" focusTraversable="false" layoutX="1358.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: transparent; -fx-background-radius: 0px 15px 0px 0px;" text="X" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton focusTraversable="false" layoutX="1318.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: transparent; -fx-background-radius: 0px;" text="–" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
+      <Label layoutX="623.0" layoutY="189.0" text="GakPower" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="32.0" />
+         </font>
+      </Label>
+   </AnchorPane>
 </AnchorPane>

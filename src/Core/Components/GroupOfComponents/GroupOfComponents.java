@@ -7,6 +7,7 @@ import Core.SQL.HyperSQLControl;
 public abstract class GroupOfComponents {
     private final HyperSQL sql = new HyperSQL();
     protected final HyperSQLControl sqlControl = new HyperSQLControl(sql);
+    private int inputLength = 30;
 
     public Component component;
     public ErrorLabel errorLabel;
@@ -42,7 +43,10 @@ public abstract class GroupOfComponents {
     }
 
     public int getMaxInputLength() {
-        return 30;
+        return inputLength;
+    }
+    public void setMaxInputLength(int inputLength){
+        this.inputLength = inputLength;
     }
     public boolean isInputMoreThanMaxLength(){
         return getInput().length() > getMaxInputLength();
