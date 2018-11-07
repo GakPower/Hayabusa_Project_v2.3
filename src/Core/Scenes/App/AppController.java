@@ -127,43 +127,39 @@ public class AppController {
     @FXML private void initialize()
     {
         tableButt.setOnMouseEntered(event -> {
-            tableButt.setStyle("-fx-border-color: #660000; -fx-border-width: 0px 0px 0px 5px");
+            tableButt.setStyle("-fx-border-color: #660000; -fx-border-width: 0px 0px 0px 4px");
         });
         tableButt.setOnMouseExited(event -> {
             tableButt.setStyle("-fx-border-color: #660000; -fx-border-width: 0px 0px 0px 0px");
         });
 
         addButt.setOnMouseEntered(event -> {
-            addButt.setStyle("-fx-border-color: #660000; -fx-border-width: 0px 0px 0px 5px");
+            addButt.setStyle("-fx-border-color: #660000; -fx-border-width: 0px 0px 0px 4px");
         });
         addButt.setOnMouseExited(event -> {
             addButt.setStyle("-fx-border-color: #660000; -fx-border-width: 0px 0px 0px 0px");
         });
 
         statButt.setOnMouseEntered(event -> {
-            statButt.setStyle("-fx-border-color: #660000; -fx-border-width: 0px 0px 0px 5px");
+            statButt.setStyle("-fx-border-color: #660000; -fx-border-width: 0px 0px 0px 4px");
         });
         statButt.setOnMouseExited(event -> {
             statButt.setStyle("-fx-border-color: #660000; -fx-border-width: 0px 0px 0px 0px");
         });
 
         userButt.setOnMouseEntered(event -> {
-            userButt.setStyle("-fx-border-color: #980B0B; -fx-border-width: 5px 5px 5px 5px; -fx-border-radius: 0px 0px 15px 15px");
+            userButt.setStyle("-fx-border-color: #980B0B; -fx-border-width: 3px; -fx-border-radius: 15px 15px 0px 0px");
         });
         userButt.setOnMouseExited(event -> {
-            userButt.setStyle("-fx-background-color: #660000; -fx-background-radius: 0px 0px 15px 15px; -fx-border-width: 0px");
+            userButt.setStyle("-fx-background-color: #660000; -fx-background-radius: 15px 15px 0px 0px; -fx-border-width: 0px");
         });
 
         settButt.setOnMouseEntered(event -> {
-            settButt.setStyle("-fx-border-color: #980B0B; -fx-border-width: 5px 5px 5px 5px; -fx-border-radius: 0px 0px 15px 15px");
+            settButt.setStyle("-fx-border-color: #980B0B; -fx-border-width: 3px; -fx-border-radius: 0px 0px 15px 15px");
         });
         settButt.setOnMouseExited(event -> {
             settButt.setStyle("-fx-background-color: #660000; -fx-background-radius: 0px 0px 15px 15px; -fx-border-width: 0px");
         });
-         /*       tableButt
-        addButt
-                statButt
-        settButt*/
     }
 
 }
