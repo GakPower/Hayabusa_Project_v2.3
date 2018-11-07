@@ -5,3 +5,24 @@
     -fx-font-weight: Bold;
     -fx-font-size: 13px;
 }
+
+.jfx-date-picker {
+}
+
+.jfx-time-picker {
+}
+
+.jfx-combo-box {
+}
+
+.jfx-text-area {
+}
+
+.UserButt{
+    -fx-background-color: #660000;
+    -fx-background-radius: 15px 15px 0px 0px;
+}
+.SettButt{
+    -fx-background-color: #660000;
+    -fx-background-radius: 0px 0px 15px 15px;
+}
