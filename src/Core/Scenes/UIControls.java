@@ -1,9 +1,8 @@
 package Core.Scenes;
 
 import Core.Main;
-import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.Node;
 
 public class UIControls {
 
@@ -14,8 +13,11 @@ public class UIControls {
         Main.stage.setIconified(true);
     }
 
-    public static void changeOnMouseHover(MouseEvent mouseEvent, String ButtStyle){
-        JFXButton jfxButton = (JFXButton) mouseEvent.getTarget();
-        jfxButton.setStyle(ButtStyle);
+    public static void styleOnMouseHover(Node node, String newStyle)
+    {
+        String oldStyle = node.getStyle();
+
+        node.setOnMouseEntered(event -> node.setStyle(newStyle));
+        node.setOnMouseExited(event -> node.setStyle(oldStyle));
     }
 }

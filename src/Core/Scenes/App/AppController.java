@@ -5,6 +5,7 @@ package Core.Scenes.App;
 // Date: 14-Jun-2018 (12:01 AM)
 //
 
+import Core.Scenes.UIControls;
 import com.jfoenix.controls.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -13,12 +14,13 @@ import javafx.scene.layout.AnchorPane;
 
 public class AppController {
 
-    @FXML private Label Name;
+    @FXML private Label name;
 
-    @FXML private AnchorPane Userwin;
-    @FXML private AnchorPane Tablewin;
-    @FXML private AnchorPane Settwin;
-    @FXML private AnchorPane Statwin;
+    @FXML private AnchorPane userWin;
+    @FXML private AnchorPane tableWin;
+    @FXML private AnchorPane addWin;
+    @FXML private AnchorPane statWin;
+    @FXML private AnchorPane settWin;
 
     @FXML private AnchorPane userButt;
     @FXML private AnchorPane tableButt;
@@ -35,14 +37,12 @@ public class AppController {
     @FXML private JFXButton OthCompany_But;
     @FXML private JFXButton exitButStat;
 
-    @FXML private ImageView arrowUser;
-    @FXML private ImageView arrowTable;
-    @FXML private ImageView arrowAdd;
-    @FXML private ImageView arrowStat;
-    @FXML private ImageView arrowSett;
+    @FXML private ImageView userArrow;
+    @FXML private ImageView tableArrow;
+    @FXML private ImageView addArrow;
+    @FXML private ImageView statArrow;
+    @FXML private ImageView settArrow;
 
-
-    @FXML private AnchorPane Addwin;
     @FXML private JFXButton exitButUser;
     @FXML private JFXButton exitButTable;
     @FXML private JFXButton exitButAdd;
@@ -124,41 +124,44 @@ public class AppController {
 
     @FXML private JFXButton exitButSett;
 
+    private AnchorPane activeWin;
+    private ImageView activeArrow;
+
     @FXML private void initialize()
     {
-        tableButt.setOnMouseEntered(event -> {
-            tableButt.setStyle("-fx-border-color: #660000; -fx-border-width: 0px 0px 0px 4px");
-        });
-        tableButt.setOnMouseExited(event -> {
-            tableButt.setStyle("-fx-border-color: #660000; -fx-border-width: 0px 0px 0px 0px");
+        UIControls.styleOnMouseHover(userButt, "-fx-border-width: 4px");
+        UIControls.styleOnMouseHover(tableButt, "-fx-border-width: 0px 0px 0px 5px");
+        UIControls.styleOnMouseHover(addButt, "-fx-border-width: 0px 0px 0px 5px");
+        UIControls.styleOnMouseHover(statButt, "-fx-border-width: 0px 0px 0px 5px");
+        UIControls.styleOnMouseHover(settButt, "-fx-border-width: 4px");
+
+        activateWindow();
+    }
+
+    private void activateWindow()
+    {
+        userButt.setOnMousePressed(event ->{
+            if (activeWin != null){
+                activeWin.setVisible(false);
+                activeArrow.setVisible(false);
+            }
+
+            userWin.setVisible(true);
+            userArrow.setVisible(true);
+            activeWin = userWin;
+            activeArrow = userArrow;
         });
 
-        addButt.setOnMouseEntered(event -> {
-            addButt.setStyle("-fx-border-color: #660000; -fx-border-width: 0px 0px 0px 4px");
-        });
-        addButt.setOnMouseExited(event -> {
-            addButt.setStyle("-fx-border-color: #660000; -fx-border-width: 0px 0px 0px 0px");
-        });
+        tableButt.setOnMousePressed(event -> {
+            if (activeWin != null){
+                activeWin.setVisible(false);
+                activeArrow.setVisible(false);
+            }
 
-        statButt.setOnMouseEntered(event -> {
-            statButt.setStyle("-fx-border-color: #660000; -fx-border-width: 0px 0px 0px 4px");
-        });
-        statButt.setOnMouseExited(event -> {
-            statButt.setStyle("-fx-border-color: #660000; -fx-border-width: 0px 0px 0px 0px");
-        });
-
-        userButt.setOnMouseEntered(event -> {
-            userButt.setStyle("-fx-border-color: #980B0B; -fx-border-width: 3px; -fx-border-radius: 15px 15px 0px 0px");
-        });
-        userButt.setOnMouseExited(event -> {
-            userButt.setStyle("-fx-background-color: #660000; -fx-background-radius: 15px 15px 0px 0px; -fx-border-width: 0px");
-        });
-
-        settButt.setOnMouseEntered(event -> {
-            settButt.setStyle("-fx-border-color: #980B0B; -fx-border-width: 3px; -fx-border-radius: 0px 0px 15px 15px");
-        });
-        settButt.setOnMouseExited(event -> {
-            settButt.setStyle("-fx-background-color: #660000; -fx-background-radius: 0px 0px 15px 15px; -fx-border-width: 0px");
+            tableWin.setVisible(true);
+            tableArrow.setVisible(true);
+            activeWin = tableWin;
+            activeArrow = tableArrow;
         });
     }
 
