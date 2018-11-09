@@ -15,9 +15,6 @@ public class UIControls {
 
     public static void styleOnMouseHover(Node node, String newStyle)
     {
-        String oldStyle = node.getStyle();
-
         node.setOnMouseEntered(event -> node.setStyle(newStyle));
-        node.setOnMouseExited(event -> node.setStyle(oldStyle));
     }
 }

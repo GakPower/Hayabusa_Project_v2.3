@@ -21,11 +21,11 @@
       <ImageView fitHeight="526.0" fitWidth="91.0" layoutY="97.0" opacity="0.13" pickOnBounds="true">
          <Image url="@../Images/Background.jpg" />
       </ImageView>
-      <AnchorPane fx:id="userButt" prefHeight="97.0" prefWidth="91.0" styleClass="UserButt" stylesheets="@StyleSheet.css">
+      <AnchorPane fx:id="userButton" prefHeight="97.0" prefWidth="91.0" styleClass="UserButton" stylesheets="@StyleSheet.css">
          <ImageView fx:id="NameIcon" fitHeight="30.0" fitWidth="30.0" layoutX="31.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-            <Image url="@../Images/UserAppDark.png" />
+            <Image url="@../Images/UserApp.png" />
          </ImageView>
-         <Label fx:id="name" layoutX="13.0" layoutY="55.0" style="-fx-border-color: #d4d4d4; -fx-border-radius: 5em;" text=" GakPower " textFill="#d4d4d4">
+         <Label fx:id="name" layoutX="13.0" layoutY="55.0" style="-fx-border-color: #d4d4d4; -fx-border-radius: 5em;" text=" GakPower " textFill="WHITE">
             <font>
                <Font name="System Bold" size="12.0" />
             </font>
@@ -34,7 +34,7 @@
             <Image url="@../Images/Power.png" />
          </ImageView>
       </AnchorPane>
-      <AnchorPane fx:id="tableButt" layoutY="205.0" prefHeight="84.0" prefWidth="91.0" styleClass="menuButts" stylesheets="@StyleSheet.css">
+      <AnchorPane fx:id="tableButton" layoutY="205.0" prefHeight="84.0" prefWidth="91.0" styleClass="menuButtons" stylesheets="@StyleSheet.css">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -42,7 +42,7 @@
             <Image url="@../Images/Table.png" />
          </ImageView>
       </AnchorPane>
-      <AnchorPane fx:id="addButt" layoutY="322.0" prefHeight="84.0" prefWidth="91.0" styleClass="menuButts" stylesheets="@StyleSheet.css">
+      <AnchorPane fx:id="addButton" layoutY="322.0" prefHeight="84.0" prefWidth="91.0" styleClass="menuButtons" stylesheets="@StyleSheet.css">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -50,7 +50,7 @@
             <Image url="@../Images/Add.png" />
          </ImageView>
       </AnchorPane>
-      <AnchorPane fx:id="statButt" layoutY="439.0" prefHeight="84.0" prefWidth="91.0" styleClass="menuButts" stylesheets="@StyleSheet.css">
+      <AnchorPane fx:id="statButton" layoutY="439.0" prefHeight="84.0" prefWidth="91.0" styleClass="menuButtons" stylesheets="@StyleSheet.css">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -58,29 +58,17 @@
             <Image url="@../Images/Statistics.png" />
          </ImageView>
       </AnchorPane>
-      <AnchorPane fx:id="settButt" layoutY="623.0" prefHeight="97.0" prefWidth="91.0" styleClass="SettButt" stylesheets="@StyleSheet.css">
+      <AnchorPane fx:id="settButton" layoutY="623.0" prefHeight="97.0" prefWidth="91.0" styleClass="SettButton" stylesheets="@StyleSheet.css">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
          <ImageView fx:id="SettingsIcon" fitHeight="30.0" fitWidth="30.0" layoutX="31.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
-            <Image url="@../Images/SettingsDark.png" />
+            <Image url="@../Images/Settings.png" />
          </ImageView>
       </AnchorPane>
       <AnchorPane layoutX="67.0" layoutY="97.0" prefHeight="21.0" prefWidth="21.0" />
    </AnchorPane>
-   <ImageView fx:id="userArrow" fitHeight="25.0" fitWidth="25.0" layoutX="88.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" visible="false">
-      <Image url="@../Images/Arrow.png" />
-   </ImageView>
-   <ImageView fx:id="tableArrow" fitHeight="25.0" fitWidth="25.0" layoutX="89.0" layoutY="233.0" pickOnBounds="true" preserveRatio="true" visible="false">
-      <Image url="@../Images/Arrow.png" />
-   </ImageView>
-   <ImageView fx:id="addArrow" fitHeight="25.0" fitWidth="25.0" layoutX="89.0" layoutY="354.0" pickOnBounds="true" preserveRatio="true" visible="false">
-      <Image url="@../Images/Arrow.png" />
-   </ImageView>
-   <ImageView fx:id="statArrow" fitHeight="25.0" fitWidth="25.0" layoutX="89.0" layoutY="470.0" pickOnBounds="true" preserveRatio="true" visible="false">
-      <Image url="@../Images/Arrow.png" />
-   </ImageView>
-   <ImageView fx:id="settArrow" fitHeight="25.0" fitWidth="25.0" layoutX="88.0" layoutY="660.0" pickOnBounds="true" preserveRatio="true" visible="false">
+   <ImageView fx:id="arrow" fitHeight="25.0" fitWidth="25.0" layoutX="88.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" visible="false">
       <Image url="@../Images/Arrow.png" />
    </ImageView>
    <AnchorPane fx:id="userWin" layoutX="102.0" prefHeight="720.0" prefWidth="1398.0" style="-fx-background-color: #2C2D35; -fx-background-radius: 15px;" visible="false">

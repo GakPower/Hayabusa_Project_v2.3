@@ -5,12 +5,16 @@ package Core.Scenes.App;
 // Date: 14-Jun-2018 (12:01 AM)
 //
 
+import Core.Animations.Animation;
 import Core.Scenes.UIControls;
 import com.jfoenix.controls.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
+
+import java.util.HashMap;
 
 public class AppController {
 
@@ -22,11 +26,11 @@ public class AppController {
     @FXML private AnchorPane statWin;
     @FXML private AnchorPane settWin;
 
-    @FXML private AnchorPane userButt;
-    @FXML private AnchorPane tableButt;
-    @FXML private AnchorPane addButt;
-    @FXML private AnchorPane statButt;
-    @FXML private AnchorPane settButt;
+    @FXML private AnchorPane userButton;
+    @FXML private AnchorPane tableButton;
+    @FXML private AnchorPane addButton;
+    @FXML private AnchorPane statButton;
+    @FXML private AnchorPane settButton;
 
     @FXML private ImageView NameIcon;
     @FXML private ImageView TableIcon;
@@ -37,11 +41,7 @@ public class AppController {
     @FXML private JFXButton OthCompany_But;
     @FXML private JFXButton exitButStat;
 
-    @FXML private ImageView userArrow;
-    @FXML private ImageView tableArrow;
-    @FXML private ImageView addArrow;
-    @FXML private ImageView statArrow;
-    @FXML private ImageView settArrow;
+    @FXML private ImageView arrow;
 
     @FXML private JFXButton exitButUser;
     @FXML private JFXButton exitButTable;
@@ -125,44 +125,65 @@ public class AppController {
     @FXML private JFXButton exitButSett;
 
     private AnchorPane activeWin;
-    private ImageView activeArrow;
+    private AnchorPane activeButton;
 
     @FXML private void initialize()
     {
-        UIControls.styleOnMouseHover(userButt, "-fx-border-width: 4px");
-        UIControls.styleOnMouseHover(tableButt, "-fx-border-width: 0px 0px 0px 5px");
-        UIControls.styleOnMouseHover(addButt, "-fx-border-width: 0px 0px 0px 5px");
-        UIControls.styleOnMouseHover(statButt, "-fx-border-width: 0px 0px 0px 5px");
-        UIControls.styleOnMouseHover(settButt, "-fx-border-width: 4px");
-
-        activateWindow();
+        menuWindowSwitch();
     }
 
-    private void activateWindow()
+    private void menuWindowSwitch()
     {
-        userButt.setOnMousePressed(event ->{
-            if (activeWin != null){
-                activeWin.setVisible(false);
-                activeArrow.setVisible(false);
-            }
+        HashMap<AnchorPane, AnchorPane> windows = new HashMap<>();
+        windows.put(userButton, userWin);
+        windows.put(tableButton, tableWin);
+        windows.put(addButton, addWin);
+        windows.put(statButton, statWin);
+        windows.put(settButton, settWin);
 
-            userWin.setVisible(true);
-            userArrow.setVisible(true);
-            activeWin = userWin;
-            activeArrow = userArrow;
-        });
+        HashMap<AnchorPane, String> oldStyles = new HashMap<>();
+        oldStyles.put(userButton, userButton.getStyle());
+        oldStyles.put(tableButton, tableButton.getStyle());
+        oldStyles.put(addButton, addButton.getStyle());
+        oldStyles.put(statButton, statButton.getStyle());
+        oldStyles.put(settButton, settButton.getStyle());
 
-        tableButt.setOnMousePressed(event -> {
-            if (activeWin != null){
-                activeWin.setVisible(false);
-                activeArrow.setVisible(false);
-            }
+        HashMap<AnchorPane, String> newStyles = new HashMap<>();
+        newStyles.put(userButton, "-fx-border-width: 4px");
+        newStyles.put(tableButton, "-fx-border-width: 0px 0px 0px 5px");
+        newStyles.put(addButton, "-fx-border-width: 0px 0px 0px 5px");
+        newStyles.put(statButton, "-fx-border-width: 0px 0px 0px 5px");
+        newStyles.put(settButton, "-fx-border-width: 4px");
 
-            tableWin.setVisible(true);
-            tableArrow.setVisible(true);
-            activeWin = tableWin;
-            activeArrow = tableArrow;
-        });
+        for(AnchorPane menuButton : windows.keySet())
+        {
+            UIControls.styleOnMouseHover(menuButton, newStyles.get(menuButton));
+            menuButton.setOnMouseExited(event ->
+            {
+                if (activeButton != menuButton)
+                {
+                    menuButton.setStyle(oldStyles.get(menuButton));
+                }
+            });
+
+            menuButton.setOnMousePressed(event ->
+            {
+                if (activeWin != null)
+                {
+                    activeButton.setStyle(oldStyles.get(menuButton));
+                    arrow.setVisible(true);
+                }
+
+                Animation.translateAnimationToY(
+                        Duration.millis(500),
+                        arrow,
+                        menuButton.getLayoutY()-menuButton.getPrefHeight()/2+event.getY()).play();
+                activeWin = windows.get(menuButton);
+                activeButton = menuButton;
+
+                menuButton.setStyle(newStyles.get(menuButton));
+                windows.get(menuButton).setVisible(true);
+            });
+        }
     }
-
 }
