@@ -171,9 +171,9 @@ public class AppController {
                 if (activeWin != null)
                 {
                     activeButton.setStyle(oldStyles.get(menuButton));
-                    arrow.setVisible(true);
                 }
 
+                arrow.setVisible(true);
                 Animation.translateAnimationToY(
                         Duration.millis(500),
                         arrow,
