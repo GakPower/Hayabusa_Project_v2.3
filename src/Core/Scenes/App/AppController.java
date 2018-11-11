@@ -6,8 +6,11 @@ package Core.Scenes.App;
 //
 
 import Core.Animations.Animation;
+import Core.Animations.AnimationControls;
+import Core.Range;
 import Core.Scenes.UIControls;
 import com.jfoenix.controls.*;
+import javafx.animation.SequentialTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -26,6 +29,7 @@ public class AppController {
     @FXML private AnchorPane statWin;
     @FXML private AnchorPane settWin;
 
+    @FXML private ImageView arrow;
     @FXML private AnchorPane userButton;
     @FXML private AnchorPane tableButton;
     @FXML private AnchorPane addButton;
@@ -39,13 +43,21 @@ public class AppController {
     @FXML private ImageView SettingsIcon;
     @FXML private JFXButton OthTruck_But;
     @FXML private JFXButton OthCompany_But;
-    @FXML private JFXButton exitButStat;
 
-    @FXML private ImageView arrow;
 
-    @FXML private JFXButton exitButUser;
-    @FXML private JFXButton exitButTable;
-    @FXML private JFXButton exitButAdd;
+    @FXML private JFXButton exitButtonUser;
+    @FXML private JFXButton exitButtonTable;
+    @FXML private JFXButton exitButtonAdd;
+    @FXML private JFXButton exitButtonStat;
+    @FXML private JFXButton exitButtonSett;
+
+    @FXML private JFXButton minButtonAdd;
+    @FXML private JFXButton minButtonUser;
+    @FXML private JFXButton minButtonStat;
+    @FXML private JFXButton minButtonSett;
+    @FXML private JFXButton minButtonTable;
+
+
     @FXML private JFXDatePicker DepDate;
     @FXML private JFXTimePicker DepTime;
 
@@ -122,68 +134,144 @@ public class AppController {
 
     @FXML private JFXCheckBox ComCheck;
 
-    @FXML private JFXButton exitButSett;
 
     private AnchorPane activeWin;
     private AnchorPane activeButton;
 
+    private HashMap<AnchorPane, AnchorPane> windows = new HashMap<>();
+    private HashMap<AnchorPane, String> oldStyles = new HashMap<>();
+    private HashMap<AnchorPane, String> newStyles = new HashMap<>();
+    private HashMap<AnchorPane, JFXButton> exitButtons = new HashMap<>();
+    private HashMap<AnchorPane, JFXButton> minButtons = new HashMap<>();
+
     @FXML private void initialize()
     {
-        menuWindowSwitch();
+        initializeHashMaps();
+        menuButtonsSwitchSetup();
+        minExitButtonsListeners();
     }
 
-    private void menuWindowSwitch()
+    private void initializeHashMaps()
     {
-        HashMap<AnchorPane, AnchorPane> windows = new HashMap<>();
         windows.put(userButton, userWin);
         windows.put(tableButton, tableWin);
         windows.put(addButton, addWin);
         windows.put(statButton, statWin);
         windows.put(settButton, settWin);
 
-        HashMap<AnchorPane, String> oldStyles = new HashMap<>();
         oldStyles.put(userButton, userButton.getStyle());
         oldStyles.put(tableButton, tableButton.getStyle());
         oldStyles.put(addButton, addButton.getStyle());
         oldStyles.put(statButton, statButton.getStyle());
         oldStyles.put(settButton, settButton.getStyle());
 
-        HashMap<AnchorPane, String> newStyles = new HashMap<>();
         newStyles.put(userButton, "-fx-border-width: 4px");
         newStyles.put(tableButton, "-fx-border-width: 0px 0px 0px 5px");
         newStyles.put(addButton, "-fx-border-width: 0px 0px 0px 5px");
         newStyles.put(statButton, "-fx-border-width: 0px 0px 0px 5px");
         newStyles.put(settButton, "-fx-border-width: 4px");
 
+        exitButtons.put(userButton, exitButtonUser);
+        exitButtons.put(tableButton, exitButtonTable);
+        exitButtons.put(addButton, exitButtonAdd);
+        exitButtons.put(statButton, exitButtonStat);
+        exitButtons.put(settButton, exitButtonSett);
+
+        minButtons.put(userButton, minButtonUser);
+        minButtons.put(tableButton, minButtonTable);
+        minButtons.put(addButton, minButtonAdd);
+        minButtons.put(statButton, minButtonStat);
+        minButtons.put(settButton, minButtonSett);
+    }
+    private void menuButtonsSwitchSetup()
+    {
         for(AnchorPane menuButton : windows.keySet())
         {
-            UIControls.styleOnMouseHover(menuButton, newStyles.get(menuButton));
-            menuButton.setOnMouseExited(event ->
+            setupListenersForButton(menuButton);
+        }
+    }
+    private void setupListenersForButton(AnchorPane menuButton)
+    {
+        UIControls.styleOnMouseHover(menuButton, newStyles.get(menuButton));
+        menuButton.setOnMouseExited(event ->
+        {
+            if (activeButton != menuButton)
             {
-                if (activeButton != menuButton)
-                {
-                    menuButton.setStyle(oldStyles.get(menuButton));
-                }
-            });
+                menuButton.setStyle(oldStyles.get(menuButton));
+            }
+        });
 
-            menuButton.setOnMousePressed(event ->
+        menuButton.setOnMousePressed(event ->
+        {
+            int newPositionOfArrow = (int) (menuButton.getLayoutY()+event.getY()+13);
+
+            if (activeWin != windows.get(menuButton))
             {
                 if (activeWin != null)
                 {
                     activeButton.setStyle(oldStyles.get(menuButton));
+
+                    AnimationControls.hideAndShowWithAnimationInDuration(activeWin, windows.get(menuButton), Duration.millis(500));
+                    System.out.println("1");
+                }else{
+                    Animation.fadeInAnimation(Duration.millis(500), windows.get(menuButton)).play();
+                    System.out.println("2");
                 }
+            }
+            createAndRunDriftAnimation(newPositionOfArrow);
 
-                arrow.setVisible(true);
-                Animation.translateAnimationToY(
-                        Duration.millis(500),
-                        arrow,
-                        menuButton.getLayoutY()-menuButton.getPrefHeight()/2+event.getY()).play();
-                activeWin = windows.get(menuButton);
-                activeButton = menuButton;
+            activeWin = windows.get(menuButton);
+            activeButton = menuButton;
 
-                menuButton.setStyle(newStyles.get(menuButton));
-                windows.get(menuButton).setVisible(true);
-            });
+            menuButton.setStyle(newStyles.get(menuButton));
+            windows.get(menuButton).setVisible(true);
+        });
+    }
+    private void createAndRunDriftAnimation(int newPositionOfArrow)
+    {
+        Range windowRange = new Range(0,725);
+        Range animationOffsetRange = new Range(1,30);
+
+        int animationPositionOfArrow;
+        int valueToOffset = (int) (newPositionOfArrow - arrow.getTranslateY());
+
+        animationPositionOfArrow = (int) (newPositionOfArrow + windowRange.map(valueToOffset, animationOffsetRange));
+
+        SequentialTransition driftAnimation = Animation.driftAnimation(
+                Animation.translateAnimationToY(Duration.millis(500), arrow, animationPositionOfArrow),
+                newPositionOfArrow);
+
+        driftAnimation.play();
+    }
+
+    private void minExitButtonsListeners()
+    {
+        for (AnchorPane menuButton: exitButtons.keySet())
+        {
+            exitButtonsListeners(menuButton);
+            minButtonsListeners(menuButton);
         }
+    }
+    private void exitButtonsListeners(AnchorPane menuButton)
+    {
+        exitButtons.get(menuButton).setOnMousePressed(event ->
+        {
+            Animation.fadeOutAnimation(Duration.millis(500), windows.get(menuButton)).play();
+            AnimationControls.setVisibleFalseInNewThread(windows.get(menuButton), 500);
+
+            Animation.translateAnimationToY(Duration.millis(500), arrow, 0).play();
+
+            if (activeButton != null)
+            {
+                menuButton.setStyle(oldStyles.get(menuButton));
+            }
+
+            activeWin = null;
+            activeButton = null;
+        });
+    }
+    private void minButtonsListeners(AnchorPane menuButton)
+    {
+        minButtons.get(menuButton).setOnMousePressed(event -> UIControls.minimizeApplication());
     }
 }

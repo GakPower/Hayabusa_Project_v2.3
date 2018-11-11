@@ -80,4 +80,18 @@ public class Animation {
 
         return sequentialTransition;
     }
+
+    public static SequentialTransition driftAnimation(TranslateTransition translateTransition, double ToY)
+    {
+
+        Duration driftDuration = Duration.millis(translateTransition.getDuration().toMillis()*0.4);
+        Node node = translateTransition.getNode();
+
+        TranslateTransition driftTransition = Animation.translateAnimationToY(driftDuration,node,ToY);
+
+        SequentialTransition sequentialTransition = new SequentialTransition(
+                translateTransition, driftTransition);
+
+        return sequentialTransition;
+    }
 }

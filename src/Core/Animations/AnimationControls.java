@@ -24,7 +24,7 @@ public class AnimationControls {
         setVisibleFalseInNewThread(toHide, (int) inDuration.toMillis());
         toShow.setVisible(true);
     }
-    private static  void setVisibleFalseInNewThread(Node node, int DurationInt){
+    public static  void setVisibleFalseInNewThread(Node node, int DurationInt){
         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
         Runnable hideNode = () -> node.setVisible(false);
         scheduler.schedule(hideNode, DurationInt, TimeUnit.MILLISECONDS);
