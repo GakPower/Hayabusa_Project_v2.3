@@ -9,7 +9,9 @@ import Core.Components.GroupOfComponents.GroupOfLoginComponents.GroupOfLoginUser
 
 public interface GroupLoginFactory {
 
-    static GroupOfComponents createGroup(ComponentType type, Component component, ErrorLabel errorLabel) {
+    static GroupOfComponents createGroup(ComponentType type,
+                                         Component component,
+                                         ErrorLabel errorLabel) {
         GroupOfComponents groupOfComponents = null;
         switch (type) {
             case USERNAME:

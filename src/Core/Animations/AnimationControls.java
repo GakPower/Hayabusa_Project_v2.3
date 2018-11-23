@@ -17,6 +17,11 @@ public class AnimationControls {
         Animation.fadeOutAnimation(inDuration, toHide).play();
         setVisibleFalseInNewThread(toHide, (int) inDuration.toMillis());
     }
+    public static void translateAndFadeInInDuration(Node toShow, double toX, Duration inDuration){
+        toShow.setVisible(true);
+        Animation.translateAnimationToX(inDuration, toShow, toX).play();
+        Animation.fadeInAnimation(inDuration, toShow).play();
+    }
     public static void hideAndShowWithAnimationInDuration(Node toHide, Node toShow, Duration inDuration){
         Animation.fadeOutAnimation(inDuration, toHide).play();
         Animation.fadeInAnimation(inDuration, toShow).play();

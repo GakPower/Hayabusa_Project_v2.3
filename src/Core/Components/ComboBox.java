@@ -7,24 +7,16 @@ public class ComboBox implements Component {
 
     private JFXComboBox<String> comboBox;
 
-    public ComboBox(JFXComboBox<String> comboBox){
+    public ComboBox(JFXComboBox<String> comboBox) {
         this.comboBox = comboBox;
         setShowAndHideDynamically();
     }
+
     private void setShowAndHideDynamically() {
-        comboBox.setOnMouseEntered(event -> {
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            comboBox.show();
-        });
-        comboBox.focusedProperty().addListener((arg0, oldPropertyValue, newPropertyValue) -> {
-            if (newPropertyValue) {
+        comboBox.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue)
+            {
                 comboBox.show();
-            } else {
-                comboBox.hide();
             }
         });
     }
@@ -42,6 +34,11 @@ public class ComboBox implements Component {
     @Override
     public void setText(String newText) {
         comboBox.setValue(newText);
+    }
+
+    @Override
+    public void setDisable(boolean disable) {
+        comboBox.setDisable(disable);
     }
 
     @Override

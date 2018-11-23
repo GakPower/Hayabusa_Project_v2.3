@@ -8,5 +8,7 @@ public interface Component {
 
     void setText(String newText);
 
+    void setDisable(boolean disable);
+
     boolean inputIsNullOrEmpty();
 }

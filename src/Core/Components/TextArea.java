@@ -1,0 +1,38 @@
+package Core.Components;
+
+import com.jfoenix.controls.JFXTextArea;
+
+public class TextArea implements Component {
+
+    private JFXTextArea textArea;
+
+    public TextArea(JFXTextArea textArea)
+    {
+        this.textArea = textArea;
+    }
+
+    @Override
+    public String getText() {
+        return textArea.getText();
+    }
+
+    @Override
+    public void clearInput() {
+        textArea.clear();
+    }
+
+    @Override
+    public void setText(String newText) {
+        textArea.setText(newText);
+    }
+
+    @Override
+    public void setDisable(boolean disable) {
+        textArea.setDisable(disable);
+    }
+
+    @Override
+    public boolean inputIsNullOrEmpty() {
+        return textArea.getText() == null || textArea.getText().isEmpty();
+    }
+}

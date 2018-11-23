@@ -3,6 +3,8 @@ package Core.Components.GroupOfComponents;
 import Core.Components.Component;
 import Core.SQL.HyperSQL;
 import Core.SQL.HyperSQLControl;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 
 public abstract class GroupOfComponents {
     private final HyperSQL sql = new HyperSQL();
@@ -11,10 +13,22 @@ public abstract class GroupOfComponents {
 
     public Component component;
     public ErrorLabel errorLabel;
+    public JFXButton button;
+    public JFXCheckBox checkBox;
 
     public GroupOfComponents(Component component, ErrorLabel errorLabel) {
         this.component = component;
         this.errorLabel = errorLabel;
+    }
+    public GroupOfComponents(Component component, ErrorLabel errorLabel, JFXButton button){
+        this.component = component;
+        this.errorLabel = errorLabel;
+        this.button = button;
+    }
+    public GroupOfComponents(Component component, ErrorLabel errorLabel, JFXCheckBox checkBox){
+        this.component = component;
+        this.errorLabel = errorLabel;
+        this.checkBox = checkBox;
     }
 
     public void setInput(String newText) {

@@ -6,25 +6,9 @@ package Core.Components.GroupOfComponents;
 //
 
 import Core.Animations.Animation;
-import com.sun.javafx.geom.BaseBounds;
-import com.sun.javafx.geom.transform.BaseTransform;
-import com.sun.javafx.jmx.MXNodeAlgorithm;
-import com.sun.javafx.jmx.MXNodeAlgorithmContext;
-import com.sun.javafx.sg.prism.NGNode;
-import javafx.animation.SequentialTransition;
-import javafx.animation.TranslateTransition;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.util.Duration;
-import sun.java2d.loops.CustomComponent;
-
-import javax.swing.plaf.synth.Region;
-
-import static Core.Animations.Animation.translateAnimationToY;
 
 public class ErrorLabel {
     private Label label;
@@ -37,6 +21,7 @@ public class ErrorLabel {
         configureTooltip();
         addToolTipToLabel();
     }
+
     private void configureTooltip() {
         tooltip = new Tooltip();
         tooltip.setWrapText(true);

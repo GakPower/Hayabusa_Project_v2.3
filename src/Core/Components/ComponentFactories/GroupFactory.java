@@ -5,6 +5,8 @@ import Core.Components.ComponentType;
 import Core.Components.GroupOfComponents.ErrorLabel;
 import Core.Components.GroupOfComponents.GroupOfComponents;
 import Core.Components.GroupOfComponents.GroupType;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 
 public interface GroupFactory {
 
@@ -27,9 +29,23 @@ public interface GroupFactory {
                 groupOfComponents = GroupForgetFactory.createGroup(componentType,
                         component, errorLabel);
                 break;
+            case MAINAPP:
+                groupOfComponents = GroupAppAddFactory.createGroup(componentType,
+                        component, errorLabel);
         }
 
         return groupOfComponents;
     }
 
+    static GroupOfComponents createGroup(Component component,
+                                         ErrorLabel errorLabel,
+                                         JFXButton button) {
+        return GroupAppAddFactory.createGroup(component, errorLabel, button);
+    }
+
+    static GroupOfComponents createGroup(Component component,
+                                         ErrorLabel errorLabel,
+                                         JFXCheckBox checkBox) {
+        return GroupAppAddFactory.createGroup(component, errorLabel, checkBox);
+    }
 }

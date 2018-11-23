@@ -24,6 +24,11 @@ public class PasswordField implements Component {
     public void setText(String newText) {}
 
     @Override
+    public void setDisable(boolean disable) {
+        passwordField.setDisable(disable);
+    }
+
+    @Override
     public boolean inputIsNullOrEmpty() {
         return passwordField.getText() == null || passwordField.getText().isEmpty();
     }

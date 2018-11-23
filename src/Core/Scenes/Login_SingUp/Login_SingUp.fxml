@@ -19,7 +19,7 @@
       <AnchorPane fx:id="mainLogin_SignUp_Anchor" prefHeight="526.0" prefWidth="830.0" style="-fx-background-color: transparent;">
          <AnchorPane fx:id="SignUp_Anchor" layoutX="485.0" prefHeight="526.0" prefWidth="360.0" styleClass="Side-AnchorPane" stylesheets="@StyleSheet.css" visible="false">
             <ImageView fitHeight="526.0" fitWidth="360.0" opacity="0.13" pickOnBounds="true">
-               <Image url="@../Images/rounded_corners2.png" />
+               <Image url="@../Assets/rounded_corners2.png" />
             </ImageView>
             <Label layoutX="149.0" layoutY="37.0" text="Sing up" textFill="WHITE">
                <font>
@@ -48,38 +48,38 @@
                </font>
             </JFXTextField>
             <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true">
-               <Image url="@../Images/User.png" />
+               <Image url="@../Assets/User.png" />
             </ImageView>
             <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="174.0" pickOnBounds="true" preserveRatio="true">
-               <Image url="@../Images/Lock.png" />
+               <Image url="@../Assets/Lock.png" />
             </ImageView>
             <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="35.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true">
-               <Image url="@../Images/Lock2.png" />
+               <Image url="@../Assets/Lock2.png" />
             </ImageView>
             <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="281.0" pickOnBounds="true" preserveRatio="true">
-               <Image url="@../Images/Shield.png" />
+               <Image url="@../Assets/Shield.png" />
             </ImageView>
             <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="328.0" pickOnBounds="true" preserveRatio="true">
-               <Image url="@../Images/Key.png" />
+               <Image url="@../Assets/Key.png" />
             </ImageView>
             <ImageView fx:id="UsernameSingUp_Image" fitHeight="20.0" fitWidth="20.0" layoutX="325.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true" visible="false">
-               <Image url="@../Images/Error.png" />
+               <Image url="@../Assets/Error.png" />
             </ImageView>
             <Label fx:id="UsernameSingUp_Label" layoutX="325.0" layoutY="126.0" prefHeight="20.0" prefWidth="20.0" visible="false" />
             <ImageView fx:id="PasswordSingUp_Image" fitHeight="20.0" fitWidth="20.0" layoutX="325.0" layoutY="174.0" pickOnBounds="true" preserveRatio="true" visible="false">
-               <Image url="@../Images/Error.png" />
+               <Image url="@../Assets/Error.png" />
             </ImageView>
             <Label fx:id="PasswordSingUp_Label" layoutX="325.0" layoutY="174.0" prefHeight="20.0" prefWidth="20.0" visible="false" />
             <ImageView fx:id="PasswordConfirmSingUp_Image" fitHeight="20.0" fitWidth="20.0" layoutX="327.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true" visible="false">
-               <Image url="@../Images/Error.png" />
+               <Image url="@../Assets/Error.png" />
             </ImageView>
             <Label fx:id="PasswordConfirmSingUp_Label" layoutX="327.0" layoutY="225.0" prefHeight="20.0" prefWidth="20.0" visible="false" />
             <ImageView fx:id="SecQuestionSingUp_Image" fitHeight="20.0" fitWidth="20.0" layoutX="329.0" layoutY="277.0" pickOnBounds="true" preserveRatio="true" visible="false">
-               <Image url="@../Images/Error.png" />
+               <Image url="@../Assets/Error.png" />
             </ImageView>
             <Label fx:id="SecQuestionSingUp_Label" layoutX="329.0" layoutY="277.0" prefHeight="20.0" prefWidth="20.0" visible="false" />
             <ImageView fx:id="SecAnsSingUp_Image" fitHeight="20.0" fitWidth="20.0" layoutX="329.0" layoutY="328.0" pickOnBounds="true" preserveRatio="true" visible="false">
-               <Image url="@../Images/Error.png" />
+               <Image url="@../Assets/Error.png" />
             </ImageView>
             <Label fx:id="SecAnsSingUp_Label" layoutX="329.0" layoutY="328.0" prefHeight="20.0" prefWidth="20.0" visible="false" />
             <JFXButton buttonType="RAISED" defaultButton="true" focusTraversable="false" layoutX="42.0" layoutY="432.0" mnemonicParsing="false" onAction="#onSignUpClick" prefHeight="44.0" prefWidth="288.0" styleClass="login_signupButtons" stylesheets="@StyleSheet.css" text="Sign up" textFill="WHITE">
@@ -90,7 +90,7 @@
          </AnchorPane>
          <AnchorPane fx:id="Login_Anchor" layoutX="485.0" layoutY="64.0" prefHeight="387.0" prefWidth="360.0" styleClass="Side-AnchorPane" stylesheets="@StyleSheet.css">
             <ImageView fitHeight="387.0" fitWidth="360.0" opacity="0.13" pickOnBounds="true">
-               <Image url="@../Images/rounded_corners2.png" />
+               <Image url="@../Assets/rounded_corners2.png" />
             </ImageView>
             <Label layoutX="156.0" layoutY="43.0" text="Login" textFill="WHITE">
                <font>
@@ -113,17 +113,17 @@
                </font>
             </JFXCheckBox>
             <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="35.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true">
-               <Image url="@../Images/User.png" />
+               <Image url="@../Assets/User.png" />
             </ImageView>
             <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="35.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
-               <Image url="@../Images/Lock.png" />
+               <Image url="@../Assets/Lock.png" />
             </ImageView>
             <ImageView fx:id="UsernameLogin_ImageView" fitHeight="20.0" fitWidth="20.0" layoutX="325.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true" visible="false">
-               <Image url="@../Images/Error.png" />
+               <Image url="@../Assets/Error.png" />
             </ImageView>
             <Label fx:id="UsernameLogin_Label" layoutX="325.0" layoutY="126.0" prefHeight="20.0" prefWidth="20.0" visible="false" />
             <ImageView fx:id="PasswordLogin_ImageView" fitHeight="20.0" fitWidth="20.0" layoutX="325.0" layoutY="174.0" pickOnBounds="true" preserveRatio="true" visible="false">
-               <Image url="@../Images/Error.png" />
+               <Image url="@../Assets/Error.png" />
             </ImageView>
             <Label fx:id="PasswordLogin_Label" layoutX="325.0" layoutY="174.0" prefHeight="20.0" prefWidth="20.0" visible="false" />
             <JFXButton buttonType="RAISED" defaultButton="true" focusTraversable="false" layoutX="48.0" layoutY="280.0" mnemonicParsing="false" onAction="#onLoginClick" prefHeight="44.0" prefWidth="288.0" styleClass="login_signupButtons" stylesheets="@StyleSheet.css" text="Login" textFill="WHITE">
@@ -145,7 +145,7 @@
          </AnchorPane>
          <AnchorPane fx:id="ChangePassword_Anchor" layoutX="485.0" layoutY="64.0" prefHeight="387.0" prefWidth="360.0" styleClass="Side-AnchorPane" stylesheets="@StyleSheet.css" visible="false">
             <ImageView fitHeight="387.0" fitWidth="360.0" opacity="0.13" pickOnBounds="true">
-               <Image url="@../Images/rounded_corners2.png" />
+               <Image url="@../Assets/rounded_corners2.png" />
             </ImageView>
             <Label layoutX="85.0" layoutY="45.0" text="Forgot your password" textFill="WHITE">
                <font>
@@ -155,17 +155,17 @@
             <JFXPasswordField fx:id="NewPasswordForget_Field" focusColor="#dd0000" labelFloat="true" layoutX="67.0" layoutY="118.0" prefHeight="25.0" prefWidth="253.0" promptText="New Password" styleClass="jfx-field" stylesheets="@StyleSheet.css" unFocusColor="WHITE" />
             <JFXPasswordField fx:id="ConfirmPasswordForget_Field" focusColor="#dd0000" labelFloat="true" layoutX="67.0" layoutY="169.0" prefHeight="25.0" prefWidth="253.0" promptText="Confirm Password" styleClass="jfx-field" stylesheets="@StyleSheet.css" unFocusColor="WHITE" />
              <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="37.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true">
-                 <Image url="@../Images/Lock.png" />
+                 <Image url="@../Assets/Lock.png" />
              </ImageView>
              <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="37.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true">
-                 <Image url="@../Images/Lock2.png" />
+                 <Image url="@../Assets/Lock2.png" />
              </ImageView>
              <ImageView fx:id="NewPasswordForget_Image" fitHeight="20.0" fitWidth="20.0" layoutX="327.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true" visible="false">
-                 <Image url="@../Images/Error.png" />
+                 <Image url="@../Assets/Error.png" />
              </ImageView>
             <Label fx:id="NewPasswordForget_Label" layoutX="327.0" layoutY="118.0" prefHeight="20.0" prefWidth="20.0" visible="false" />
              <ImageView fx:id="ConfirmPasswordForget_Image" fitHeight="20.0" fitWidth="20.0" layoutX="327.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true" visible="false">
-                 <Image url="@../Images/Error.png" />
+                 <Image url="@../Assets/Error.png" />
              </ImageView>
             <Label fx:id="ConfirmPasswordForget_Label" layoutX="327.0" layoutY="169.0" prefHeight="20.0" prefWidth="20.0" visible="false" />
             <JFXButton buttonType="RAISED" defaultButton="true" focusTraversable="false" layoutX="48.0" layoutY="280.0" mnemonicParsing="false" onAction="#onFinishChangePassClick" prefHeight="44.0" prefWidth="288.0" styleClass="login_signupButtons" stylesheets="@StyleSheet.css" text="Finish" textFill="WHITE">
@@ -184,7 +184,7 @@
          </AnchorPane>
          <AnchorPane fx:id="AnswerQuestion_Anchor" layoutX="485.0" layoutY="64.0" prefHeight="387.0" prefWidth="360.0" styleClass="Side-AnchorPane" stylesheets="@StyleSheet.css" visible="false">
             <ImageView fitHeight="387.0" fitWidth="360.0" opacity="0.13" pickOnBounds="true">
-               <Image url="@../Images/rounded_corners2.png" />
+               <Image url="@../Assets/rounded_corners2.png" />
             </ImageView>
             <Label layoutX="85.0" layoutY="45.0" text="Forgot your password" textFill="WHITE">
                <font>
@@ -202,17 +202,17 @@
                </font>
             </JFXTextField>
             <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="37.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true">
-               <Image url="@../Images/Shield.png" />
+               <Image url="@../Assets/Shield.png" />
             </ImageView>
             <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="37.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true">
-               <Image url="@../Images/Key.png" />
+               <Image url="@../Assets/Key.png" />
             </ImageView>
             <ImageView fx:id="SecQuestionForget_Image" fitHeight="20.0" fitWidth="20.0" layoutX="327.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true" visible="false">
-               <Image url="@../Images/Error.png" />
+               <Image url="@../Assets/Error.png" />
             </ImageView>
             <Label fx:id="SecQuestionForget_Label" layoutX="327.0" layoutY="118.0" prefHeight="20.0" prefWidth="20.0" visible="false" />
             <ImageView fx:id="SecAnswerForget_Image" fitHeight="20.0" fitWidth="20.0" layoutX="327.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true" visible="false">
-               <Image url="@../Images/Error.png" />
+               <Image url="@../Assets/Error.png" />
             </ImageView>
             <Label fx:id="SecAnswerForget_Label" layoutX="327.0" layoutY="169.0" prefHeight="20.0" prefWidth="20.0" visible="false" />
             <JFXButton buttonType="RAISED" defaultButton="true" focusTraversable="false" layoutX="48.0" layoutY="280.0" mnemonicParsing="false" onAction="#onNextAnswerQuestionClick" prefHeight="44.0" prefWidth="288.0" styleClass="login_signupButtons" stylesheets="@StyleSheet.css" text="Next" textFill="WHITE">
@@ -231,7 +231,7 @@
          </AnchorPane>
          <AnchorPane fx:id="EnterUsername_Anchor" layoutX="485.0" layoutY="64.0" prefHeight="387.0" prefWidth="360.0" styleClass="Side-AnchorPane" stylesheets="@StyleSheet.css" visible="false">
             <ImageView fitHeight="387.0" fitWidth="360.0" opacity="0.13" pickOnBounds="true">
-               <Image url="@../Images/rounded_corners2.png" />
+               <Image url="@../Assets/rounded_corners2.png" />
             </ImageView>
             <Label layoutX="85.0" layoutY="45.0" text="Forgot your password" textFill="WHITE">
                <font>
@@ -244,10 +244,10 @@
                </font>
             </JFXTextField>
             <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="37.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true">
-               <Image url="@../Images/User.png" />
+               <Image url="@../Assets/User.png" />
             </ImageView>
             <ImageView fx:id="EnterUsername_Image" fitHeight="20.0" fitWidth="20.0" layoutX="327.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true" visible="false">
-               <Image url="@../Images/Error.png" />
+               <Image url="@../Assets/Error.png" />
             </ImageView>
             <Label fx:id="EnterUsername_Label" layoutX="327.0" layoutY="165.0" prefHeight="20.0" prefWidth="20.0" visible="false" />
             <JFXButton buttonType="RAISED" defaultButton="true" focusTraversable="false" layoutX="48.0" layoutY="280.0" mnemonicParsing="false" onAction="#onNextEnterUsernameClick" prefHeight="44.0" prefWidth="288.0" styleClass="login_signupButtons" stylesheets="@StyleSheet.css" text="Next" textFill="WHITE">
@@ -266,10 +266,10 @@
          </AnchorPane>
          <AnchorPane fx:id="main_Anchor" layoutY="5.0" prefHeight="516.0" prefWidth="505.0" styleClass="main-AnchorPane" stylesheets="@StyleSheet.css">
             <ImageView fitHeight="517.0" fitWidth="714.0" layoutX="-223.0" layoutY="-21.0" opacity="0.13" pickOnBounds="true">
-               <Image url="@../Images/Background.png" />
+               <Image url="@../Assets/Background.png" />
             </ImageView>
             <ImageView blendMode="SRC_ATOP" fitHeight="150.0" fitWidth="200.0" layoutX="177.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
-               <Image url="@../Images/logo.png" />
+               <Image url="@../Assets/logo.png" />
                <effect>
                   <DropShadow blurType="ONE_PASS_BOX" color="#000000dd" height="5.0" radius="2.0" width="5.0" />
                </effect>

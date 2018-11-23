@@ -15,6 +15,7 @@ public class Main extends Application {
     private final static File file = new File("C:\\Hayabusa Project\\HayaBusa");
     private final static HyperSQL sql = new HyperSQL();
     private final static HyperSQLControl sqlControl = new HyperSQLControl(sql);
+    public static Scenes scenes;
 
     @Override
     public void start(Stage primaryStage) {
@@ -24,7 +25,7 @@ public class Main extends Application {
         stage.setResizable(false);
         stage.initStyle(StageStyle.TRANSPARENT);
 
-        Scenes scenes = Scenes.getInstance();
+        scenes = Scenes.getInstance();
 
         scenes.addScene("Login", "Core/Scenes/Login_SingUp/Login_SingUp.fxml");
         scenes.addScene("App", "Core/Scenes/App/App.fxml");

@@ -7,21 +7,51 @@ package Core.Scenes.App;
 
 import Core.Animations.Animation;
 import Core.Animations.AnimationControls;
+import Core.Components.Component;
+import Core.Components.ComponentFactories.GroupFactory;
+import Core.Components.ComponentType;
+import Core.Components.GroupOfComponents.ErrorLabel;
+import Core.Components.GroupOfComponents.GroupOfComponents;
+import Core.Components.GroupOfComponents.GroupType;
+import Core.DayConvertion.DateConvertion;
 import Core.Range;
 import Core.Scenes.UIControls;
 import com.jfoenix.controls.*;
+import javafx.animation.KeyFrame;
 import javafx.animation.SequentialTransition;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.util.Duration;
+import javafx.util.StringConverter;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashMap;
 
+import static Core.Components.ComponentFactory.createComponent;
+
+@SuppressWarnings("Duplicates")
 public class AppController {
 
-    @FXML private Label name;
+    public AnchorPane newFieldAnchor;
+    public ImageView arrowNewField;
+    public Label newField_Error;
+    public ImageView newField_ImageError;
+    public JFXTextField newField_TextField;
+    private Component newField_Comp;
+    private GroupOfComponents newField_Group;
+
+    @FXML private JFXButton addFieldButton;
+    @FXML private JFXButton saveButton;
+    @FXML private ScrollPane otherScrollPane;
+    @FXML private HBox otherHbox;
+    @FXML private ImageView exitMenuButton;
 
     @FXML private AnchorPane userWin;
     @FXML private AnchorPane tableWin;
@@ -36,14 +66,92 @@ public class AppController {
     @FXML private AnchorPane statButton;
     @FXML private AnchorPane settButton;
 
-    @FXML private ImageView NameIcon;
-    @FXML private ImageView TableIcon;
-    @FXML private ImageView AddIcon;
-    @FXML private ImageView StatIcon;
-    @FXML private ImageView SettingsIcon;
+    @FXML private JFXDatePicker DepDate;
+    @FXML private JFXTimePicker DepTime;
+    @FXML private JFXComboBox DepProduct;
+    @FXML private JFXComboBox DepEnterprise;
+    @FXML private JFXComboBox DepShip;
+    @FXML private JFXComboBox DepPort;
+    @FXML private JFXComboBox DepUnloadingLoc;
+
+    @FXML private JFXDatePicker ArrDate;
+    @FXML private JFXTimePicker ArrTime;
+    @FXML private JFXComboBox ArrProduct;
+    @FXML private JFXComboBox ArrEnterprise;
+    @FXML private JFXComboBox ArrShip;
+    @FXML private JFXComboBox ArrPort;
+    @FXML private JFXComboBox ArrLoadingLoc;
+
+    @FXML private Label ArrDate_Error;
+    @FXML private Label ArrTime_Error;
+    @FXML private Label ArrProduct_Error;
+    @FXML private Label ArrEnterprise_Error;
+    @FXML private Label ArrShip_Error;
+    @FXML private Label ArrPort_Error;
+    @FXML private Label ArrLoadingLoc_Error;
+
+    @FXML private Label DepDate_Error;
+    @FXML private Label DepTime_Error;
+    @FXML private Label DepProduct_Error;
+    @FXML private Label DepEnterprise_Error;
+    @FXML private Label DepShip_Error;
+    @FXML private Label DepPort_Error;
+    @FXML private Label DepUnloadingLoc_Error;
+
+    @FXML private Label OthTruck_Error;
+    @FXML private Label OthCompany_Error;
+    @FXML private Label OthCMR_Error;
+    @FXML private Label OthIncome_Error;
+    @FXML private Label OthKil_Error;
+    @FXML private Label OthCom_Error;
+
+
+    @FXML private ImageView DepDate_ImageError;
+    @FXML private ImageView DepTime_ImageError;
+    @FXML private ImageView DepProduct_ImageError;
+    @FXML private ImageView DepEnterprise_ImageError;
+    @FXML private ImageView DepShip_ImageError;
+    @FXML private ImageView DepPort_ImageError;
+    @FXML private ImageView DepUnloadingLoc_ImageError;
+
+    @FXML private ImageView ArrTime_ImageError;
+    @FXML private ImageView ArrDate_ImageError;
+    @FXML private ImageView ArrProduct_ImageError;
+    @FXML private ImageView ArrEnterprise_ImageError;
+    @FXML private ImageView ArrShip_ImageError;
+    @FXML private ImageView ArrPort_ImageError;
+    @FXML private ImageView ArrLoadingLoc_ImageError;
+
+    @FXML private ImageView OthTruck_ImageError;
+    @FXML private ImageView OthCompany_ImageError;
+    @FXML private ImageView OthCMR_ImageError;
+    @FXML private ImageView OthIncome_ImageError;
+    @FXML private ImageView OthKil_ImageError;
+    @FXML private ImageView OthCom_ImageError;
+
+    @FXML private JFXButton ArrProduct_But;
+    @FXML private JFXButton ArrEnterprise_But;
+    @FXML private JFXButton ArrShip_But;
+    @FXML private JFXButton ArrPort_But;
+    @FXML private JFXButton ArrLoadingLoc_But;
+
+    @FXML private JFXButton DepProduct_Butt;
+    @FXML private JFXButton DepEnterprise_But;
+    @FXML private JFXButton DepShip_But;
+    @FXML private JFXButton DepPort_But;
+    @FXML private JFXButton DepUnloadingLoc_But;
+
     @FXML private JFXButton OthTruck_But;
     @FXML private JFXButton OthCompany_But;
 
+    @FXML private JFXComboBox OthTruck;
+    @FXML private JFXComboBox OthCompany;
+    @FXML private JFXTextField OthCMR;
+    @FXML private JFXTextField OthIncome;
+    @FXML private JFXTextField OthKil;
+    @FXML private JFXTextArea OthCom;
+
+    @FXML private JFXCheckBox ComCheck;
 
     @FXML private JFXButton exitButtonUser;
     @FXML private JFXButton exitButtonTable;
@@ -57,82 +165,77 @@ public class AppController {
     @FXML private JFXButton minButtonSett;
     @FXML private JFXButton minButtonTable;
 
+    private ErrorLabel ArrDate_Error_Label;
+    private ErrorLabel ArrTime_Error_Label;
+    private ErrorLabel ArrProduct_Error_Label;
+    private ErrorLabel ArrEnterprise_Error_Label;
+    private ErrorLabel ArrShip_Error_Label;
+    private ErrorLabel ArrPort_Error_Label;
+    private ErrorLabel ArrLoadingLoc_Error_Label;
 
-    @FXML private JFXDatePicker DepDate;
-    @FXML private JFXTimePicker DepTime;
+    private ErrorLabel DepDate_Error_Label;
+    private ErrorLabel DepTime_Error_Label;
+    private ErrorLabel DepProduct_Error_Label;
+    private ErrorLabel DepEnterprise_Error_Label;
+    private ErrorLabel DepShip_Error_Label;
+    private ErrorLabel DepPort_Error_Label;
+    private ErrorLabel DepUnloadingLoc_Error_Label;
 
-    @FXML private JFXComboBox DepProduct;
-    @FXML private JFXComboBox DepEnterprise;
-    @FXML private JFXComboBox DepShip;
-    @FXML private JFXComboBox DepPort;
-    @FXML private JFXComboBox DepUnloadingLoc;
+    private ErrorLabel OthTruck_Error_Label;
+    private ErrorLabel OthCompany_Error_Label;
+    private ErrorLabel OthCMR_Error_Label;
+    private ErrorLabel OthIncome_Error_Label;
+    private ErrorLabel OthKil_Error_Label;
+    private ErrorLabel OthCom_Error_Label;
 
-    @FXML private Label DepProduct_Error;
-    @FXML private Label DepEnterprise_Error;
-    @FXML private Label DepShip_Error;
-    @FXML private Label DepPort_Error;
-    @FXML private Label DepUnloadingLoc_Error;
+    private ErrorLabel newField_Error_Label;
 
-    @FXML private ImageView DepProduct_ImageError;
-    @FXML private ImageView DepEnterprise_ImageError;
-    @FXML private ImageView DepShip_ImageError;
-    @FXML private ImageView DepPort_ImageError;
-    @FXML private ImageView DepUnloadingLoc_ImageError;
 
-    @FXML private JFXButton DepProduct_Butt;
-    @FXML private JFXButton DepEnterpise_But;
-    @FXML private JFXButton DepShip_But;
-    @FXML private JFXButton DepPort_But;
-    @FXML private JFXButton DepUnloadingLoc_But;
+    private Component ArrDate_Comp;
+    private Component ArrTime_Comp;
+    private Component ArrProduct_Comp;
+    private Component ArrEnterprise_Comp;
+    private Component ArrShip_Comp;
+    private Component ArrPort_Comp;
+    private Component ArrLoadingLoc_Comp;
 
-    @FXML private JFXDatePicker ArrDate;
-    @FXML private JFXTimePicker ArrTime;
-    @FXML private JFXComboBox ArrProduct;
-    @FXML private JFXComboBox ArrEnterprise;
-    @FXML private JFXComboBox ArrShip;
-    @FXML private JFXComboBox ArrPort;
-    @FXML private JFXComboBox ArrLoadingLoc;
+    private Component DepDate_Comp;
+    private Component DepTime_Comp;
+    private Component DepProduct_Comp;
+    private Component DepEnterprise_Comp;
+    private Component DepShip_Comp;
+    private Component DepPort_Comp;
+    private Component DepUnloadingLoc_Comp;
 
-    @FXML private Label ArrProduct_Error;
-    @FXML private Label ArrEnterprise_Error;
-    @FXML private Label ArrShip_Error;
-    @FXML private Label ArrPort_Error;
-    @FXML private Label ArrLoadingLoc_Error;
+    private Component OthTruck_Comp;
+    private Component OthCompany_Comp;
+    private Component OthCMR_Comp;
+    private Component OthIncome_Comp;
+    private Component OthKil_Comp;
+    private Component OthCom_Comp;
 
-    @FXML private ImageView ArrProduct_ImageError;
-    @FXML private ImageView ArrEnterprise_ImageError;
-    @FXML private ImageView ArrShip_ImageError;
-    @FXML private ImageView ArrPort_ImageError;
-    @FXML private ImageView ArrLoadingLoc_ImageError;
+    private GroupOfComponents ArrDate_Group;
+    private GroupOfComponents ArrTime_Group;
+    private GroupOfComponents ArrProduct_Group;
+    private GroupOfComponents ArrEnterprise_Group;
+    private GroupOfComponents ArrShip_Group;
+    private GroupOfComponents ArrPort_Group;
+    private GroupOfComponents ArrLoadingLoc_Group;
 
-    @FXML private JFXButton ArrProduct_But;
-    @FXML private JFXButton ArrEnterprise_But;
-    @FXML private JFXButton ArrShip_But;
-    @FXML private JFXButton ArrPort_But;
-    @FXML private JFXButton ArrLoadingLoc_But;
+    private GroupOfComponents DepDate_Group;
+    private GroupOfComponents DepTime_Group;
+    private GroupOfComponents DepProduct_Group;
+    private GroupOfComponents DepEnterprise_Group;
+    private GroupOfComponents DepShip_Group;
+    private GroupOfComponents DepPort_Group;
+    private GroupOfComponents DepUnloadingLoc_Group;
 
-    @FXML private JFXComboBox OthTruck;
-    @FXML private JFXComboBox OthCompany;
-    @FXML private JFXTextField OthCMR;
-    @FXML private JFXTextField OthIncome;
-    @FXML private JFXTextField OthKil;
-    @FXML private JFXTextArea OthCom;
-
-    @FXML private Label OthTruck_Error;
-    @FXML private Label OthCompany_Error;
-    @FXML private Label OthCMR_Error;
-    @FXML private Label OthIncome_Error;
-    @FXML private Label OthKil_Error;
-    @FXML private Label OthCom_Error;
-
-    @FXML private ImageView OthTruck_ImageError;
-    @FXML private ImageView OthCompany_ImageError;
-    @FXML private ImageView OthCMR_ImageError;
-    @FXML private ImageView OthIncome_ImageError;
-    @FXML private ImageView OthKil_ImageError;
-    @FXML private ImageView OthCom_ImageError;
-
-    @FXML private JFXCheckBox ComCheck;
+    private GroupOfComponents OthTruck_Group;
+    private GroupOfComponents OthCompany_Group;
+    private GroupOfComponents OthCMR_Group;
+    private GroupOfComponents OthIncome_Group;
+    private GroupOfComponents OthKil_Group;
+    private GroupOfComponents OthCom_Group;
 
 
     private AnchorPane activeWin;
@@ -149,6 +252,272 @@ public class AppController {
         initializeHashMaps();
         menuButtonsSwitchSetup();
         minExitButtonsListeners();
+
+        initScrollBar();
+
+        initErrorLabels();
+        initComponents();
+        initGroup();
+
+        /*VBox vBox = new VBox(50);
+        AnchorPane anchorPane = new AnchorPane();
+        anchorPane.getChildren().add(vBox);
+        anchorPane.setPrefSize(500,500);
+        otherHbox.getChildren().add(anchorPane);
+        MinusButton minusButton = new MinusButton();
+        vBox.getChildren().add(minusButton);*/
+
+        addFieldButton.setOnAction((event)->{
+            if(newFieldAnchor.isVisible()){
+                if (newField_Group.isInputOK())
+                outNewFieldAnimations();
+            }else{
+                inNewFieldAnimations();
+            }
+        });
+
+        exitMenuButton.setOnMousePressed(event -> UIControls.closeApplication());
+    }
+    private void inNewFieldAnimations()
+    {
+        addFieldButton.setText("Add");
+
+        newFieldAnchor.setVisible(true);
+        Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.millis(1), event1 -> {
+            newFieldAnchor.setLayoutX(newFieldAnchor.getLayoutX()+0.4);
+            newFieldAnchor.setOpacity(newFieldAnchor.getOpacity()+0.002);
+        }));
+        fiveSecondsWonder.setCycleCount(500);
+        fiveSecondsWonder.play();
+
+        arrowNewField.setVisible(true);
+        Animation.fadeInAnimation(Duration.millis(500), arrowNewField).play();
+        expandWindow(true);
+    }
+    private void outNewFieldAnimations()
+    {
+        addFieldButton.setText("New Field");
+
+        Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.millis(1), event1 -> {
+            newFieldAnchor.setLayoutX(newFieldAnchor.getLayoutX()-0.4);
+            newFieldAnchor.setOpacity(newFieldAnchor.getOpacity()-0.002);
+        }));
+        fiveSecondsWonder.setCycleCount(500);
+        fiveSecondsWonder.play();
+        AnimationControls.setVisibleFalseInNewThread(newFieldAnchor, 500);
+
+        Animation.fadeOutAnimation(Duration.millis(500), arrowNewField).play();
+        AnimationControls.setVisibleFalseInNewThread(arrowNewField, 500);
+        expandWindow(false);
+    }
+
+    private void initGroup() {
+        initComponents();
+
+        ArrDate_Group = GroupFactory.createGroup(GroupType.MAINAPP,
+                ComponentType.DATEPICKER,
+                ArrDate_Comp,
+                ArrDate_Error_Label);
+        ArrTime_Group = GroupFactory.createGroup(GroupType.MAINAPP,
+                ComponentType.TIMEPICKER,
+                ArrTime_Comp,
+                ArrTime_Error_Label);
+        ArrProduct_Group = GroupFactory.createGroup(ArrProduct_Comp,
+                ArrProduct_Error_Label,
+                ArrProduct_But);
+        ArrEnterprise_Group = GroupFactory.createGroup(ArrEnterprise_Comp,
+                ArrEnterprise_Error_Label,
+                ArrEnterprise_But);
+        ArrShip_Group = GroupFactory.createGroup(ArrShip_Comp,
+                ArrShip_Error_Label,
+                ArrShip_But);
+        ArrPort_Group = GroupFactory.createGroup(ArrPort_Comp,
+                ArrPort_Error_Label,
+                ArrPort_But);
+        ArrLoadingLoc_Group = GroupFactory.createGroup(ArrLoadingLoc_Comp,
+                ArrLoadingLoc_Error_Label,
+                ArrLoadingLoc_But);
+
+        DepDate_Group = GroupFactory.createGroup(GroupType.MAINAPP,
+                ComponentType.DATEPICKER,
+                DepDate_Comp,
+                DepDate_Error_Label);
+        DepTime_Group = GroupFactory.createGroup(GroupType.MAINAPP,
+                ComponentType.TIMEPICKER,
+                DepTime_Comp,
+                DepTime_Error_Label);
+        DepProduct_Group = GroupFactory.createGroup(DepProduct_Comp,
+                DepProduct_Error_Label,
+                DepProduct_Butt);
+        DepEnterprise_Group = GroupFactory.createGroup(DepEnterprise_Comp,
+                DepEnterprise_Error_Label,
+                DepEnterprise_But);
+        DepShip_Group = GroupFactory.createGroup(DepShip_Comp,
+                DepShip_Error_Label,
+                DepShip_But);
+        DepPort_Group = GroupFactory.createGroup(DepPort_Comp,
+                DepPort_Error_Label,
+                DepPort_But);
+        DepUnloadingLoc_Group = GroupFactory.createGroup(DepUnloadingLoc_Comp,
+                DepUnloadingLoc_Error_Label,
+                DepUnloadingLoc_But);
+
+        OthTruck_Group = GroupFactory.createGroup(OthTruck_Comp,
+                OthTruck_Error_Label,
+                OthTruck_But);
+        OthCompany_Group = GroupFactory.createGroup(OthCompany_Comp,
+                OthCompany_Error_Label,
+                OthCompany_But);
+        OthCMR_Group = GroupFactory.createGroup(GroupType.MAINAPP,
+                ComponentType.INFO,
+                OthCMR_Comp,
+                OthCMR_Error_Label);
+        OthIncome_Group = GroupFactory.createGroup(GroupType.MAINAPP,
+                ComponentType.INFO,
+                OthIncome_Comp,
+                OthIncome_Error_Label);
+        OthKil_Group = GroupFactory.createGroup(GroupType.MAINAPP,
+                ComponentType.INFO,
+                OthKil_Comp,
+                OthKil_Error_Label);
+        OthCom_Group = GroupFactory.createGroup(OthCom_Comp,
+                OthCom_Error_Label,
+                ComCheck);
+
+        newField_Group = GroupFactory.createGroup(GroupType.MAINAPP,
+                ComponentType.INFO,
+                newField_Comp,
+                newField_Error_Label);
+
+        setupConverterDatePicker(DepDate);
+        setupConverterDatePicker(ArrDate);
+
+        setupConverterTimePicker(DepTime);
+        setupConverterTimePicker(ArrTime);
+    }
+
+    private void initComponents()
+    {
+        initErrorLabels();
+
+        ArrDate_Comp = createComponent(ArrDate);
+        ArrTime_Comp = createComponent(ArrTime);
+        ArrProduct_Comp = createComponent(ArrProduct);
+        ArrEnterprise_Comp = createComponent(ArrEnterprise);
+        ArrShip_Comp = createComponent(ArrShip);
+        ArrPort_Comp = createComponent(ArrPort);
+        ArrLoadingLoc_Comp = createComponent(ArrLoadingLoc);
+
+        DepDate_Comp = createComponent(DepDate);
+        DepTime_Comp = createComponent(DepTime);
+        DepProduct_Comp = createComponent(DepProduct);
+        DepEnterprise_Comp = createComponent(DepEnterprise);
+        DepShip_Comp = createComponent(DepShip);
+        DepPort_Comp = createComponent(DepPort);
+        DepUnloadingLoc_Comp = createComponent(DepUnloadingLoc);
+
+        OthTruck_Comp = createComponent(OthTruck);
+        OthCompany_Comp = createComponent(OthCompany);
+        OthCMR_Comp = createComponent(OthCMR);
+        OthIncome_Comp = createComponent(OthIncome);
+        OthKil_Comp = createComponent(OthKil);
+        OthCom_Comp = createComponent(OthCom);
+
+        newField_Comp = createComponent(newField_TextField);
+    }
+
+    private void initErrorLabels()
+    {
+        ArrDate_Error_Label = new ErrorLabel(ArrDate_Error, ArrDate_ImageError);
+        ArrTime_Error_Label = new ErrorLabel(ArrTime_Error, ArrTime_ImageError);
+        ArrProduct_Error_Label = new ErrorLabel(ArrProduct_Error, ArrProduct_ImageError);
+        ArrEnterprise_Error_Label = new ErrorLabel(ArrEnterprise_Error, ArrEnterprise_ImageError);
+        ArrShip_Error_Label = new ErrorLabel(ArrShip_Error, ArrShip_ImageError);
+        ArrPort_Error_Label = new ErrorLabel(ArrPort_Error, ArrPort_ImageError);
+        ArrLoadingLoc_Error_Label = new ErrorLabel(ArrLoadingLoc_Error, ArrLoadingLoc_ImageError);
+
+        DepDate_Error_Label = new ErrorLabel(DepDate_Error, DepDate_ImageError);
+        DepTime_Error_Label = new ErrorLabel(DepTime_Error, DepTime_ImageError);
+        DepProduct_Error_Label = new ErrorLabel(DepProduct_Error, DepProduct_ImageError);
+        DepEnterprise_Error_Label = new ErrorLabel(DepEnterprise_Error, DepEnterprise_ImageError);
+        DepShip_Error_Label = new ErrorLabel(DepShip_Error, DepShip_ImageError);
+        DepPort_Error_Label = new ErrorLabel(DepPort_Error, DepPort_ImageError);
+        DepUnloadingLoc_Error_Label = new ErrorLabel(DepUnloadingLoc_Error, DepUnloadingLoc_ImageError);
+
+        OthTruck_Error_Label = new ErrorLabel(OthTruck_Error, OthTruck_ImageError);
+        OthCompany_Error_Label = new ErrorLabel(OthCompany_Error, OthCompany_ImageError);
+        OthCMR_Error_Label = new ErrorLabel(OthCMR_Error, OthCMR_ImageError);
+        OthIncome_Error_Label = new ErrorLabel(OthIncome_Error, OthIncome_ImageError);
+        OthKil_Error_Label = new ErrorLabel(OthKil_Error, OthKil_ImageError);
+        OthCom_Error_Label = new ErrorLabel(OthCom_Error, OthCom_ImageError);
+
+        newField_Error_Label = new ErrorLabel(newField_Error, newField_ImageError);
+    }
+
+    private void expandWindow(boolean expandWindow){
+        if (expandWindow){
+            Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.millis(1), event -> {
+                addWin.setPrefWidth(addWin.getPrefWidth()+0.4);
+                exitButtonAdd.setLayoutX(exitButtonAdd.getLayoutX()+0.4);
+                minButtonAdd.setLayoutX(minButtonAdd.getLayoutX()+0.4);
+            }));
+            fiveSecondsWonder.setCycleCount(500);
+            fiveSecondsWonder.play();
+        }else{
+            Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.millis(1), event -> {
+                addWin.setPrefWidth(addWin.getPrefWidth()-0.4);
+                exitButtonAdd.setLayoutX(exitButtonAdd.getLayoutX()-0.4);
+                minButtonAdd.setLayoutX(minButtonAdd.getLayoutX()-0.4);
+            }));
+            fiveSecondsWonder.setCycleCount(500);
+            fiveSecondsWonder.play();
+        }
+    }
+
+    private void setupConverterTimePicker(JFXTimePicker timePicker)
+    {
+        timePicker.setIs24HourView(true);
+        timePicker.setConverter(new StringConverter<LocalTime>() {
+            @Override
+            public String toString(LocalTime time) {
+                if (time != null) {
+                    return time.toString();
+                } else {
+                    return "";
+                }
+            }
+
+            @Override
+            public LocalTime fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                    return LocalTime.parse(string);
+                } else {
+                    return null;
+                }
+            }
+        });
+    }
+    private void setupConverterDatePicker(JFXDatePicker datePicker)
+    {
+        datePicker.setConverter(new StringConverter<LocalDate>()
+        {
+            @Override
+            public String toString(LocalDate date) {
+                if (date != null) {
+                    return DateConvertion.convert(date);
+                } else {
+                    return "";
+                }
+            }
+            @Override
+            public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                    return LocalDate.parse(string);
+                } else {
+                    return null;
+                }
+            }
+        });
     }
 
     private void initializeHashMaps()
@@ -212,10 +581,8 @@ public class AppController {
                     activeButton.setStyle(oldStyles.get(menuButton));
 
                     AnimationControls.hideAndShowWithAnimationInDuration(activeWin, windows.get(menuButton), Duration.millis(500));
-                    System.out.println("1");
                 }else{
                     Animation.fadeInAnimation(Duration.millis(500), windows.get(menuButton)).play();
-                    System.out.println("2");
                 }
             }
             createAndRunDriftAnimation(newPositionOfArrow);
@@ -273,5 +640,12 @@ public class AppController {
     private void minButtonsListeners(AnchorPane menuButton)
     {
         minButtons.get(menuButton).setOnMousePressed(event -> UIControls.minimizeApplication());
+    }
+
+    private void initScrollBar()
+    {
+        otherScrollPane.setContent(otherHbox);
+        otherHbox.setSpacing(100);
+        HBox.setHgrow(otherScrollPane, Priority.ALWAYS);
     }
 }

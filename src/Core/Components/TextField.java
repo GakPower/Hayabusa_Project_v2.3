@@ -26,6 +26,11 @@ public class TextField implements Component {
     }
 
     @Override
+    public void setDisable(boolean disable) {
+        textField.setDisable(disable);
+    }
+
+    @Override
     public boolean inputIsNullOrEmpty() {
         return textField.getText() == null || textField.getText().isEmpty();
     }

@@ -2,14 +2,16 @@ package Core.Scenes.Login_SingUp;
 
 import Core.Animations.Animation;
 import Core.Animations.AnimationControls;
-import Core.Components.*;
+import Core.Components.Component;
 import Core.Components.ComponentFactories.GroupFactory;
+import Core.Components.ComponentType;
 import Core.Components.GroupOfComponents.ErrorLabel;
 import Core.Components.GroupOfComponents.GroupOfComponents;
 import Core.Components.GroupOfComponents.GroupType;
-import Core.Scenes.Dialog;
+import Core.SQL.CurrentUser;
 import Core.SQL.HyperSQL;
 import Core.SQL.HyperSQLControl;
+import Core.Scenes.Dialog;
 import Core.Scenes.Scenes;
 import Core.Scenes.UIControls;
 import com.jfoenix.controls.*;
@@ -19,8 +21,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
+
 import java.io.File;
 
+import static Core.Components.ComponentFactory.createComponent;
+
+@SuppressWarnings("Duplicates")
 public class Login_SingUpController {
 
     private static final HyperSQL sql = new HyperSQL();
@@ -160,22 +166,22 @@ public class Login_SingUpController {
         ConfirmPasswordForget_Group = GroupFactory.createGroup(GroupType.FORGETPASS, ComponentType.PASSWORD, ConfirmPasswordForget_Comp, ConfirmPasswordForget_ErrorLabel);
     }
     private void initComponents() {
-        UsernameLogin_Comp = ComponentFactory.createComponent(UsernameLogin_Field);
-        PasswordLogin_Comp = ComponentFactory.createComponent(PasswordLogin_Field);
+        UsernameLogin_Comp = createComponent(UsernameLogin_Field);
+        PasswordLogin_Comp = createComponent(PasswordLogin_Field);
 
-        UsernameSingUp_Comp = ComponentFactory.createComponent(UsernameSingUp_Field);
-        PasswordSingUp_Comp = ComponentFactory.createComponent(PasswordSingUp_Field);
-        PasswordConfirmSingUp_Comp = ComponentFactory.createComponent(PasswordConfirmSingUp_Field);
-        SecQuestionSingUp_Comp = ComponentFactory.createComponent(SecQuestionSingUp_Combo);
-        SecAnsSingUp_Comp = ComponentFactory.createComponent(SecAnsSingUp_Field);
+        UsernameSingUp_Comp = createComponent(UsernameSingUp_Field);
+        PasswordSingUp_Comp = createComponent(PasswordSingUp_Field);
+        PasswordConfirmSingUp_Comp = createComponent(PasswordConfirmSingUp_Field);
+        SecQuestionSingUp_Comp = createComponent(SecQuestionSingUp_Combo);
+        SecAnsSingUp_Comp = createComponent(SecAnsSingUp_Field);
 
-        UsernameForget_Comp = ComponentFactory.createComponent(UsernameForget_Field);
+        UsernameForget_Comp = createComponent(UsernameForget_Field);
 
-        SecQuestionForge_Comp = ComponentFactory.createComponent(SecQuestionForget_Field);
-        SecAnswerForget_Comp = ComponentFactory.createComponent(SecAnswerForget_Field);
+        SecQuestionForge_Comp = createComponent(SecQuestionForget_Field);
+        SecAnswerForget_Comp = createComponent(SecAnswerForget_Field);
 
-        NewPasswordForget_Comp = ComponentFactory.createComponent(NewPasswordForget_Field);
-        ConfirmPasswordForget_Comp = ComponentFactory.createComponent(ConfirmPasswordForget_Field);
+        NewPasswordForget_Comp = createComponent(NewPasswordForget_Field);
+        ConfirmPasswordForget_Comp = createComponent(ConfirmPasswordForget_Field);
     }
     private void initErrorLabels() {
         UsernameLogin_ErrorLabel = new ErrorLabel(UsernameLogin_Label, UsernameLogin_ImageView);
@@ -208,6 +214,7 @@ public class Login_SingUpController {
     @FXML private void onLoginClick() {
         hideLoginErrorLabels();
         if (isLoginInputOK()) {
+            CurrentUser.setUsername(UsernameLogin_Group.getInput());
             changeSceneToApp();
             storeUsernameIfCheckBoxIsSelected();
             clearLoginInput();

@@ -12,7 +12,6 @@ public class GroupOfForgetInfo extends GroupOfComponents {
     @Override
     public boolean isInputOK(String Question){
         boolean result = true;
-        System.out.println(getInput());
         if (component.inputIsNullOrEmpty()){
             errorLabel.show();
             errorLabel.setTooltipText("Invalid input! Input is empty... Please try again");
