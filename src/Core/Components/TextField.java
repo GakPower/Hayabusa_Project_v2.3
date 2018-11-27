@@ -2,7 +2,9 @@ package Core.Components;
 
 import com.jfoenix.controls.JFXTextField;
 
-public class TextField implements Component {
+import java.io.Serializable;
+
+public class TextField implements Component, Serializable {
 
     private JFXTextField textField;
 
@@ -26,7 +28,7 @@ public class TextField implements Component {
     }
 
     @Override
-    public void setDisable(boolean disable) {
+    public void setdisable(boolean disable) {
         textField.setDisable(disable);
     }
 

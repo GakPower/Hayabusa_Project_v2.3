@@ -44,13 +44,16 @@ public class AppController {
     public Label newField_Error;
     public ImageView newField_ImageError;
     public JFXTextField newField_TextField;
+    public AnchorPane otherAnchor;
+    public JFXRadioButton radioField;
+    public JFXRadioButton radioList;
     private Component newField_Comp;
     private GroupOfComponents newField_Group;
+    private HBox hBox = new HBox();
 
     @FXML private JFXButton addFieldButton;
     @FXML private JFXButton saveButton;
     @FXML private ScrollPane otherScrollPane;
-    @FXML private HBox otherHbox;
     @FXML private ImageView exitMenuButton;
 
     @FXML private AnchorPane userWin;
@@ -259,17 +262,27 @@ public class AppController {
         initComponents();
         initGroup();
 
-        /*VBox vBox = new VBox(50);
-        AnchorPane anchorPane = new AnchorPane();
-        anchorPane.getChildren().add(vBox);
-        anchorPane.setPrefSize(500,500);
-        otherHbox.getChildren().add(anchorPane);
-        MinusButton minusButton = new MinusButton();
-        vBox.getChildren().add(minusButton);*/
 
+
+        /*ExtraGroups.loadContent();
+        hBox.getChildren().clear();
+        hBox.getChildren().add(otherAnchor);
+        hBox.getChildren().addAll(ExtraGroups.vBoxes);*/
+        saveButton.setOnAction((event -> {
+            //ExtraGroups.remove("hahaha1");
+        }));
         addFieldButton.setOnAction((event)->{
+
+            /*ExtraGroups.add(new ExtraGroup("hahaha", ComponentType.COMBOBOX));
+            ExtraGroups.add(new ExtraGroup("hahaha1", ComponentType.COMBOBOX));
+            ExtraGroups.add(new ExtraGroup("hahaha2", ComponentType.COMBOBOX));
+            hBox.getChildren().clear();
+            hBox.getChildren().add(otherAnchor);
+            hBox.getChildren().addAll(ExtraGroups.vBoxes);*/
+
+
+
             if(newFieldAnchor.isVisible()){
-                if (newField_Group.isInputOK())
                 outNewFieldAnimations();
             }else{
                 inNewFieldAnimations();
@@ -284,8 +297,14 @@ public class AppController {
 
         newFieldAnchor.setVisible(true);
         Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.millis(1), event1 -> {
-            newFieldAnchor.setLayoutX(newFieldAnchor.getLayoutX()+0.4);
-            newFieldAnchor.setOpacity(newFieldAnchor.getOpacity()+0.002);
+            if (newFieldAnchor.getLayoutX()>=1088 && newFieldAnchor.getLayoutX()<1327){
+                newFieldAnchor.setLayoutX(newFieldAnchor.getLayoutX()+0.4);
+            }else if (newFieldAnchor.getLayoutX()>=1327){
+                newFieldAnchor.setLayoutX(1327);
+            }
+            if (newFieldAnchor.getOpacity()<100) {
+                newFieldAnchor.setOpacity(newFieldAnchor.getOpacity() + 0.002);
+            }
         }));
         fiveSecondsWonder.setCycleCount(500);
         fiveSecondsWonder.play();
@@ -299,8 +318,14 @@ public class AppController {
         addFieldButton.setText("New Field");
 
         Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.millis(1), event1 -> {
-            newFieldAnchor.setLayoutX(newFieldAnchor.getLayoutX()-0.4);
-            newFieldAnchor.setOpacity(newFieldAnchor.getOpacity()-0.002);
+            if (newFieldAnchor.getLayoutX()>1088 && newFieldAnchor.getLayoutX()<=1327) {
+                newFieldAnchor.setLayoutX(newFieldAnchor.getLayoutX() - 0.4);
+            }else if (newFieldAnchor.getLayoutX()<=1088){
+                newFieldAnchor.setLayoutX(1088);
+            }
+            if (newFieldAnchor.getOpacity()>0) {
+                newFieldAnchor.setOpacity(newFieldAnchor.getOpacity() - 0.002);
+            }
         }));
         fiveSecondsWonder.setCycleCount(500);
         fiveSecondsWonder.play();
@@ -457,17 +482,21 @@ public class AppController {
     private void expandWindow(boolean expandWindow){
         if (expandWindow){
             Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.millis(1), event -> {
-                addWin.setPrefWidth(addWin.getPrefWidth()+0.4);
-                exitButtonAdd.setLayoutX(exitButtonAdd.getLayoutX()+0.4);
-                minButtonAdd.setLayoutX(minButtonAdd.getLayoutX()+0.4);
+                if (addWin.getPrefWidth()< 1650){
+                    addWin.setPrefWidth(addWin.getPrefWidth()+0.4);
+                    exitButtonAdd.setLayoutX(exitButtonAdd.getLayoutX()+0.4);
+                    minButtonAdd.setLayoutX(minButtonAdd.getLayoutX()+0.4);
+                }
             }));
             fiveSecondsWonder.setCycleCount(500);
             fiveSecondsWonder.play();
         }else{
             Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.millis(1), event -> {
-                addWin.setPrefWidth(addWin.getPrefWidth()-0.4);
-                exitButtonAdd.setLayoutX(exitButtonAdd.getLayoutX()-0.4);
-                minButtonAdd.setLayoutX(minButtonAdd.getLayoutX()-0.4);
+                if (addWin.getPrefWidth()> 1450){
+                    addWin.setPrefWidth(addWin.getPrefWidth()-0.4);
+                    exitButtonAdd.setLayoutX(exitButtonAdd.getLayoutX()-0.4);
+                    minButtonAdd.setLayoutX(minButtonAdd.getLayoutX()-0.4);
+                }
             }));
             fiveSecondsWonder.setCycleCount(500);
             fiveSecondsWonder.play();
@@ -644,8 +673,11 @@ public class AppController {
 
     private void initScrollBar()
     {
-        otherScrollPane.setContent(otherHbox);
-        otherHbox.setSpacing(100);
+        otherScrollPane.setContent(hBox);
+        otherScrollPane.setPannable(true);
+        //otherScrollPane.setVmax(0);
+        hBox.getChildren().add(otherAnchor);
+        hBox.setSpacing(50);
         HBox.setHgrow(otherScrollPane, Priority.ALWAYS);
     }
 }

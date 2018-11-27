@@ -3,9 +3,11 @@ package Core.Components;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.ObservableList;
 
-public class ComboBox implements Component {
+import java.io.Serializable;
 
-    private JFXComboBox<String> comboBox;
+public class ComboBox implements Component, Serializable {
+
+    private transient JFXComboBox<String> comboBox;
 
     public ComboBox(JFXComboBox<String> comboBox) {
         this.comboBox = comboBox;
@@ -37,7 +39,7 @@ public class ComboBox implements Component {
     }
 
     @Override
-    public void setDisable(boolean disable) {
+    public void setdisable(boolean disable) {
         comboBox.setDisable(disable);
     }
 

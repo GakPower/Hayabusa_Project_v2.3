@@ -16,10 +16,10 @@ public class GroupOfTextArea extends GroupOfComponents {
         checkBox.setOnAction((event)->{
             if (checkBox.isSelected()){
                 checkBox.setText("ON");
-                component.setDisable(false);
+                component.setdisable(false);
             }else{
                 checkBox.setText("OFF");
-                component.setDisable(true);
+                component.setdisable(true);
             }
         });
     }

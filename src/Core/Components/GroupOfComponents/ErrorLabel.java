@@ -9,11 +9,14 @@ import Core.Animations.Animation;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 
-public class ErrorLabel {
-    private Label label;
-    private ImageView image;
-    private Tooltip tooltip;
+import java.io.Serializable;
+
+public class ErrorLabel extends Pane implements Serializable {
+    private transient Label label;
+    private transient ImageView image;
+    private transient Tooltip tooltip;
 
     public ErrorLabel(Label label, ImageView image) {
         this.label = label;

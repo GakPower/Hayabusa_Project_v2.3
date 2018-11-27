@@ -46,8 +46,9 @@ public class Main extends Application {
             sqlControl.createTable("SecurityCombo", "ID int NOT NULL PRIMARY KEY, Username varchar(30) NOT NULL, Question varchar(100) NOT NULL, Answer varchar(50) NOT NULL,");
             sqlControl.createTable("RememberMe","ID int NOT NULL PRIMARY KEY, RememberMe BIT NOT NULL, Username varchar(30) NOT NULL");
 
+            sqlControl.createTable("ExtraGroups", "ID int NOT NULL PRIMARY KEY, Username varchar(30) NOT NULL, GroupName varchar(30) NOT NULL, ComponentType varchar(30) NOT NULL");
+
             sqlControl.addInfoToTable("RememberMe","1, 0, \'Uninitialized UserName\'");
         }
     }
-
 }

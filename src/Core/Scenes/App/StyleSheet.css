@@ -63,6 +63,7 @@
     -fx-background-color: transparent;
     -fx-font-weight: Bold;
     -fx-font-size: 13px;
+    -jfx-focus-color: #980B0B;
 }
 
 .scroll-pane > .viewport {
@@ -162,4 +163,8 @@
 }
 .minButtons:hover{
     -fx-background-color: rgba(255,255,255,.15);
+}
+
+.radioButtons{
+    -jfx-selected-color: #980B0B;
 }

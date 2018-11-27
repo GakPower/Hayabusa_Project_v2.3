@@ -2,8 +2,14 @@ package Core.Components;
 
 import Core.DayConvertion.DateConvertion;
 import com.jfoenix.controls.JFXDatePicker;
+import com.sun.javafx.geom.BaseBounds;
+import com.sun.javafx.geom.transform.BaseTransform;
+import com.sun.javafx.jmx.MXNodeAlgorithm;
+import com.sun.javafx.jmx.MXNodeAlgorithmContext;
+import com.sun.javafx.sg.prism.NGNode;
+import javafx.scene.Node;
 
-public class DatePicker implements Component {
+public class DatePicker extends Node implements Component {
 
     private JFXDatePicker datePicker;
 
@@ -28,12 +34,32 @@ public class DatePicker implements Component {
     }
 
     @Override
-    public void setDisable(boolean disable) {
+    public void setdisable(boolean disable) {
         datePicker.setDisable(disable);
     }
 
     @Override
     public boolean inputIsNullOrEmpty() {
         return datePicker.getEditor().getText() == null || datePicker.getEditor().getText().isEmpty();
+    }
+
+    @Override
+    protected NGNode impl_createPeer() {
+        return null;
+    }
+
+    @Override
+    public BaseBounds impl_computeGeomBounds(BaseBounds bounds, BaseTransform tx) {
+        return null;
+    }
+
+    @Override
+    protected boolean impl_computeContains(double localX, double localY) {
+        return false;
+    }
+
+    @Override
+    public Object impl_processMXNode(MXNodeAlgorithm alg, MXNodeAlgorithmContext ctx) {
+        return null;
     }
 }

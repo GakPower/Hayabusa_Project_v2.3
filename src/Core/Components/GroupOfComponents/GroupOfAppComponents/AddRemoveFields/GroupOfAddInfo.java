@@ -17,7 +17,7 @@ public class GroupOfAddInfo extends GroupOfComponents {
             errorLabel.show();
             errorLabel.setTooltipText("Invalid input! Input is empty... Please try again");
             result = false;
-        }else if ()
+        }
         return result;
     }
 
