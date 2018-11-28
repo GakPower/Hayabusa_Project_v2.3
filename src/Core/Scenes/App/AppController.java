@@ -14,6 +14,8 @@ import Core.Components.GroupOfComponents.ErrorLabel;
 import Core.Components.GroupOfComponents.GroupOfComponents;
 import Core.Components.GroupOfComponents.GroupType;
 import Core.DayConvertion.DateConvertion;
+import Core.ExtraFields.ExtraGroup;
+import Core.ExtraFields.ExtraGroups;
 import Core.Range;
 import Core.Scenes.UIControls;
 import com.jfoenix.controls.*;
@@ -40,14 +42,21 @@ import static Core.Components.ComponentFactory.createComponent;
 public class AppController {
 
     public AnchorPane newFieldAnchor;
+
     public ImageView arrowNewField;
+
     public Label newField_Error;
     public ImageView newField_ImageError;
+
     public JFXTextField newField_TextField;
+
     public AnchorPane otherAnchor;
+
     public JFXRadioButton radioField;
     public JFXRadioButton radioList;
+
     private Component newField_Comp;
+
     private GroupOfComponents newField_Group;
     private HBox hBox = new HBox();
 
@@ -264,26 +273,33 @@ public class AppController {
 
 
 
-        /*ExtraGroups.loadContent();
+        ExtraGroups.loadContent();
         hBox.getChildren().clear();
         hBox.getChildren().add(otherAnchor);
-        hBox.getChildren().addAll(ExtraGroups.vBoxes);*/
+        hBox.getChildren().addAll(ExtraGroups.vBoxes);
+
         saveButton.setOnAction((event -> {
-            //ExtraGroups.remove("hahaha1");
+            ExtraGroups.remove("g");t
         }));
         addFieldButton.setOnAction((event)->{
 
-            /*ExtraGroups.add(new ExtraGroup("hahaha", ComponentType.COMBOBOX));
-            ExtraGroups.add(new ExtraGroup("hahaha1", ComponentType.COMBOBOX));
-            ExtraGroups.add(new ExtraGroup("hahaha2", ComponentType.COMBOBOX));
-            hBox.getChildren().clear();
-            hBox.getChildren().add(otherAnchor);
-            hBox.getChildren().addAll(ExtraGroups.vBoxes);*/
-
-
-
             if(newFieldAnchor.isVisible()){
-                outNewFieldAnimations();
+                if (newField_Group.isInputOK(null)){
+                    ComponentType componentType = ComponentType.INFO;
+                    if (radioList.isSelected()){
+                        componentType = ComponentType.COMBOBOX;
+                    }
+
+                    ExtraGroups.add(new ExtraGroup(newField_Group.getInput(), componentType));
+                    hBox.getChildren().clear();
+                    hBox.getChildren().add(otherAnchor);
+                    hBox.getChildren().addAll(ExtraGroups.vBoxes);
+
+                    radioField.setSelected(true);
+                    newField_Group.clearInput();
+                    newField_Group.hideErrorLabel();
+                    outNewFieldAnimations();
+                }
             }else{
                 inNewFieldAnimations();
             }
@@ -410,7 +426,7 @@ public class AppController {
                 ComCheck);
 
         newField_Group = GroupFactory.createGroup(GroupType.MAINAPP,
-                ComponentType.INFO,
+                ComponentType.ADDINFO,
                 newField_Comp,
                 newField_Error_Label);
 

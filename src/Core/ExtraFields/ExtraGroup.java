@@ -90,7 +90,7 @@ public class ExtraGroup implements Serializable {
     ComponentType getComponentType() {
         return componentType;
     }
-    String getGroupName(){
+    public String getGroupName(){
         return groupName;
     }
     HBox getHBox(){

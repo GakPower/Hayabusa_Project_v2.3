@@ -15,7 +15,7 @@ public class ExtraGroups {
 
     private static HyperSQL sql = new HyperSQL();
     private static HyperSQLControl sqlControl = new HyperSQLControl(sql);
-    private static ArrayList<ExtraGroup> extraGroups = new ArrayList<>();
+    public static ArrayList<ExtraGroup> extraGroups = new ArrayList<>();
     public static ArrayList<VBox> vBoxes = new ArrayList<>();
 
     public static void add(ExtraGroup extraGroup){

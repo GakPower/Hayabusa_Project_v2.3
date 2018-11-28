@@ -19,8 +19,7 @@ public class GroupOfLoginPassword extends GroupOfComponents {
             result = false;
         }else if (!sqlControl.isPasswordCorrect(Username, getInput())) {
             errorLabel.show();
-            errorLabel.setTooltipText("Invalid input! Invalid Username Password combination..." +
-                    " Please try again");
+            errorLabel.setTooltipText("Invalid input! Invalid Username Password combination... Please try again");
             result = false;
         }
         return result;
