@@ -31,17 +31,17 @@ public class ExtraGroups {
                 sql.execCommand("SELECT ID FROM ExtraGroups WHERE Username=\'"+ CurrentUser.getUsername() +"\' AND GroupName=\'"+ promptText +"\';");
                 try {
                     if (sql.getResultSet().next()) {
-                        int index = sql.getResultSet().getInt(1);
-                        int maxID = sqlControl.getMaxIDFromDBTable("ExtraGroups");
-                        for (int i = index+1; i < maxID; i++) {
-                            sql.execUpdateCommand("UPDATE ExtraGroups SET ID="+(i-1)+";");
+                        sql.shutDB();
+                        for (ExtraGroup extraGroup1 : ExtraGroups.extraGroups) {
+                            save(extraGroup1.getGroupName(), extraGroup1.getComponentType().toString());
                         }
+                        sql.connDB();
                         sql.execCommand("DELETE FROM ExtraGroups WHERE Username=\'" + CurrentUser.getUsername() + "\' AND GroupName=\'" + promptText + "\';");
+                        sql.shutDB();
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-                sql.shutDB();
                 break;
             }
         }
@@ -81,7 +81,7 @@ public class ExtraGroups {
         return vBox;
     }
 
-    private static VBox getVBox(){
+    public static VBox getVBox(){
         return vBoxes.get(vBoxes.size()-1);
     }
 

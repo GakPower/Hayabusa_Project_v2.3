@@ -30,12 +30,11 @@ public class GroupOfAddInfo extends GroupOfComponents {
 
     private boolean isDuplicate()
     {
-        boolean result = false;
         for (ExtraGroup extraGroup: ExtraGroups.extraGroups) {
             if (extraGroup.getGroupName().equals(component.getText())){
-                result = true;
+                return true;
             }
         }
-        return result;
+        return false;
     }
 }

@@ -5,6 +5,7 @@ import Core.Components.ComponentType;
 import Core.Components.GroupOfComponents.ErrorLabel;
 import Core.Components.GroupOfComponents.GroupOfAppComponents.*;
 import Core.Components.GroupOfComponents.GroupOfAppComponents.AddRemoveFields.GroupOfAddInfo;
+import Core.Components.GroupOfComponents.GroupOfAppComponents.AddRemoveFields.GroupOfRemoveInfo;
 import Core.Components.GroupOfComponents.GroupOfComponents;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
@@ -28,6 +29,9 @@ public interface GroupAppAddFactory {
                 break;
             case ADDINFO:
                 groupOfComponents = new GroupOfAddInfo(component, errorLabel);
+                break;
+            case REMOVEINFO:
+                groupOfComponents = new GroupOfRemoveInfo(component, errorLabel);
                 break;
         }
         return groupOfComponents;

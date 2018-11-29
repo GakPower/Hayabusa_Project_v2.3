@@ -18,6 +18,7 @@ import Core.ExtraFields.ExtraGroup;
 import Core.ExtraFields.ExtraGroups;
 import Core.Range;
 import Core.Scenes.UIControls;
+import Core.TableData;
 import com.jfoenix.controls.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.SequentialTransition;
@@ -25,6 +26,9 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -34,6 +38,7 @@ import javafx.util.StringConverter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static Core.Components.ComponentFactory.createComponent;
@@ -41,26 +46,63 @@ import static Core.Components.ComponentFactory.createComponent;
 @SuppressWarnings("Duplicates")
 public class AppController {
 
-    public AnchorPane newFieldAnchor;
+    @FXML private TableView<TableData> tableview;
+    @FXML private JFXScrollPane tablescroll;
 
-    public ImageView arrowNewField;
+    @FXML private TableColumn<Object, Object> id;
+    @FXML private TableColumn<Object, Object> departureDate;
+    @FXML private TableColumn departureTime;
+    @FXML private TableColumn exportationProduct;
+    @FXML private TableColumn departureEnterprise;
+    @FXML private TableColumn departureShip;
+    @FXML private TableColumn departurePort;
+    @FXML private TableColumn unloadingLocations;
+    @FXML private TableColumn arrivalDate;
+    @FXML private TableColumn arrivalTime;
+    @FXML private TableColumn importationProduct;
+    @FXML private TableColumn arrivalEnterprise;
+    @FXML private TableColumn arrivalShip;
+    @FXML private TableColumn arrivalPort;
+    @FXML private TableColumn loadingLocations;
+    @FXML private TableColumn truck;
+    @FXML private TableColumn company;
+    @FXML private TableColumn cmr;
+    @FXML private TableColumn income;
+    @FXML private TableColumn kilometers;
+    @FXML private TableColumn comments;
 
-    public Label newField_Error;
-    public ImageView newField_ImageError;
+    @FXML private JFXButton minAddFieldButton;
+    @FXML private JFXButton minRemoveFieldButton;
 
-    public JFXTextField newField_TextField;
+    @FXML private AnchorPane newFieldAnchor;
+    @FXML private AnchorPane removeFieldAnchor;
 
-    public AnchorPane otherAnchor;
+    @FXML private ImageView arrowNewField;
+    @FXML private ImageView arrowRemoveField;
 
-    public JFXRadioButton radioField;
-    public JFXRadioButton radioList;
+    @FXML private ImageView newField_ImageError;
+    @FXML private Label newField_Error;
+    @FXML private ImageView removeField_ImageError;
+    @FXML private Label removeField_Error;
+
+    @FXML private JFXTextField newField_TextField;
+    @FXML private JFXTextField removeField_TextField;
+
+    @FXML private JFXRadioButton radioField;
+    @FXML private JFXRadioButton radioList;
+
+    @FXML private JFXButton removeFieldButton;
+    @FXML private JFXButton addFieldButton;
 
     private Component newField_Comp;
-
+    private Component removeField_Comp;
     private GroupOfComponents newField_Group;
+    private GroupOfComponents removeField_Group;
+
+    @FXML private AnchorPane otherAnchor;
     private HBox hBox = new HBox();
 
-    @FXML private JFXButton addFieldButton;
+
     @FXML private JFXButton saveButton;
     @FXML private ScrollPane otherScrollPane;
     @FXML private ImageView exitMenuButton;
@@ -201,6 +243,7 @@ public class AppController {
     private ErrorLabel OthCom_Error_Label;
 
     private ErrorLabel newField_Error_Label;
+    private ErrorLabel removeField_Error_Label;
 
 
     private Component ArrDate_Comp;
@@ -271,54 +314,199 @@ public class AppController {
         initComponents();
         initGroup();
 
+        initAddField();
+        initRemoveField();
+        initMinButtons();
 
+        departureDate.setCellValueFactory(new PropertyValueFactory<>("depDate"));
 
-        ExtraGroups.loadContent();
-        hBox.getChildren().clear();
-        hBox.getChildren().add(otherAnchor);
-        hBox.getChildren().addAll(ExtraGroups.vBoxes);
-
+        ArrayList<String> arrayList = new ArrayList<>();
         saveButton.setOnAction((event -> {
-            ExtraGroups.remove("g");t
-        }));
-        addFieldButton.setOnAction((event)->{
+            if (
+                    ArrDate_Group.isInputOK(null) &&
+                    ArrTime_Group.isInputOK(null) &&
+                    ArrProduct_Group.isInputOK(null) &&
+                    ArrEnterprise_Group.isInputOK(null) &&
+                    ArrShip_Group.isInputOK(null) &&
+                    ArrPort_Group.isInputOK(null) &&
+                    ArrLoadingLoc_Group.isInputOK(null) &&
+                    DepDate_Group.isInputOK(null) &&
+                    DepTime_Group.isInputOK(null) &&
+                    DepProduct_Group.isInputOK(null) &&
+                    DepEnterprise_Group.isInputOK(null) &&
+                    DepShip_Group.isInputOK(null) &&
+                    DepPort_Group.isInputOK(null) &&
+                    DepUnloadingLoc_Group.isInputOK(null) &&
+                    OthTruck_Group.isInputOK(null) &&
+                    OthCompany_Group.isInputOK(null) &&
+                    OthCMR_Group.isInputOK(null) &&
+                    OthIncome_Group.isInputOK(null) &&
+                    OthKil_Group.isInputOK(null) &&
+                    OthCom_Group.isInputOK(null)){
+                arrayList.add(ArrDate_Group.getInput());
+                arrayList.add(ArrTime_Group.getInput());
+                arrayList.add(ArrProduct_Group.getInput());
+                arrayList.add(ArrEnterprise_Group.getInput());
+                arrayList.add(ArrShip_Group.getInput());
+                arrayList.add(ArrPort_Group.getInput());
+                arrayList.add(ArrLoadingLoc_Group.getInput());
+                arrayList.add(DepDate_Group.getInput());
+                arrayList.add(DepTime_Group.getInput());
+                arrayList.add(DepProduct_Group.getInput());
+                arrayList.add(DepEnterprise_Group.getInput());
+                arrayList.add(DepShip_Group.getInput());
+                arrayList.add(DepPort_Group.getInput());
+                arrayList.add(DepUnloadingLoc_Group.getInput());
+                arrayList.add(OthTruck_Group.getInput());
+                arrayList.add(OthCompany_Group.getInput());
+                arrayList.add(OthCMR_Group.getInput());
+                arrayList.add(OthIncome_Group.getInput());
+                arrayList.add(OthKil_Group.getInput());
+                arrayList.add(OthCom_Group.getInput());
 
+                ArrayList<String> str = new ArrayList<>();
+                str.add("");
+                tableview.getItems().add(new TableData(arrayList, str));
+            }
+        }));
+
+        //tablescroll
+
+    }
+    private void initMinButtons()
+    {
+        minAddFieldButton.setOnAction((event -> {
+            outNewFieldAnimations();
+            outMinFieldButton(minAddFieldButton);
+        }));
+        minRemoveFieldButton.setOnAction((event -> {
+            outRemoveFieldAnimations();
+            outMinFieldButton(minRemoveFieldButton);
+        }));
+    }
+    private void inMinFieldButton(JFXButton button)
+    {
+        button.setVisible(true);
+        Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.millis(1), event1 ->
+        {
+            if (button.getLayoutX()>=1274 && button.getLayoutX()<1348)
+            {
+                button.setLayoutX(button.getLayoutX()+0.108);
+            }else if (button.getLayoutX()>=1348)
+            {
+                button.setLayoutX(1348);
+            }
+        }));
+        fiveSecondsWonder.setCycleCount(500);
+        fiveSecondsWonder.play();
+
+        button.setVisible(true);
+        Animation.fadeInAnimation(Duration.millis(500), button).play();
+    }
+    private void outMinFieldButton(JFXButton button)
+    {
+        Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.millis(1), event1 ->
+        {
+            if (button.getLayoutX()>1274 && button.getLayoutX()<=1348)
+            {
+                button.setLayoutX(button.getLayoutX()-0.108);
+            }else if (button.getLayoutX()<=1274)
+            {
+                button.setLayoutX(1274);
+            }
+        }));
+        fiveSecondsWonder.setCycleCount(500);
+        fiveSecondsWonder.play();
+
+        Animation.fadeOutAnimation(Duration.millis(500), button).play();
+        AnimationControls.setVisibleFalseInNewThread(button, 500);
+    }
+    private void initRemoveField()
+    {
+        removeFieldButton.setOnAction((event ->
+        {
             if(newFieldAnchor.isVisible()){
-                if (newField_Group.isInputOK(null)){
+                outNewFieldAnimations();
+                outMinFieldButton(minAddFieldButton);
+                inRemoveFieldAnimations();
+                inMinFieldButton(minRemoveFieldButton);
+            }else if (removeFieldAnchor.isVisible()){
+                if (removeField_Group.isInputOK(null))
+                {
+                    ExtraGroups.remove(removeField_Group.getInput());
+                    updateContent();
+                    removeField_Group.clearInput();
+                    removeField_Group.hideErrorLabel();
+                    outRemoveFieldAnimations();
+                    outMinFieldButton(minRemoveFieldButton);
+                }
+            }else{
+                inRemoveFieldAnimations();
+                inMinFieldButton(minRemoveFieldButton);
+            }
+        }));
+    }
+    private void initAddField()
+    {
+        ExtraGroups.loadContent();
+        updateContent();
+
+        addFieldButton.setOnAction((event)->
+        {
+            if (removeFieldAnchor.isVisible()){
+                outRemoveFieldAnimations();
+                outMinFieldButton(minRemoveFieldButton);
+                inNewFieldAnimations();
+                inMinFieldButton(minAddFieldButton);
+            }else if(newFieldAnchor.isVisible())
+            {
+                if (newField_Group.isInputOK(null))
+                {
                     ComponentType componentType = ComponentType.INFO;
-                    if (radioList.isSelected()){
+                    if (radioList.isSelected())
+                    {
                         componentType = ComponentType.COMBOBOX;
                     }
 
                     ExtraGroups.add(new ExtraGroup(newField_Group.getInput(), componentType));
-                    hBox.getChildren().clear();
-                    hBox.getChildren().add(otherAnchor);
-                    hBox.getChildren().addAll(ExtraGroups.vBoxes);
+                    updateContent();
 
                     radioField.setSelected(true);
                     newField_Group.clearInput();
                     newField_Group.hideErrorLabel();
                     outNewFieldAnimations();
+                    outMinFieldButton(minAddFieldButton);
                 }
             }else{
                 inNewFieldAnimations();
+                inMinFieldButton(minAddFieldButton);
             }
         });
 
         exitMenuButton.setOnMousePressed(event -> UIControls.closeApplication());
+    }
+    private void updateContent()
+    {
+        hBox.getChildren().clear();
+        hBox.getChildren().add(otherAnchor);
+        hBox.getChildren().addAll(ExtraGroups.vBoxes);
     }
     private void inNewFieldAnimations()
     {
         addFieldButton.setText("Add");
 
         newFieldAnchor.setVisible(true);
-        Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.millis(1), event1 -> {
-            if (newFieldAnchor.getLayoutX()>=1088 && newFieldAnchor.getLayoutX()<1327){
+        Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.millis(1), event1 ->
+        {
+            if (newFieldAnchor.getLayoutX()>=1088 && newFieldAnchor.getLayoutX()<1327)
+            {
                 newFieldAnchor.setLayoutX(newFieldAnchor.getLayoutX()+0.4);
-            }else if (newFieldAnchor.getLayoutX()>=1327){
+            }else if (newFieldAnchor.getLayoutX()>=1327)
+            {
                 newFieldAnchor.setLayoutX(1327);
             }
-            if (newFieldAnchor.getOpacity()<100) {
+            if (newFieldAnchor.getOpacity()<100)
+            {
                 newFieldAnchor.setOpacity(newFieldAnchor.getOpacity() + 0.002);
             }
         }));
@@ -333,13 +521,17 @@ public class AppController {
     {
         addFieldButton.setText("New Field");
 
-        Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.millis(1), event1 -> {
-            if (newFieldAnchor.getLayoutX()>1088 && newFieldAnchor.getLayoutX()<=1327) {
+        Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.millis(1), event1 ->
+        {
+            if (newFieldAnchor.getLayoutX()>1088 && newFieldAnchor.getLayoutX()<=1327)
+            {
                 newFieldAnchor.setLayoutX(newFieldAnchor.getLayoutX() - 0.4);
-            }else if (newFieldAnchor.getLayoutX()<=1088){
+            }else if (newFieldAnchor.getLayoutX()<=1088)
+            {
                 newFieldAnchor.setLayoutX(1088);
             }
-            if (newFieldAnchor.getOpacity()>0) {
+            if (newFieldAnchor.getOpacity()>0)
+            {
                 newFieldAnchor.setOpacity(newFieldAnchor.getOpacity() - 0.002);
             }
         }));
@@ -352,7 +544,62 @@ public class AppController {
         expandWindow(false);
     }
 
-    private void initGroup() {
+    private void inRemoveFieldAnimations()
+    {
+        removeFieldButton.setText("Remove");
+
+        removeFieldAnchor.setVisible(true);
+        Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.millis(1), event1 ->
+        {
+            if (removeFieldAnchor.getLayoutX()>=1088 && removeFieldAnchor.getLayoutX()<1327)
+            {
+                removeFieldAnchor.setLayoutX(removeFieldAnchor.getLayoutX()+0.4);
+            }else if (removeFieldAnchor.getLayoutX()>=1327)
+            {
+                removeFieldAnchor.setLayoutX(1327);
+            }
+            if (removeFieldAnchor.getOpacity()<100)
+            {
+                removeFieldAnchor.setOpacity(removeFieldAnchor.getOpacity() + 0.002);
+            }
+        }));
+        fiveSecondsWonder.setCycleCount(500);
+        fiveSecondsWonder.play();
+
+        arrowRemoveField.setVisible(true);
+        Animation.fadeInAnimation(Duration.millis(500), arrowRemoveField).play();
+        expandWindow(true);
+    }
+
+    private void outRemoveFieldAnimations()
+    {
+        removeFieldButton.setText("Remove Field");
+
+        Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.millis(1), event1 ->
+        {
+            if (removeFieldAnchor.getLayoutX()>1088 && removeFieldAnchor.getLayoutX()<=1327)
+            {
+                removeFieldAnchor.setLayoutX(removeFieldAnchor.getLayoutX() - 0.4);
+            }else if (removeFieldAnchor.getLayoutX()<=1088)
+            {
+                removeFieldAnchor.setLayoutX(1088);
+            }
+            if (removeFieldAnchor.getOpacity()>0)
+            {
+                removeFieldAnchor.setOpacity(removeFieldAnchor.getOpacity() - 0.002);
+            }
+        }));
+        fiveSecondsWonder.setCycleCount(500);
+        fiveSecondsWonder.play();
+        AnimationControls.setVisibleFalseInNewThread(removeFieldAnchor, 500);
+
+        Animation.fadeOutAnimation(Duration.millis(500), arrowRemoveField).play();
+        AnimationControls.setVisibleFalseInNewThread(arrowRemoveField, 500);
+        expandWindow(false);
+    }
+
+    private void initGroup()
+    {
         initComponents();
 
         ArrDate_Group = GroupFactory.createGroup(GroupType.MAINAPP,
@@ -429,6 +676,10 @@ public class AppController {
                 ComponentType.ADDINFO,
                 newField_Comp,
                 newField_Error_Label);
+        removeField_Group = GroupFactory.createGroup(GroupType.MAINAPP,
+                ComponentType.REMOVEINFO,
+                removeField_Comp,
+                removeField_Error_Label);
 
         setupConverterDatePicker(DepDate);
         setupConverterDatePicker(ArrDate);
@@ -465,6 +716,7 @@ public class AppController {
         OthCom_Comp = createComponent(OthCom);
 
         newField_Comp = createComponent(newField_TextField);
+        removeField_Comp = createComponent(removeField_TextField);
     }
 
     private void initErrorLabels()
@@ -493,12 +745,17 @@ public class AppController {
         OthCom_Error_Label = new ErrorLabel(OthCom_Error, OthCom_ImageError);
 
         newField_Error_Label = new ErrorLabel(newField_Error, newField_ImageError);
+        removeField_Error_Label = new ErrorLabel(removeField_Error, removeField_ImageError);
     }
 
-    private void expandWindow(boolean expandWindow){
-        if (expandWindow){
-            Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.millis(1), event -> {
-                if (addWin.getPrefWidth()< 1650){
+    private void expandWindow(boolean expandWindow)
+    {
+        if (expandWindow)
+        {
+            Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.millis(1), event ->
+            {
+                if (addWin.getPrefWidth()< 1650)
+                {
                     addWin.setPrefWidth(addWin.getPrefWidth()+0.4);
                     exitButtonAdd.setLayoutX(exitButtonAdd.getLayoutX()+0.4);
                     minButtonAdd.setLayoutX(minButtonAdd.getLayoutX()+0.4);
@@ -507,8 +764,10 @@ public class AppController {
             fiveSecondsWonder.setCycleCount(500);
             fiveSecondsWonder.play();
         }else{
-            Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.millis(1), event -> {
-                if (addWin.getPrefWidth()> 1450){
+            Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.millis(1), event ->
+            {
+                if (addWin.getPrefWidth()> 1450)
+                {
                     addWin.setPrefWidth(addWin.getPrefWidth()-0.4);
                     exitButtonAdd.setLayoutX(exitButtonAdd.getLayoutX()-0.4);
                     minButtonAdd.setLayoutX(minButtonAdd.getLayoutX()-0.4);
@@ -522,10 +781,13 @@ public class AppController {
     private void setupConverterTimePicker(JFXTimePicker timePicker)
     {
         timePicker.setIs24HourView(true);
-        timePicker.setConverter(new StringConverter<LocalTime>() {
+        timePicker.setConverter(new StringConverter<LocalTime>()
+        {
             @Override
-            public String toString(LocalTime time) {
-                if (time != null) {
+            public String toString(LocalTime time)
+            {
+                if (time != null)
+                {
                     return time.toString();
                 } else {
                     return "";
@@ -533,8 +795,10 @@ public class AppController {
             }
 
             @Override
-            public LocalTime fromString(String string) {
-                if (string != null && !string.isEmpty()) {
+            public LocalTime fromString(String string)
+            {
+                if (string != null && !string.isEmpty())
+                {
                     return LocalTime.parse(string);
                 } else {
                     return null;
@@ -547,16 +811,20 @@ public class AppController {
         datePicker.setConverter(new StringConverter<LocalDate>()
         {
             @Override
-            public String toString(LocalDate date) {
-                if (date != null) {
+            public String toString(LocalDate date)
+            {
+                if (date != null)
+                {
                     return DateConvertion.convert(date);
                 } else {
                     return "";
                 }
             }
             @Override
-            public LocalDate fromString(String string) {
-                if (string != null && !string.isEmpty()) {
+            public LocalDate fromString(String string)
+            {
+                if (string != null && !string.isEmpty())
+                {
                     return LocalDate.parse(string);
                 } else {
                     return null;
@@ -691,9 +959,9 @@ public class AppController {
     {
         otherScrollPane.setContent(hBox);
         otherScrollPane.setPannable(true);
-        //otherScrollPane.setVmax(0);
+        otherScrollPane.setVmax(0);
         hBox.getChildren().add(otherAnchor);
-        hBox.setSpacing(50);
+        hBox.setSpacing(56);
         HBox.setHgrow(otherScrollPane, Priority.ALWAYS);
     }
 }
