@@ -366,6 +366,7 @@ public class AppController {
 
                 ArrayList<String> str = new ArrayList<>();
                 str.add("");
+                System.out.println(tableview.getItems().size());
                 tableview.getItems().add(new TableData(arrayList, str));
             }
         }));
