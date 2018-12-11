@@ -20,7 +20,7 @@ public class DatePicker extends Node implements Component {
 
     @Override
     public String getText() {
-        return DateConvertion.convert(datePicker.getValue());
+        return DateConvertion.convertToGreek(datePicker.getValue());
     }
 
     @Override

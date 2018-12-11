@@ -7,6 +7,7 @@ package Core.SQL;
 //
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class HyperSQLControl {
 
@@ -267,5 +268,24 @@ public class HyperSQLControl {
         sql.connDB();
         sql.execUpdateCommand("UPDATE USERS SET Password=\'"+NewPassword+"\' WHERE Username=\'"+Username+"\';");
         sql.shutDB();
+    }
+
+    public String[] loadExtraColumns(){
+        sql.connDB();
+        sql.execCommand("SELECT ExtraColumns FROM ExtraColumns WHERE Username=\'"+CurrentUser.getUsername()+"\'");
+
+        ArrayList<String> result = new ArrayList<>();
+
+        try {
+            while(sql.getResultSet().next()){
+                result.add(sql.getResultSet().getString(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        sql.shutDB();
+
+        return result.toArray(new String[0]);
     }
 }

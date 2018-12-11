@@ -18,7 +18,9 @@ import Core.ExtraFields.ExtraGroup;
 import Core.ExtraFields.ExtraGroups;
 import Core.Range;
 import Core.Scenes.UIControls;
+import Core.TableExtraColumns;
 import Core.TableData;
+import Core.TableDatas;
 import com.jfoenix.controls.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.SequentialTransition;
@@ -46,30 +48,59 @@ import static Core.Components.ComponentFactory.createComponent;
 @SuppressWarnings("Duplicates")
 public class AppController {
 
-    @FXML private TableView<TableData> tableview;
+    /*public TableColumn<TableData, String> idcolumn;
+    public TableColumn<TableData, Integer> numcolumn;
+    public TableColumn<TableData, String> fckcolumn;*/
+    @FXML private ScrollPane otherScrollPane;
+    @FXML public TableView<TableData> tableview;
+    //@FXML public TableView<ArrayList<String>> tableview;
     @FXML private JFXScrollPane tablescroll;
 
-    @FXML private TableColumn<Object, Object> id;
-    @FXML private TableColumn<Object, Object> departureDate;
-    @FXML private TableColumn departureTime;
-    @FXML private TableColumn exportationProduct;
-    @FXML private TableColumn departureEnterprise;
-    @FXML private TableColumn departureShip;
-    @FXML private TableColumn departurePort;
-    @FXML private TableColumn unloadingLocations;
-    @FXML private TableColumn arrivalDate;
-    @FXML private TableColumn arrivalTime;
-    @FXML private TableColumn importationProduct;
-    @FXML private TableColumn arrivalEnterprise;
-    @FXML private TableColumn arrivalShip;
-    @FXML private TableColumn arrivalPort;
-    @FXML private TableColumn loadingLocations;
-    @FXML private TableColumn truck;
-    @FXML private TableColumn company;
-    @FXML private TableColumn cmr;
-    @FXML private TableColumn income;
-    @FXML private TableColumn kilometers;
-    @FXML private TableColumn comments;
+    @FXML private TableColumn<TableData, String> id;
+    @FXML private TableColumn<TableData, String> departureDate;
+    @FXML private TableColumn<TableData, String> departureTime;
+    @FXML private TableColumn<TableData, String> exportationProduct;
+    @FXML private TableColumn<TableData, String> departureEnterprise;
+    @FXML private TableColumn<TableData, String> departureShip;
+    @FXML private TableColumn<TableData, String> departurePort;
+    @FXML private TableColumn<TableData, String> unloadingLocations;
+    @FXML private TableColumn<TableData, String> arrivalDate;
+    @FXML private TableColumn<TableData, String> arrivalTime;
+    @FXML private TableColumn<TableData, String> importationProduct;
+    @FXML private TableColumn<TableData, String> arrivalEnterprise;
+    @FXML private TableColumn<TableData, String> arrivalShip;
+    @FXML private TableColumn<TableData, String> arrivalPort;
+    @FXML private TableColumn<TableData, String> loadingLocations;
+    @FXML private TableColumn<TableData, String> truck;
+    @FXML private TableColumn<TableData, String> company;
+    @FXML private TableColumn<TableData, String> cmr;
+    @FXML private TableColumn<TableData, String> income;
+    @FXML private TableColumn<TableData, String> kilometers;
+    @FXML private TableColumn<TableData, String> comments;
+    private static ArrayList<TableColumn<TableData, String>> columns = new ArrayList<>(21);
+    /*@FXML private TableColumn<ArrayList<String>, String> id;
+    @FXML private TableColumn<ArrayList<String>, String> departureDate;
+    @FXML private TableColumn<ArrayList<String>, String> departureTime;
+    @FXML private TableColumn<ArrayList<String>, String> exportationProduct;
+    @FXML private TableColumn<ArrayList<String>, String> departureEnterprise;
+    @FXML private TableColumn<ArrayList<String>, String> departureShip;
+    @FXML private TableColumn<ArrayList<String>, String> departurePort;
+    @FXML private TableColumn<ArrayList<String>, String> unloadingLocations;
+    @FXML private TableColumn<ArrayList<String>, String> arrivalDate;
+    @FXML private TableColumn<ArrayList<String>, String> arrivalTime;
+    @FXML private TableColumn<ArrayList<String>, String> importationProduct;
+    @FXML private TableColumn<ArrayList<String>, String> arrivalEnterprise;
+    @FXML private TableColumn<ArrayList<String>, String> arrivalShip;
+    @FXML private TableColumn<ArrayList<String>, String> arrivalPort;
+    @FXML private TableColumn<ArrayList<String>, String> loadingLocations;
+    @FXML private TableColumn<ArrayList<String>, String> truck;
+    @FXML private TableColumn<ArrayList<String>, String> company;
+    @FXML private TableColumn<ArrayList<String>, String> cmr;
+    @FXML private TableColumn<ArrayList<String>, String> income;
+    @FXML private TableColumn<ArrayList<String>, String> kilometers;
+    @FXML private TableColumn<ArrayList<String>, String> comments;
+    private ArrayList<TableColumn<ArrayList<String>, String>> columns = new ArrayList<>(20);*/
+
 
     @FXML private JFXButton minAddFieldButton;
     @FXML private JFXButton minRemoveFieldButton;
@@ -104,7 +135,6 @@ public class AppController {
 
 
     @FXML private JFXButton saveButton;
-    @FXML private ScrollPane otherScrollPane;
     @FXML private ImageView exitMenuButton;
 
     @FXML private AnchorPane userWin;
@@ -275,7 +305,7 @@ public class AppController {
     private GroupOfComponents ArrEnterprise_Group;
     private GroupOfComponents ArrShip_Group;
     private GroupOfComponents ArrPort_Group;
-    private GroupOfComponents ArrLoadingLoc_Group;
+    private GroupOfComponents LoadingLoc_Group;
 
     private GroupOfComponents DepDate_Group;
     private GroupOfComponents DepTime_Group;
@@ -283,7 +313,7 @@ public class AppController {
     private GroupOfComponents DepEnterprise_Group;
     private GroupOfComponents DepShip_Group;
     private GroupOfComponents DepPort_Group;
-    private GroupOfComponents DepUnloadingLoc_Group;
+    private GroupOfComponents UnloadingLoc_Group;
 
     private GroupOfComponents OthTruck_Group;
     private GroupOfComponents OthCompany_Group;
@@ -302,6 +332,10 @@ public class AppController {
     private HashMap<AnchorPane, JFXButton> exitButtons = new HashMap<>();
     private HashMap<AnchorPane, JFXButton> minButtons = new HashMap<>();
 
+    private boolean loadData = false;
+
+    private static ArrayList<Integer> columnsWidth = new ArrayList<>(20);
+
     @FXML private void initialize()
     {
         initializeHashMaps();
@@ -318,61 +352,181 @@ public class AppController {
         initRemoveField();
         initMinButtons();
 
-        departureDate.setCellValueFactory(new PropertyValueFactory<>("depDate"));
+        id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        departureDate.setCellValueFactory(new PropertyValueFactory<>("departureDate"));
+        departureTime.setCellValueFactory(new PropertyValueFactory<>("departureTime"));
+        exportationProduct.setCellValueFactory(new PropertyValueFactory<>("exportationProduct"));
+        departureEnterprise.setCellValueFactory(new PropertyValueFactory<>("departureEnterprise"));
+        departureShip.setCellValueFactory(new PropertyValueFactory<>("departureShip"));
+        departurePort.setCellValueFactory(new PropertyValueFactory<>("departurePort"));
+        unloadingLocations.setCellValueFactory(new PropertyValueFactory<>("unloadingLocations"));
+        arrivalDate.setCellValueFactory(new PropertyValueFactory<>("arrivalDate"));
+        arrivalTime.setCellValueFactory(new PropertyValueFactory<>("arrivalTime"));
+        importationProduct.setCellValueFactory(new PropertyValueFactory<>("importationProduct"));
+        arrivalEnterprise.setCellValueFactory(new PropertyValueFactory<>("arrivalEnterprise"));
+        arrivalShip.setCellValueFactory(new PropertyValueFactory<>("arrivalShip"));
+        arrivalPort.setCellValueFactory(new PropertyValueFactory<>("arrivalPort"));
+        loadingLocations.setCellValueFactory(new PropertyValueFactory<>("loadingLocations"));
+        truck.setCellValueFactory(new PropertyValueFactory<>("truck"));
+        company.setCellValueFactory(new PropertyValueFactory<>("company"));
+        cmr.setCellValueFactory(new PropertyValueFactory<>("cmr"));
+        income.setCellValueFactory(new PropertyValueFactory<>("income"));
+        kilometers.setCellValueFactory(new PropertyValueFactory<>("kilometers"));
+        comments.setCellValueFactory(new PropertyValueFactory<>("comments"));
 
-        ArrayList<String> arrayList = new ArrayList<>();
-        saveButton.setOnAction((event -> {
-            if (
-                    ArrDate_Group.isInputOK(null) &&
-                    ArrTime_Group.isInputOK(null) &&
-                    ArrProduct_Group.isInputOK(null) &&
-                    ArrEnterprise_Group.isInputOK(null) &&
-                    ArrShip_Group.isInputOK(null) &&
-                    ArrPort_Group.isInputOK(null) &&
-                    ArrLoadingLoc_Group.isInputOK(null) &&
-                    DepDate_Group.isInputOK(null) &&
-                    DepTime_Group.isInputOK(null) &&
-                    DepProduct_Group.isInputOK(null) &&
-                    DepEnterprise_Group.isInputOK(null) &&
-                    DepShip_Group.isInputOK(null) &&
-                    DepPort_Group.isInputOK(null) &&
-                    DepUnloadingLoc_Group.isInputOK(null) &&
-                    OthTruck_Group.isInputOK(null) &&
-                    OthCompany_Group.isInputOK(null) &&
-                    OthCMR_Group.isInputOK(null) &&
-                    OthIncome_Group.isInputOK(null) &&
-                    OthKil_Group.isInputOK(null) &&
-                    OthCom_Group.isInputOK(null)){
-                arrayList.add(ArrDate_Group.getInput());
-                arrayList.add(ArrTime_Group.getInput());
-                arrayList.add(ArrProduct_Group.getInput());
-                arrayList.add(ArrEnterprise_Group.getInput());
-                arrayList.add(ArrShip_Group.getInput());
-                arrayList.add(ArrPort_Group.getInput());
-                arrayList.add(ArrLoadingLoc_Group.getInput());
-                arrayList.add(DepDate_Group.getInput());
-                arrayList.add(DepTime_Group.getInput());
-                arrayList.add(DepProduct_Group.getInput());
-                arrayList.add(DepEnterprise_Group.getInput());
-                arrayList.add(DepShip_Group.getInput());
-                arrayList.add(DepPort_Group.getInput());
-                arrayList.add(DepUnloadingLoc_Group.getInput());
-                arrayList.add(OthTruck_Group.getInput());
-                arrayList.add(OthCompany_Group.getInput());
-                arrayList.add(OthCMR_Group.getInput());
-                arrayList.add(OthIncome_Group.getInput());
-                arrayList.add(OthKil_Group.getInput());
-                arrayList.add(OthCom_Group.getInput());
+        ArrayList<String> data = new ArrayList<>();
+        saveButton.setOnAction(event -> {
+            hideAllErrorLabels();
+            data.clear();
+            if (areInputsOK()){
+                data.add(DepDate_Group.getInput());
+                data.add(DepTime_Group.getInput());
+                data.add(DepProduct_Group.getInput());
+                data.add(DepEnterprise_Group.getInput());
+                data.add(DepShip_Group.getInput());
+                data.add(DepPort_Group.getInput());
+                data.add(UnloadingLoc_Group.getInput());
+                data.add(ArrDate_Group.getInput());
+                data.add(ArrTime_Group.getInput());
+                data.add(ArrProduct_Group.getInput());
+                data.add(ArrEnterprise_Group.getInput());
+                data.add(ArrShip_Group.getInput());
+                data.add(ArrPort_Group.getInput());
+                data.add(LoadingLoc_Group.getInput());
+                data.add(OthTruck_Group.getInput());
+                data.add(OthCompany_Group.getInput());
+                data.add(OthCMR_Group.getInput());
+                data.add(OthIncome_Group.getInput());
+                data.add(OthKil_Group.getInput());
+                if (OthCom_Group.checkBox.isSelected()){
+                    data.add(OthCom_Group.getInput());
+                }else{
+                    data.add("No Comment");
+                }
 
-                ArrayList<String> str = new ArrayList<>();
-                str.add("");
-                System.out.println(tableview.getItems().size());
-                tableview.getItems().add(new TableData(arrayList, str));
+                for (ExtraGroup extraGroup: ExtraGroups.extraGroups){
+                    data.add(extraGroup.getComponent().getText());
+                }
+
+                TableData tableData = new TableData(data);
+                tableview.getItems().add(tableData);
+                TableDatas.add(tableData);
+                TableDatas.save(tableData);
             }
-        }));
+        });
+    }
 
-        //tablescroll
+    /*private void initColumnWidthListener(){
+        for (TableColumn<TableData, String> column: columns){
+            column.widthProperty().addListener((observable, oldValue, newValue) -> {
+                column.prefWidthProperty().setValue(newValue);
+                getAllColumnWidths();
+            });
+        }
+    }
+    public static ArrayList<Integer> getAllColumnWidths(){
+        columnsWidth.clear();
+        for (TableColumn<TableData, String> column: columns){
+            columnsWidth.add((int) column.widthProperty().get());
+            System.out.println((int) column.widthProperty().get());
+        }
+        return columnsWidth;
+    }*/
 
+    private void initColumnArray(){
+        columns.add(id);
+        columns.add(departureDate);
+        columns.add(departureTime);
+        columns.add(exportationProduct);
+        columns.add(departureEnterprise);
+        columns.add(departureShip);
+        columns.add(departurePort);
+        columns.add(unloadingLocations);
+        columns.add(arrivalDate);
+        columns.add(arrivalTime);
+        columns.add(importationProduct);
+        columns.add(arrivalEnterprise);
+        columns.add(arrivalShip);
+        columns.add(arrivalPort);
+        columns.add(loadingLocations);
+        columns.add(truck);
+        columns.add(company);
+        columns.add(cmr);
+        columns.add(income);
+        columns.add(kilometers);
+        columns.add(comments);
+
+        columns = TableExtraColumns.loadExtraColumns(columns);
+    }
+
+
+    private void hideAllErrorLabels(){
+        DepDate_Group.hideErrorLabel();
+        DepTime_Group.hideErrorLabel();
+        DepProduct_Group.hideErrorLabel();
+        DepEnterprise_Group.hideErrorLabel();
+        DepShip_Group.hideErrorLabel();
+        DepPort_Group.hideErrorLabel();
+        UnloadingLoc_Group.hideErrorLabel();
+        ArrDate_Group.hideErrorLabel();
+        ArrTime_Group.hideErrorLabel();
+        ArrProduct_Group.hideErrorLabel();
+        ArrEnterprise_Group.hideErrorLabel();
+        ArrShip_Group.hideErrorLabel();
+        ArrPort_Group.hideErrorLabel();
+        LoadingLoc_Group.hideErrorLabel();
+        OthTruck_Group.hideErrorLabel();
+        OthCompany_Group.hideErrorLabel();
+        OthCMR_Group.hideErrorLabel();
+        OthIncome_Group.hideErrorLabel();
+        OthKil_Group.hideErrorLabel();
+        OthCom_Group.hideErrorLabel();
+    }
+    private boolean areInputsOK(){
+        boolean isDepDateOK = DepDate_Group.isInputOK(null);
+        boolean isDepTimeOK = DepTime_Group.isInputOK(null);
+        boolean isDepProductOK = DepProduct_Group.isInputOK(null);
+        boolean isDepEnterpriseOK = DepEnterprise_Group.isInputOK(null);
+        boolean isDepShipOK = DepShip_Group.isInputOK(null);
+        boolean isDepPortOK = DepPort_Group.isInputOK(null);
+        boolean isUnloadingLocOK = UnloadingLoc_Group.isInputOK(null);
+        boolean isArrDateOK = ArrDate_Group.isInputOK(null);
+        boolean isArrTimeOK = ArrTime_Group.isInputOK(null);
+        boolean isArrProductOK = ArrProduct_Group.isInputOK(null);
+        boolean isArrEnterpriseOK = ArrEnterprise_Group.isInputOK(null);
+        boolean isArrShipOK = ArrShip_Group.isInputOK(null);
+        boolean isArrPortOK = ArrPort_Group.isInputOK(null);
+        boolean isLoadingLocOK = LoadingLoc_Group.isInputOK(null);
+        boolean isOthTruckOK = OthTruck_Group.isInputOK(null);
+        boolean isOthCompanyOK = OthCompany_Group.isInputOK(null);
+        boolean isOthCMROK = OthCMR_Group.isInputOK(null);
+        boolean isOthIncomeOK = OthIncome_Group.isInputOK(null);
+        boolean isOthKilOK = OthKil_Group.isInputOK(null);
+        boolean isOthComOK = true;
+        if (OthCom_Group.checkBox.isSelected()){
+            isOthComOK = OthCom_Group.isInputOK(null);
+        }
+
+        return isDepDateOK &&
+               isDepTimeOK &&
+               isDepProductOK &&
+               isDepEnterpriseOK &&
+               isDepShipOK &&
+               isDepPortOK &&
+               isUnloadingLocOK &&
+               isArrDateOK &&
+               isArrTimeOK &&
+               isArrProductOK &&
+               isArrEnterpriseOK &&
+               isArrShipOK &&
+               isArrPortOK &&
+               isLoadingLocOK &&
+               isOthTruckOK &&
+               isOthCompanyOK &&
+               isOthCMROK &&
+               isOthIncomeOK &&
+               isOthKilOK &&
+               isOthComOK;
     }
     private void initMinButtons()
     {
@@ -434,12 +588,21 @@ public class AppController {
             }else if (removeFieldAnchor.isVisible()){
                 if (removeField_Group.isInputOK(null))
                 {
+                    TableColumn<TableData, String> column = new TableColumn<>();
+                    for (TableColumn<TableData, String> tableColumn : TableExtraColumns.getColumns()) {
+                        if (removeField_Group.getInput().equals(tableColumn.getText())){
+                            column = tableColumn;
+                            break;
+                        }
+                    }
+                    TableExtraColumns.removeExtraColumn(column);
                     ExtraGroups.remove(removeField_Group.getInput());
                     updateContent();
-                    removeField_Group.clearInput();
-                    removeField_Group.hideErrorLabel();
+
                     outRemoveFieldAnimations();
                     outMinFieldButton(minRemoveFieldButton);
+                    removeField_Group.clearInput();
+                    removeField_Group.hideErrorLabel();
                 }
             }else{
                 inRemoveFieldAnimations();
@@ -469,6 +632,7 @@ public class AppController {
                         componentType = ComponentType.COMBOBOX;
                     }
 
+                    TableExtraColumns.add(newField_Group.getInput(), tableview);
                     ExtraGroups.add(new ExtraGroup(newField_Group.getInput(), componentType));
                     updateContent();
 
@@ -623,7 +787,7 @@ public class AppController {
         ArrPort_Group = GroupFactory.createGroup(ArrPort_Comp,
                 ArrPort_Error_Label,
                 ArrPort_But);
-        ArrLoadingLoc_Group = GroupFactory.createGroup(ArrLoadingLoc_Comp,
+        LoadingLoc_Group = GroupFactory.createGroup(ArrLoadingLoc_Comp,
                 ArrLoadingLoc_Error_Label,
                 ArrLoadingLoc_But);
 
@@ -647,7 +811,7 @@ public class AppController {
         DepPort_Group = GroupFactory.createGroup(DepPort_Comp,
                 DepPort_Error_Label,
                 DepPort_But);
-        DepUnloadingLoc_Group = GroupFactory.createGroup(DepUnloadingLoc_Comp,
+        UnloadingLoc_Group = GroupFactory.createGroup(DepUnloadingLoc_Comp,
                 DepUnloadingLoc_Error_Label,
                 DepUnloadingLoc_But);
 
@@ -816,7 +980,7 @@ public class AppController {
             {
                 if (date != null)
                 {
-                    return DateConvertion.convert(date);
+                    return DateConvertion.convertToGreek(date);
                 } else {
                     return "";
                 }
@@ -910,6 +1074,13 @@ public class AppController {
     }
     private void createAndRunDriftAnimation(int newPositionOfArrow)
     {
+        if (!loadData){
+            initColumnArray();
+            //initColumnWidthListener();
+            //ColumnWidths.load(columns);
+            TableDatas.load(tableview);
+            loadData = true;
+        }
         Range windowRange = new Range(0,725);
         Range animationOffsetRange = new Range(1,30);
 
@@ -959,7 +1130,6 @@ public class AppController {
     private void initScrollBar()
     {
         otherScrollPane.setContent(hBox);
-        otherScrollPane.setPannable(true);
         otherScrollPane.setVmax(0);
         hBox.getChildren().add(otherAnchor);
         hBox.setSpacing(56);

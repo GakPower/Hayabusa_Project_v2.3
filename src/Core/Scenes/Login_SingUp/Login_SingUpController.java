@@ -237,7 +237,8 @@ public class Login_SingUpController {
         UsernameLogin_Group.clearInput();
         PasswordLogin_Group.clearInput();
     }
-    private void storeUsernameIfCheckBoxIsSelected(){
+    private void storeUsernameIfCheckBoxIsSelected()
+    {
         sqlControl.setRememberMe(RememberMe_CheckBox.isSelected(), UsernameLogin_Group.getInput());
     }
 
@@ -245,6 +246,7 @@ public class Login_SingUpController {
         hideSignUpErrorLabels();
         if (isSignUpInputOK()) {
             showSignUpDialog();
+            //sqlControl.addInfoToTable("ColumnWidth", "\'"+UsernameSingUp_Group.getInput()+"\', Array[500,50,150,50,50,50,50,100,50,50,50,50,50,50,50,50,50,50,50,50,50]");
             storeInfoToDBInNewThreadAncClearInput();
         }
     }
