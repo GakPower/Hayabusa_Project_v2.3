@@ -2,9 +2,7 @@ package Core.Components;
 
 import com.jfoenix.controls.JFXTextField;
 
-import java.io.Serializable;
-
-public class TextField implements Component, Serializable {
+public class TextField implements Component {
 
     private JFXTextField textField;
 
@@ -35,5 +33,11 @@ public class TextField implements Component, Serializable {
     @Override
     public boolean inputIsNullOrEmpty() {
         return textField.getText() == null || textField.getText().isEmpty();
+    }
+
+    @Override
+    public void setStyleClass(String style) {
+        textField.getStyleClass().clear();
+        textField.getStyleClass().add(style);
     }
 }

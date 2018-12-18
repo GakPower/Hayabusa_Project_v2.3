@@ -42,14 +42,15 @@ public class Main extends Application {
     }
     private static void createSQLTablesIfFileDoesNotExist(){
         if (!file.exists()) {
-            sqlControl.createTable("Users","ID int NOT NULL PRIMARY KEY, Username varchar(30) NOT NULL, Password varchar(20) NOT NULL, SafeQuestion int NOT NULL, SafeAnswer varchar(50) NOT NULL");
+            sqlControl.createTable("Users","ID int NOT NULL PRIMARY KEY, Username varchar(30) NOT NULL, Password varchar(30) NOT NULL, SafeQuestion int NOT NULL, SafeAnswer varchar(50) NOT NULL");
             sqlControl.createTable("SecurityCombo", "ID int NOT NULL PRIMARY KEY, Username varchar(30) NOT NULL, Question varchar(100) NOT NULL, Answer varchar(50) NOT NULL,");
             sqlControl.createTable("RememberMe","ID int NOT NULL PRIMARY KEY, RememberMe BIT NOT NULL, Username varchar(30) NOT NULL");
 
-            sqlControl.createTable("ExtraGroups", "ID int NOT NULL PRIMARY KEY, Username varchar(30) NOT NULL, GroupName varchar(30) NOT NULL, ComponentType varchar(30) NOT NULL");
-            sqlControl.createTable("TableData", "ID int NOT NULL PRIMARY KEY, Username varchar(30) NOT NULL, Data varchar(500) ARRAY NOT NULL");
+            sqlControl.createTable("ExtraGroups", "ID int NOT NULL PRIMARY KEY, Username varchar(30) NOT NULL, GroupName varchar(150) NOT NULL, ComponentType varchar(30) NOT NULL");
+            sqlControl.createTable("TableData", "ID int NOT NULL, Username varchar(30) NOT NULL, Data varchar(500) ARRAY NOT NULL");
             //sqlControl.createTable("ColumnWidth", "Username varchar(30) NOT NULL, ColumnWidth int ARRAY NOT NULL");
             sqlControl.createTable("ExtraColumns", "ID int NOT NULL PRIMARY KEY, Username varchar(30) NOT NULL, ExtraColumns varchar(150) NOT NULL");
+            sqlControl.createTable("ComboData", "ID int NOT NULL, Username varchar(30) NOT NULL, GroupName varchar(150) NOT NULL , Data varchar(500) ARRAY NOT NULL");
 
             sqlControl.addInfoToTable("RememberMe","1, 0, \'Uninitialized UserName\'");
         }

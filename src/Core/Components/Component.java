@@ -11,4 +11,6 @@ public interface Component {
     void setdisable(boolean disable);
 
     boolean inputIsNullOrEmpty();
+
+    void setStyleClass(String style);
 }

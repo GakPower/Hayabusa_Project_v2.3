@@ -4,7 +4,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class TableData
 {
@@ -65,12 +64,14 @@ public class TableData
     }
 
     public ObservableValue<String> getExtraValue(int index){
-        System.out.println(index);
-        System.out.println(Arrays.toString(extraData.toArray()));
         if (extraData.size() <= index){
             return new SimpleStringProperty("");
         }
         return new SimpleStringProperty(extraData.get(index));
+    }
+
+    public ArrayList<String> getExtraData(){
+        return extraData;
     }
 
     public String[] getArrayOfData(){

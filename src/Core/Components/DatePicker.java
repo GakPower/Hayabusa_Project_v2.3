@@ -2,14 +2,8 @@ package Core.Components;
 
 import Core.DayConvertion.DateConvertion;
 import com.jfoenix.controls.JFXDatePicker;
-import com.sun.javafx.geom.BaseBounds;
-import com.sun.javafx.geom.transform.BaseTransform;
-import com.sun.javafx.jmx.MXNodeAlgorithm;
-import com.sun.javafx.jmx.MXNodeAlgorithmContext;
-import com.sun.javafx.sg.prism.NGNode;
-import javafx.scene.Node;
 
-public class DatePicker extends Node implements Component {
+public class DatePicker implements Component {
 
     private JFXDatePicker datePicker;
 
@@ -30,7 +24,7 @@ public class DatePicker extends Node implements Component {
 
     @Override
     public void setText(String newText) {
-        datePicker.getEditor().setText(newText);
+        datePicker.setValue(DateConvertion.convertFromGreekToDate(newText));
     }
 
     @Override
@@ -44,22 +38,8 @@ public class DatePicker extends Node implements Component {
     }
 
     @Override
-    protected NGNode impl_createPeer() {
-        return null;
-    }
-
-    @Override
-    public BaseBounds impl_computeGeomBounds(BaseBounds bounds, BaseTransform tx) {
-        return null;
-    }
-
-    @Override
-    protected boolean impl_computeContains(double localX, double localY) {
-        return false;
-    }
-
-    @Override
-    public Object impl_processMXNode(MXNodeAlgorithm alg, MXNodeAlgorithmContext ctx) {
-        return null;
+    public void setStyleClass(String style) {
+        datePicker.getStyleClass().clear();
+        datePicker.getStyleClass().add(style);
     }
 }

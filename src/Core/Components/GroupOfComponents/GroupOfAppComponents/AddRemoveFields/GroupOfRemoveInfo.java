@@ -9,6 +9,7 @@ import Core.ExtraFields.ExtraGroups;
 public class GroupOfRemoveInfo extends GroupOfComponents {
     public GroupOfRemoveInfo(Component component, ErrorLabel errorLabel) {
         super(component, errorLabel);
+        setMaxInputLength(150);
     }
 
     @Override
@@ -23,6 +24,10 @@ public class GroupOfRemoveInfo extends GroupOfComponents {
             errorLabel.show();
             errorLabel.setTooltipText("Invalid input! There is not a field with that name..." +
                     " Please try again");
+            result = false;
+        }else if (isInputMoreThanMaxLength()){
+            errorLabel.show();
+            errorLabel.setTooltipText("Invalid input! Input's length is more that "+getMaxInputLength()+" characters... Please try again");
             result = false;
         }
         return result;

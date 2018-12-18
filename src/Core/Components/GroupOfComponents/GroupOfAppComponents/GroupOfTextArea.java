@@ -10,6 +10,7 @@ public class GroupOfTextArea extends GroupOfComponents {
     public GroupOfTextArea(Component component, ErrorLabel errorLabel, JFXCheckBox checkBox) {
         super(component, errorLabel, checkBox);
         initCheckBox();
+        setMaxInputLength(500);
     }
 
     private void initCheckBox(){

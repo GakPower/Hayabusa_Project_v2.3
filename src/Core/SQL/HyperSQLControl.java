@@ -57,6 +57,30 @@ public class HyperSQLControl {
 
         return maxID;
     }
+    public int getNextIDFromDBTableForUsername(String table, String username)
+    {
+        int result = 1;
+        try {
+            result = tryGetNextIDFromDBTableForUsername(table, username);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    private int tryGetNextIDFromDBTableForUsername(String table, String username)throws SQLException
+    {
+        sql.connDB();
+        sql.execCommand("SELECT MAX(ID) FROM "+table+" WHERE Username=\'"+username+"\';");
+
+        int maxID = 0;
+        if (sql.getResultSet().next()) {
+            maxID = sql.getResultSet().getInt(1);
+        }
+
+        sql.shutDB();
+
+        return maxID+1;
+    }
     private boolean isPositive(int number){
         return number > 0;
     }

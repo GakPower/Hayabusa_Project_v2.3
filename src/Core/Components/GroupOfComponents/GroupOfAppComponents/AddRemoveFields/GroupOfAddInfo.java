@@ -9,6 +9,7 @@ import Core.ExtraFields.ExtraGroups;
 public class GroupOfAddInfo extends GroupOfComponents {
     public GroupOfAddInfo(Component component, ErrorLabel errorLabel) {
         super(component, errorLabel);
+        setMaxInputLength(150);
     }
 
     @Override
@@ -23,6 +24,10 @@ public class GroupOfAddInfo extends GroupOfComponents {
             errorLabel.show();
             errorLabel.setTooltipText("Duplicate input! There already exists a field " +
                     "with this name... Please try again");
+            result = false;
+        }else if (isInputMoreThanMaxLength()){
+            errorLabel.show();
+            errorLabel.setTooltipText("Invalid input! Input's length is more that "+getMaxInputLength()+" characters... Please try again");
             result = false;
         }
         return result;

@@ -22,7 +22,7 @@ public class TableDatas {
 
     public static void load(TableView<TableData> tableView){
         sql.connDB();
-        sql.execCommand("SELECT * FROM TableData WHERE Username=\'"+ CurrentUser.getUsername()+"\'");
+        sql.execCommand("SELECT * FROM TableData WHERE Username=\'"+ CurrentUser.getUsername()+"\' ORDER BY ID;");
 
         ResultSet resultSet = sql.getResultSet();
         try {
@@ -33,6 +33,7 @@ public class TableDatas {
                 do{
                     Array array = resultSet.getArray(3);
                     TableData tableData = new TableData(convertSQLArrayToStringArrayList(array));
+                    tableData.setId(resultSet.getInt(1)+"");
                     tableView.getItems().add(tableData);
 
                     add(tableData);
@@ -49,6 +50,9 @@ public class TableDatas {
     {
         tableInfo.add(tableData);
     }
+    public static void set(int index, TableData tableData){
+        tableInfo.add(index, tableData);
+    }
     public static void save(TableData tableData){
         System.out.println(Arrays.toString(tableData.getArrayOfData()));
         String[] array = new String[tableData.getArrayOfData().length];
@@ -60,14 +64,27 @@ public class TableDatas {
             }
         }
         System.out.println(Arrays.toString(array));
-        sqlControl.addInfoToTable("TableData", (sqlControl.getMaxIDFromDBTable("TableData")+1)+", "+ "\'"+CurrentUser.getUsername()+"\'" + ", ARRAY"+ Arrays.toString(array));
+        sqlControl.addInfoToTable("TableData", (sqlControl.getNextIDFromDBTableForUsername("TableData", CurrentUser.getUsername()))+", "+ "\'"+CurrentUser.getUsername()+"\'" + ", ARRAY"+ Arrays.toString(array));
     }
     public static void save(String usernames, String[] data){
         String[] array = new String[data.length];
         for (int i = 0; i < data.length; i++) {
             array[i] = "\'"+ data[i] +"\'";
         }
-        sqlControl.addInfoToTable("TableData", (sqlControl.getMaxIDFromDBTable("TableData")+1)+", "+ "\'"+usernames+"\'" + ", ARRAY"+ Arrays.toString(array));
+        sqlControl.addInfoToTable("TableData", (sqlControl.getNextIDFromDBTableForUsername("TableData", CurrentUser.getUsername()))+", "+ "\'"+usernames+"\'" + ", ARRAY"+ Arrays.toString(array));
+    }
+
+    public static void setToDB(TableData tableData){
+        String[] newData = tableData.getArrayOfData();
+        for (int i = 0; i < tableData.getArrayOfData().length; i++) {
+            if(i==0 || i==7){
+                newData[i] = DateConvertion.convertToEnglish(newData[i]);
+            }
+            newData[i] = "\'"+newData[i]+"\'";
+        }
+        sql.connDB();
+        sql.execUpdateCommand("UPDATE TableData SET Data=Array"+ Arrays.toString(newData) +" WHERE Username=\'"+CurrentUser.getUsername()+"\' AND ID="+tableData.getId()+";");
+        sql.shutDB();
     }
 
     public static ArrayList<TableData> getTableInfo(){
@@ -119,5 +136,11 @@ public class TableDatas {
     public static ArrayList<ArrayList<String>> getData(){
         getAllData();
         return data;
+    }
+
+    public static void delete(String username, int id) {
+        sql.connDB();
+        sql.execUpdateCommand("DELETE FROM TableData WHERE Username=\'"+username+"\' AND ID="+id+";");
+        sql.shutDB();
     }
 }

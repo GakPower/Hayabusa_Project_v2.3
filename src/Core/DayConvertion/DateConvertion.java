@@ -52,7 +52,6 @@ public class DateConvertion {
         return day +" "+ dayOfMonth +" "+ month +" "+ year;
     }
     public static String convertToGreek(String EnglishDate){
-        System.out.println("i am here2");
         String[] splited = EnglishDate.split("\\s+");
 
         String day = GREEK_DAYS.get(DayOfWeek.valueOf(splited[0]).getValue()-1);
@@ -73,5 +72,15 @@ public class DateConvertion {
         String year = splited[3];
 
         return day +" "+ dayOfMonth +" "+ month +" "+ year;
+    }
+
+    public static LocalDate convertFromGreekToDate(String greekDate){
+        String[] splited = greekDate.split("\\s+");
+
+        int dayOfMonth = Integer.valueOf(splited[1]);
+        Month month = Month.of(getMonthIndex(splited[2]));
+        int year = Integer.valueOf(splited[3]);
+
+        return LocalDate.of(year, month,  dayOfMonth);
     }
 }

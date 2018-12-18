@@ -37,35 +37,6 @@
     -fx-font-weight: Bold;
 }
 
-.addComboBoxes .arrow{
-    -fx-rotate: 90deg;
-    -fx-background-color: transparent;
-    -fx-border-color: rgba(80,80,80,.5);
-}
-
-.addComboBoxes:hover .arrow{
-    -fx-scale-x: 1.3;
-    -fx-scale-y: 1.3;
-    -fx-scale-z: 1.3;
-    -fx-border-color: rgba(120,120,120,1);
-}
-.addComboBoxes:focused .arrow{
-    -fx-scale-x: 1.3;
-    -fx-scale-y: 1.3;
-    -fx-scale-z: 1.3;
-    -fx-border-color: rgba(120,120,120,1);
-    -fx-rotate: 0deg;
-}
-
-.addComboBoxes {
-    -fx-prompt-text-fill: White;
-    -fx-text-inner-color: White;
-    -fx-background-color: transparent;
-    -fx-font-weight: Bold;
-    -fx-font-size: 13px;
-    -jfx-focus-color: #980B0B;
-}
-
 .scroll-pane > .viewport {
     -fx-background-color: transparent;
 }
@@ -140,6 +111,152 @@
     -fx-background-color: rgba(255, 255, 255, .25);
     -fx-background-insets: 2.0, 0.0, 0.0;
     -fx-background-radius: 2.0em;
+}
+
+.addComboBoxes .combo-box-popup .scroll-bar:horizontal .track,
+.addComboBoxes .combo-box-popup .scroll-bar:vertical .track{
+     -fx-background-color : transparent;
+     -fx-border-color :transparent;
+     -fx-background-radius : 2.0em;
+     -fx-border-radius :2.0em;
+}
+.addComboBoxes .combo-box-popup .scroll-bar:horizontal:hover .track,
+.addComboBoxes .combo-box-popup .scroll-bar:vertical:hover .track{
+    -fx-background-color: rgba(36, 36, 36, 0.23);
+    /*-fx-border-color :transparent;
+    -fx-background-radius : 2.0em;
+    -fx-border-radius :2.0em;*/
+}
+.addComboBoxes .combo-box-popup .scroll-bar:horizontal:pressed .track,
+.addComboBoxes .combo-box-popup .scroll-bar:vertical:pressed .track{
+    -fx-background-color: rgba(36, 36, 36, 0.23);
+    -fx-border-color :transparent;
+    -fx-background-radius : 2.0em;
+    -fx-border-radius :2.0em;
+}
+.addComboBoxes .combo-box-popup .scroll-bar:horizontal .thumb,
+.addComboBoxes .combo-box-popup .scroll-bar:vertical .thumb{
+    -fx-background-color : rgba(55, 55, 55, 0.73);
+    -fx-border-color :transparent;
+    -fx-background-radius : 2.0em;
+    -fx-border-radius :2.0em;
+}
+.addComboBoxes .combo-box-popup .scroll-bar:horizontal .thumb:hover,
+.addComboBoxes .combo-box-popup .scroll-bar:vertical .thumb:hover{
+    -fx-background-color : rgba(57, 57, 57, 0.84);
+}
+.addComboBoxes .combo-box-popup .scroll-bar:horizontal .thumb:pressed,
+.addComboBoxes .combo-box-popup .scroll-bar:vertical .thumb:pressed{
+    -fx-background-color : rgba(152, 11, 11, 0.89);
+}
+
+.addComboBoxes .combo-box-popup .scroll-bar:horizontal,
+.addComboBoxes .combo-box-popup .scroll-bar:vertical{
+    -fx-background-color :transparent;
+}
+
+.addComboBoxes .combo-box-popup .scroll-bar:horizontal .increment-button ,
+.addComboBoxes .combo-box-popup .scroll-bar:horizontal .decrement-button {
+    -fx-background-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-padding :0.0 0.0 10.0 0.0;
+
+}
+
+.addComboBoxes .combo-box-popup .scroll-bar:vertical .increment-button ,
+.addComboBoxes .combo-box-popup .scroll-bar:vertical .decrement-button {
+    -fx-background-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-padding :0.0 10.0 0.0 0.0;
+
+}
+
+.addComboBoxes .combo-box-popup .scroll-bar .increment-arrow,
+.addComboBoxes .combo-box-popup .scroll-bar .decrement-arrow{
+    -fx-background-color :transparent;
+    -fx-shape : " ";
+    -fx-padding :0.15em 0.0;
+}
+
+.addComboBoxes .combo-box-popup .scroll-bar:vertical .increment-arrow,
+.addComboBoxes .combo-box-popup .scroll-bar:vertical .decrement-arrow{
+    -fx-background-color :transparent;
+    -fx-shape : " ";
+    -fx-padding :0.0 0.15em;
+}
+
+.addComboBoxes .arrow{
+    -fx-rotate: 90deg;
+    -fx-background-color: transparent;
+    -fx-border-color: rgba(80,80,80,.5);
+}
+
+.addComboBoxes:hover .arrow{
+    -fx-scale-x: 1.3;
+    -fx-scale-y: 1.3;
+    -fx-scale-z: 1.3;
+    -fx-border-color: rgba(120,120,120,1);
+}
+.addComboBoxes:focused .arrow{
+    -fx-scale-x: 1.3;
+    -fx-scale-y: 1.3;
+    -fx-scale-z: 1.3;
+    -fx-border-color: rgba(120,120,120,1);
+    -fx-rotate: 0deg;
+}
+
+.addComboBoxes {
+    -fx-prompt-text-fill: White;
+    -fx-text-inner-color: White;
+    -fx-background-color: transparent;
+    -fx-font-weight: Bold;
+    -fx-font-size: 13px;
+    -jfx-focus-color: #980B0B;
+}
+
+.table-view .column-header{
+    -fx-pref-height: 25px;
+    -fx-border-color: white;
+    -fx-border-width: 0.3;
+}
+
+.table-view .filler,
+.table-view .column-header,
+.table-view .column-header .filler,
+.table-view .column-header-background .filler {
+    -fx-background-color: transparent;
+    -fx-stroke: transparent;
+    -fx-size:50;
+    -fx-alignment: CENTER ;
+    -fx-text-alignment: center;
+}
+.table-row-cell:filled:hover {
+    -fx-size:50;
+    -fx-alignment: CENTER;
+    -fx-text-alignment: center;
+}
+.table-view:row-selection {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 13;
+    -fx-fixed-cell-size: 50;
+    -fx-alignment: CENTER;
+    -fx-text-alignment: center;
+}
+
+.table-view .table-column{
+    -fx-text-alignment: center;
+    -fx-alignment: CENTER
+}
+.table-row-cell:selected {
+    -fx-background-color: #980b0b;
+    -fx-text-background-color: #ffffff;
+    -fx-font-weight: bold;
+}
+.table-row-cell:hover {
+    -fx-background-color: rgba(214, 214, 214, 0);
+    -fx-text-background-color: white;
+    -fx-font-weight: bold;
 }
 
 .minusButton{

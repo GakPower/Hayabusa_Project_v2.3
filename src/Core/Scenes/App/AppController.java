@@ -7,6 +7,8 @@ package Core.Scenes.App;
 
 import Core.Animations.Animation;
 import Core.Animations.AnimationControls;
+import Core.ComboData.ComboDatas;
+import Core.Components.ComboBox;
 import Core.Components.Component;
 import Core.Components.ComponentFactories.GroupFactory;
 import Core.Components.ComponentType;
@@ -17,24 +19,27 @@ import Core.DayConvertion.DateConvertion;
 import Core.ExtraFields.ExtraGroup;
 import Core.ExtraFields.ExtraGroups;
 import Core.Range;
+import Core.SQL.CurrentUser;
+import Core.SQL.HyperSQL;
+import Core.SQL.HyperSQLControl;
 import Core.Scenes.UIControls;
-import Core.TableExtraColumns;
 import Core.TableData;
 import Core.TableDatas;
+import Core.TableExtraColumns;
 import com.jfoenix.controls.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 
@@ -42,19 +47,34 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import static Core.Components.ComponentFactory.createComponent;
 
 @SuppressWarnings("Duplicates")
 public class AppController {
 
+
+    @FXML private HBox statHbox;
+    @FXML private JFXButton editRowButton;
+    @FXML private JFXButton deleteRowButton;
+    @FXML private Label helpLabel;
+    @FXML private ImageView questionMark;
+    @FXML private ScrollPane statScrollPane;
+
+    @FXML private Label tripsLabel;
+    @FXML private Label cmrLabel;
+    @FXML private Label incomeLabel;
+    @FXML private Label kilometersLabel;
+    @FXML private Label trucksLabel;
+
     /*public TableColumn<TableData, String> idcolumn;
-    public TableColumn<TableData, Integer> numcolumn;
-    public TableColumn<TableData, String> fckcolumn;*/
+            public TableColumn<TableData, Integer> numcolumn;
+            public TableColumn<TableData, String> fckcolumn;*/
     @FXML private ScrollPane otherScrollPane;
     @FXML public TableView<TableData> tableview;
     //@FXML public TableView<ArrayList<String>> tableview;
-    @FXML private JFXScrollPane tablescroll;
 
     @FXML private TableColumn<TableData, String> id;
     @FXML private TableColumn<TableData, String> departureDate;
@@ -334,10 +354,301 @@ public class AppController {
 
     private boolean loadData = false;
 
-    private static ArrayList<Integer> columnsWidth = new ArrayList<>(20);
+    private ArrayList<Integer> columnsWidth = new ArrayList<>(20);
 
-    @FXML private void initialize()
-    {
+    private boolean editingRow = false;
+    private HyperSQL sql = new HyperSQL();
+        private HyperSQLControl sqlControl = new HyperSQLControl(sql);
+
+        private int editingRowID;
+    private ArrayList<ComboBox> comboBoxes = new ArrayList<>();
+
+        @FXML private void initialize()
+        {
+
+        helpLabel.setTooltip(new Tooltip("To Edit or Delete a row from the Table you have to select the row and click the right button"));
+        deleteRowButton.setOnAction(event -> {
+            TableData selectedRow = tableview.getSelectionModel().getSelectedItem();
+            int id = Integer.valueOf(tableview.getSelectionModel().getSelectedItem().getId());
+            tableview.getItems().remove(selectedRow);
+
+            TableDatas.delete(CurrentUser.getUsername(), id);
+            
+            for (int i = id-1; i < tableview.getItems().size(); i++) {
+                tableview.getItems().get(i).setId(i + 1 + "");
+            }
+
+            sql.connDB();
+            sql.execUpdateCommand("UPDATE TableData SET ID=ID-1 WHERE ID >=" + id + " AND Username=\'"+CurrentUser.getUsername()+"\';");
+            sql.shutDB();
+        });
+        editRowButton.setOnAction(event -> {
+
+            editingRow = true;
+
+            TableData selectedRow = tableview.getSelectionModel().getSelectedItem();
+
+            editingRowID = Integer.valueOf(selectedRow.getId());
+
+            DepDate_Group.setInput(selectedRow.getDepartureDate());
+            DepTime_Group.setInput(selectedRow.getDepartureTime());
+            DepProduct_Group.setInput(selectedRow.getExportationProduct());
+            DepEnterprise_Group.setInput(selectedRow.getDepartureEnterprise());
+            DepShip_Group.setInput(selectedRow.getDepartureShip());
+            DepPort_Group.setInput(selectedRow.getDeparturePort());
+            UnloadingLoc_Group.setInput(selectedRow.getUnloadingLocations());
+
+            ArrDate_Group.setInput(selectedRow.getArrivalDate());
+            ArrTime_Group.setInput(selectedRow.getArrivalTime());
+            ArrProduct_Group.setInput(selectedRow.getImportationProduct());
+            ArrEnterprise_Group.setInput(selectedRow.getArrivalEnterprise());
+            ArrShip_Group.setInput(selectedRow.getArrivalShip());
+            ArrPort_Group.setInput(selectedRow.getArrivalPort());
+            LoadingLoc_Group.setInput(selectedRow.getLoadingLocations());
+
+            OthTruck_Group.setInput(selectedRow.getTruck());
+            OthCompany_Group.setInput(selectedRow.getCompany());
+            OthCMR_Group.setInput(selectedRow.getCmr());
+            OthIncome_Group.setInput(selectedRow.getIncome());
+            OthKil_Group.setInput(selectedRow.getKilometers());
+
+            if (!selectedRow.getComments().equals("No Comment")) {
+                OthCom_Group.setInput(selectedRow.getComments());
+                OthCom_Group.checkBox.setSelected(true);
+            } else {
+                OthCom_Group.setInput("");
+                OthCom_Group.checkBox.setSelected(false);
+            }
+            for (int i = 21; i < 21+ExtraGroups.extraGroups.size(); i++) {
+                if (i-21 < selectedRow.getExtraData().size()) {
+                    ExtraGroups.extraGroups.get(i-21).getComponent().setText(selectedRow.getExtraData().get(i-21));
+                }else{
+                    ExtraGroups.extraGroups.get(i-21).getComponent().setText("");
+                }
+            }
+
+
+            int newPositionOfArrow = (int) (addButton.getLayoutY()+addButton.getPrefHeight()/2+13);
+
+            if (activeWin != windows.get(addButton))
+            {
+                if (activeWin != null)
+                {
+                    activeButton.setStyle(oldStyles.get(addButton));
+
+                    AnimationControls.hideAndShowWithAnimationInDuration(activeWin, windows.get(addButton), Duration.millis(500));
+                }else{
+                    Animation.fadeInAnimation(Duration.millis(500), windows.get(addButton)).play();
+                }
+            }
+            createAndRunDriftAnimation(newPositionOfArrow);
+
+            activeWin = windows.get(addButton);
+            activeButton = addButton;
+
+            addButton.setStyle(newStyles.get(addButton));
+            windows.get(addButton).setVisible(true);
+
+        });
+
+        OthCMR.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                OthCMR.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+        OthIncome.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                OthIncome.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+        OthKil.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                OthKil.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+
+
+        final CategoryAxis xAxis = new CategoryAxis();
+        final NumberAxis yAxis = new NumberAxis();
+        final BarChart<String,Number> bc =
+                new BarChart<>(xAxis,yAxis);
+        bc.setTitle("Country Summary");
+        xAxis.setLabel("Country");
+        yAxis.setLabel("Value");
+
+        XYChart.Series series1 = new XYChart.Series();
+        series1.setName("Loaded");
+
+        XYChart.Series series2 = new XYChart.Series();
+        series2.setName("Unloaded");
+        statButton.setOnMouseClicked(event -> {
+            /*final NumberAxis xAxis = new NumberAxis(1, 31, 1);
+            final NumberAxis yAxis = new NumberAxis();
+            final StackedAreaChart<Number, Number> sac =
+                    new StackedAreaChart<>(xAxis, yAxis);
+
+            sac.setTitle("Temperature Monitoring (in Degrees C)");
+            XYChart.Series<Number, Number> seriesApril =
+                    new XYChart.Series<>();
+            seriesApril.setName("April");
+            seriesApril.getData().add(new XYChart.Data(1, 4));
+            seriesApril.getData().add(new XYChart.Data(3, 10));
+            seriesApril.getData().add(new XYChart.Data(6, 15));
+            seriesApril.getData().add(new XYChart.Data(9, 8));
+            seriesApril.getData().add(new XYChart.Data(12, 5));
+            seriesApril.getData().add(new XYChart.Data(15, 18));
+            seriesApril.getData().add(new XYChart.Data(18, 15));
+            seriesApril.getData().add(new XYChart.Data(21, 13));
+            seriesApril.getData().add(new XYChart.Data(24, 19));
+            seriesApril.getData().add(new XYChart.Data(27, 21));
+            seriesApril.getData().add(new XYChart.Data(30, 21));
+            XYChart.Series<Number, Number> seriesMay =
+                    new XYChart.Series<>();
+            seriesMay.setName("May");
+            seriesMay.getData().add(new XYChart.Data(1, 20));
+            seriesMay.getData().add(new XYChart.Data(3, 15));
+            seriesMay.getData().add(new XYChart.Data(6, 13));
+            seriesMay.getData().add(new XYChart.Data(9, 12));
+            seriesMay.getData().add(new XYChart.Data(12, 14));
+            seriesMay.getData().add(new XYChart.Data(15, 18));
+            seriesMay.getData().add(new XYChart.Data(18, 25));
+            seriesMay.getData().add(new XYChart.Data(21, 25));
+            seriesMay.getData().add(new XYChart.Data(24, 23));
+            seriesMay.getData().add(new XYChart.Data(27, 26));
+            seriesMay.getData().add(new XYChart.Data(31, 26));
+
+            sac.getData().addAll(seriesApril, seriesMay);
+
+            sac.setLayoutX(200);
+            sac.setLayoutY(200);
+            statWin.getChildren().add(sac);*/
+
+            /*ObservableList<PieChart.Data> pieChartData =
+                    FXCollections.observableArrayList(
+                            new PieChart.Data("Grapefruit", 13),
+                            new PieChart.Data("Oranges", 25),
+                            new PieChart.Data("Plums", 10),
+                            new PieChart.Data("Pears", 22),
+                            new PieChart.Data("Apples", 30));
+
+            final PieChart chart = new PieChart(pieChartData);
+            chart.setTitle("Imported Fruits");
+
+            final Label caption = new Label();
+            caption.setTextFill(Color.WHITE);
+            caption.setStyle("-fx-font: 24 arial;");
+            caption.setVisible(true);
+
+            DoubleBinding total = Bindings.createDoubleBinding(() ->
+                    pieChartData.stream().mapToDouble(PieChart.Data::getPieValue).sum(), pieChartData);
+
+            for (final PieChart.Data data : chart.getData()) {
+                data.getNode().setOnMouseEntered(
+                    e -> {
+                        caption.setTranslateX(e.getSceneX()-100);
+                        caption.setTranslateY(e.getSceneY()-25);
+                        String text = String.format("%.1f%%", 100*data.getPieValue()/total.get()) ;
+                        caption.setText(text);
+                    }
+                );
+
+                data.getNode().setOnMouseExited(
+                    event1 -> {
+                        double minx = caption.getTranslateY();
+                        double maxx = minx+caption.getWidth();
+
+                        double miny = caption.getTranslateY();
+                        double maxy = minx+caption.getHeight();
+
+                        if (!(event1.getSceneX() >= minx && event1.getSceneX() <= maxx
+                        || event1.getSceneY() >= miny && event1.getSceneY() <= maxy)){
+                            caption.setText("");
+                        }
+                    }
+                );
+            }
+
+            statWin.getChildren().add(chart);
+            statWin.getChildren().add(caption);*/
+
+
+
+            /*if (tableview.getItems().size() > 0){
+                for (TableData data: tableview.getItems()) {
+
+                }
+            }*/
+
+            SortedMap<String, ArrayList<TableData>> corespondingData = new TreeMap<>();
+            for (TableData data : tableview.getItems())
+            {
+                String year = data.getDepartureDate().split(" ")[3];
+                if (!corespondingData.containsKey(year))
+                {
+                    ArrayList<TableData> tableDataForYear = new ArrayList<>();
+
+                    corespondingData.put(year, tableDataForYear);
+                    tableDataForYear.add(data);
+                }else{
+                    corespondingData.get(year).add(data);
+                }
+            }
+
+            int tempNumOfUnloadedTrips;
+            for (String year : corespondingData.keySet()) {
+                tempNumOfUnloadedTrips = 0;
+                for (TableData data : corespondingData.get(year)) {
+                    if (data.getExportationProduct().equals("-")){
+                        tempNumOfUnloadedTrips++;
+                    }
+                }
+                series1.getData().add(new XYChart.Data<>(year, corespondingData.get(year).size()-tempNumOfUnloadedTrips));
+                series2.getData().add(new XYChart.Data<>(year, tempNumOfUnloadedTrips));
+            }
+
+
+            if (!statHbox.getChildren().contains(bc)){
+                bc.getData().addAll(series1, series2);
+                statHbox.getChildren().add(bc);
+            }
+
+
+            /*ObservableList<PieChart.Data> pieChartData =
+                    FXCollections.observableArrayList();
+
+            for (String year : corespondingData.keySet()) {
+                pieChartData.add(new PieChart.Data(year, corespondingData.get(year).size()));
+            }
+
+            final PieChart chart = new PieChart(pieChartData);
+
+            hboxx.getChildren().add(chart);*/
+
+
+
+            int cmrSum = 0;
+            int incomeSum = 0;
+            int kilometersSum = 0;
+            ArrayList<String> trucks = new ArrayList<>();
+            for (String year : corespondingData.keySet()) {
+                for (TableData data : corespondingData.get(year)) {
+                    cmrSum += Integer.valueOf(data.getCmr());
+                    incomeSum += Integer.valueOf(data.getIncome());
+                    kilometersSum += Integer.valueOf(data.getKilometers());
+                    if (!trucks.contains(data.getTruck())){
+                        trucks.add(data.getTruck());
+                    }
+                }
+            }
+
+            tripsLabel.setText(tableview.getItems().size()+"");
+            cmrLabel.setText(cmrSum+"");
+            incomeLabel.setText(incomeSum+"");
+            kilometersLabel.setText(kilometersSum+"");
+            trucksLabel.setText(trucks.size()+"");
+
+        });
+
         initializeHashMaps();
         menuButtonsSwitchSetup();
         minExitButtonsListeners();
@@ -378,7 +689,7 @@ public class AppController {
         saveButton.setOnAction(event -> {
             hideAllErrorLabels();
             data.clear();
-            if (areInputsOK()){
+            if (areInputsOK()) {
                 data.add(DepDate_Group.getInput());
                 data.add(DepTime_Group.getInput());
                 data.add(DepProduct_Group.getInput());
@@ -398,20 +709,71 @@ public class AppController {
                 data.add(OthCMR_Group.getInput());
                 data.add(OthIncome_Group.getInput());
                 data.add(OthKil_Group.getInput());
-                if (OthCom_Group.checkBox.isSelected()){
+                if (OthCom_Group.checkBox.isSelected()) {
                     data.add(OthCom_Group.getInput());
-                }else{
+                } else {
                     data.add("No Comment");
                 }
-
-                for (ExtraGroup extraGroup: ExtraGroups.extraGroups){
+                for (ExtraGroup extraGroup : ExtraGroups.extraGroups) {
                     data.add(extraGroup.getComponent().getText());
                 }
 
-                TableData tableData = new TableData(data);
-                tableview.getItems().add(tableData);
-                TableDatas.add(tableData);
-                TableDatas.save(tableData);
+                comboBoxes.clear();
+                comboBoxes.add((ComboBox) ArrProduct_Comp);
+                comboBoxes.add((ComboBox) ArrEnterprise_Comp);
+                comboBoxes.add((ComboBox) ArrShip_Comp);
+                comboBoxes.add((ComboBox) ArrPort_Comp);
+                comboBoxes.add((ComboBox) ArrLoadingLoc_Comp);
+                comboBoxes.add((ComboBox) DepProduct_Comp);
+                comboBoxes.add((ComboBox) DepEnterprise_Comp);
+                comboBoxes.add((ComboBox) DepShip_Comp);
+                comboBoxes.add((ComboBox) DepPort_Comp);
+                comboBoxes.add((ComboBox) DepUnloadingLoc_Comp);
+                comboBoxes.add((ComboBox) OthTruck_Comp);
+                comboBoxes.add((ComboBox) OthCompany_Comp);
+
+                ((ComboBox) ArrProduct_Comp).add(ArrProduct_Comp.getText());
+                ((ComboBox) ArrEnterprise_Comp).add(ArrEnterprise_Comp.getText());
+                ((ComboBox) ArrShip_Comp).add(ArrShip_Comp.getText());
+                ((ComboBox) ArrPort_Comp).add(ArrPort_Comp.getText());
+                ((ComboBox) ArrLoadingLoc_Comp).add(ArrLoadingLoc_Comp.getText());
+                ((ComboBox) DepProduct_Comp).add(DepProduct_Comp.getText());
+                ((ComboBox) DepEnterprise_Comp).add(DepEnterprise_Comp.getText());
+                ((ComboBox) DepShip_Comp).add(DepShip_Comp.getText());
+                ((ComboBox) DepPort_Comp).add(DepPort_Comp.getText());
+                ((ComboBox) DepUnloadingLoc_Comp).add(DepUnloadingLoc_Comp.getText());
+                ((ComboBox) OthTruck_Comp).add(OthTruck_Comp.getText());
+                ((ComboBox) OthCompany_Comp).add(OthCompany_Comp.getText());
+
+                ArrayList<String> values = new ArrayList<>();
+                for (ComboBox comboBox: comboBoxes){
+                    values.add(comboBox.getText());
+                }
+                for (ExtraGroup extraGroup : ExtraGroups.extraGroups) {
+                    if (extraGroup.getComponentType() == ComponentType.COMBOBOX) {
+                        comboBoxes.add((ComboBox) extraGroup.getComponent());
+                        values.add(extraGroup.getComponent().getText());
+                        ((ComboBox) extraGroup.getComponent()).add(extraGroup.getComponent().getText());
+                    }
+                }
+
+                ComboDatas.save(comboBoxes, values);
+
+                if (editingRow)
+                {
+                    TableData tableData = new TableData(data);
+                    tableData.setId(editingRowID+"");
+                    tableview.getItems().set(editingRowID-1, tableData);
+                    TableDatas.set(editingRowID-1, tableData);
+                    TableDatas.setToDB(tableData);
+                    editingRow = false;
+                }else{
+                    TableData tableData = new TableData(data);
+                    tableview.getItems().add(tableData);
+                    TableDatas.add(tableData);
+                    TableDatas.save(tableData);
+                }
+                kapoio provlhma me thn entolh kai afunei anoixth thn db
             }
         });
     }
@@ -614,6 +976,26 @@ public class AppController {
     {
         ExtraGroups.loadContent();
         updateContent();
+
+        comboBoxes.clear();
+        comboBoxes.add((ComboBox) ArrProduct_Comp);
+        comboBoxes.add((ComboBox) ArrEnterprise_Comp);
+        comboBoxes.add((ComboBox) ArrShip_Comp);
+        comboBoxes.add((ComboBox) ArrPort_Comp);
+        comboBoxes.add((ComboBox) ArrLoadingLoc_Comp);
+        comboBoxes.add((ComboBox) DepProduct_Comp);
+        comboBoxes.add((ComboBox) DepEnterprise_Comp);
+        comboBoxes.add((ComboBox) DepShip_Comp);
+        comboBoxes.add((ComboBox) DepPort_Comp);
+        comboBoxes.add((ComboBox) DepUnloadingLoc_Comp);
+        comboBoxes.add((ComboBox) OthTruck_Comp);
+        comboBoxes.add((ComboBox) OthCompany_Comp);
+
+        for (ExtraGroup extraGroup: ExtraGroups.extraGroups){
+            if (extraGroup.getComponentType()==ComponentType.COMBOBOX){
+                comboBoxes.add((ComboBox) extraGroup.getComponent());
+            }
+        }
 
         addFieldButton.setOnAction((event)->
         {
@@ -1079,6 +1461,7 @@ public class AppController {
             //initColumnWidthListener();
             //ColumnWidths.load(columns);
             TableDatas.load(tableview);
+            ComboDatas.load(comboBoxes);
             loadData = true;
         }
         Range windowRange = new Range(0,725);
@@ -1130,9 +1513,7 @@ public class AppController {
     private void initScrollBar()
     {
         otherScrollPane.setContent(hBox);
-        otherScrollPane.setVmax(0);
         hBox.getChildren().add(otherAnchor);
         hBox.setSpacing(56);
-        HBox.setHgrow(otherScrollPane, Priority.ALWAYS);
     }
 }

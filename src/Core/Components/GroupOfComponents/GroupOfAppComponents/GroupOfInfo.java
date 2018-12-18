@@ -7,5 +7,6 @@ import Core.Components.GroupOfComponents.GroupOfComponents;
 public class GroupOfInfo extends GroupOfComponents {
     public GroupOfInfo(Component component, ErrorLabel errorLabel) {
         super(component, errorLabel);
+        setMaxInputLength(500);
     }
 }

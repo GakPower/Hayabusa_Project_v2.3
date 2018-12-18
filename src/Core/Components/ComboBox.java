@@ -3,11 +3,11 @@ package Core.Components;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.ObservableList;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 
-public class ComboBox implements Component, Serializable {
+public class ComboBox implements Component {
 
-    private transient JFXComboBox<String> comboBox;
+    private JFXComboBox<String> comboBox;
 
     public ComboBox(JFXComboBox<String> comboBox) {
         this.comboBox = comboBox;
@@ -48,11 +48,29 @@ public class ComboBox implements Component, Serializable {
         return comboBox.getValue() == null || comboBox.getValue().isEmpty();
     }
 
-    public void add(String items) {
-        comboBox.getItems().add(items);
+    @Override
+    public void setStyleClass(String style) {
+        comboBox.getStyleClass().clear();
+        comboBox.getStyleClass().add(style);
+    }
+
+    public void add(String item) {
+        if (!comboBox.getItems().contains(item)){
+            comboBox.getItems().add(item);
+        }
     }
 
     public ObservableList<String> getItems() {
         return comboBox.getItems();
+    }
+
+    public void setItems(ArrayList<String> items){
+        for (String string : items) {
+            comboBox.getItems().add(string);
+        }
+    }
+
+    public String getPromptText(){
+        return comboBox.getPromptText();
     }
 }

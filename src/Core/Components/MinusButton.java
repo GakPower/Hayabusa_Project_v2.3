@@ -4,9 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
-import java.io.Serializable;
-
-public class MinusButton extends JFXButton implements Serializable {
+public class MinusButton extends JFXButton {
     public MinusButton(){
         super("");
         super.setGraphic(createImageView());
