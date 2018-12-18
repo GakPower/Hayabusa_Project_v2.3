@@ -24,750 +24,755 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1750.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Core.Scenes.App.AppController">
-   <AnchorPane prefHeight="720.0" prefWidth="91.0" style="-fx-background-color: #980b0b; -fx-background-radius: 15px;">
-      <ImageView fitHeight="526.0" fitWidth="91.0" layoutY="97.0" opacity="0.13" pickOnBounds="true">
-         <Image url="@../Assets/Background.jpg" />
-      </ImageView>
-      <AnchorPane fx:id="userButton" prefHeight="97.0" prefWidth="91.0" styleClass="UserButton" stylesheets="@StyleSheet.css">
-         <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="26.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
-            <Image url="@../Assets/UserApp.png" />
-            <effect>
-               <BoxBlur height="1.0" width="1.0" />
-            </effect>
+<StackPane fx:id="mainApp_Stack" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Core.Scenes.App.AppController">
+   <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1750.0" style="-fx-background-color: transparent;">
+      <AnchorPane fx:id="mainMenu_Anchor" prefHeight="720.0" prefWidth="91.0" style="-fx-background-color: #980b0b; -fx-background-radius: 15px;">
+         <ImageView fitHeight="526.0" fitWidth="91.0" layoutY="97.0" opacity="0.13" pickOnBounds="true">
+            <Image url="@../Assets/Background.jpg" />
          </ImageView>
-         <ImageView fx:id="exitMenuButton" fitHeight="15.0" fitWidth="15.0" layoutX="65.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
-            <Image url="@../Assets/Power.png" />
-         </ImageView>
-      </AnchorPane>
-      <AnchorPane fx:id="tableButton" layoutY="205.0" prefHeight="84.0" prefWidth="91.0" styleClass="menuButtons" stylesheets="@StyleSheet.css">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="31.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
-            <Image url="@../Assets/Table.png" />
-         </ImageView>
-      </AnchorPane>
-      <AnchorPane fx:id="addButton" layoutY="322.0" prefHeight="84.0" prefWidth="91.0" styleClass="menuButtons" stylesheets="@StyleSheet.css">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="31.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
-            <Image url="@../Assets/Add.png" />
-         </ImageView>
-      </AnchorPane>
-      <AnchorPane fx:id="statButton" layoutY="439.0" prefHeight="84.0" prefWidth="91.0" styleClass="menuButtons" stylesheets="@StyleSheet.css">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="31.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
-            <Image url="@../Assets/Statistics.png" />
-         </ImageView>
-      </AnchorPane>
-      <AnchorPane fx:id="settButton" layoutY="623.0" prefHeight="97.0" prefWidth="91.0" styleClass="SettButton" stylesheets="@StyleSheet.css">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="31.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
-            <Image url="@../Assets/Settings.png" />
-         </ImageView>
-      </AnchorPane>
-      <AnchorPane layoutX="67.0" layoutY="97.0" prefHeight="21.0" prefWidth="21.0" />
-   </AnchorPane>
-   <ImageView fx:id="arrow" fitHeight="25.0" fitWidth="25.0" layoutX="88.0" layoutY="-25.0" pickOnBounds="true" preserveRatio="true">
-      <Image url="@../Assets/Arrow.png" />
-   </ImageView>
-   <AnchorPane fx:id="userWin" layoutX="102.0" prefHeight="720.0" prefWidth="1500.0" styleClass="mainWindows" stylesheets="@StyleSheet.css" visible="false">
-      <ImageView fitHeight="97.0" fitWidth="100.0" layoutX="651.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
-         <Image url="@../Assets/UserBig.png" />
-      </ImageView>
-      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="571.0" layoutY="333.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="256.0" style="-fx-background-color: transparent; -fx-background-radius: 5em; -fx-border-color: white; -fx-border-radius: 5em; -fx-border-width: 5px 5px 5px 5px;" text="Change Password" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="25.0" />
-         </font>
-      </JFXButton>
-      <JFXButton fx:id="exitButtonUser" focusTraversable="false" layoutX="1458.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" styleClass="exitButtons" stylesheets="@StyleSheet.css" text="X" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </JFXButton>
-      <JFXButton fx:id="minButtonUser" focusTraversable="false" layoutX="1418.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" styleClass="minButtons" stylesheets="@StyleSheet.css" text="–" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </JFXButton>
-      <Label layoutX="623.0" layoutY="189.0" text="GakPower" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="32.0" />
-         </font>
-      </Label>
-   </AnchorPane>
-   <AnchorPane fx:id="tableWin" layoutX="102.0" prefHeight="720.0" prefWidth="1500.0" styleClass="mainWindows" stylesheets="@StyleSheet.css" visible="false">
-      <JFXButton fx:id="exitButtonTable" focusTraversable="false" layoutX="1458.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" styleClass="exitButtons" stylesheets="@StyleSheet.css" text="X" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </JFXButton>
-      <JFXButton fx:id="minButtonTable" focusTraversable="false" layoutX="1418.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" styleClass="minButtons" stylesheets="@StyleSheet.css" text="–" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </JFXButton>
-      <TableView fx:id="tableview" focusTraversable="false" layoutX="35.0" layoutY="48.0" prefHeight="590.0" prefWidth="1415.0">
-         <columns>
-            <TableColumn fx:id="id" prefWidth="75.0" text="ID" />
-            <TableColumn fx:id="departure" prefWidth="75.0" text="Departure">
-               <columns>
-                  <TableColumn fx:id="departureDate" prefWidth="75.0" text="Date" />
-                  <TableColumn fx:id="departureTime" prefWidth="75.0" text="Time" />
-                  <TableColumn fx:id="exportationProduct" prefWidth="75.0" text="Product" />
-                  <TableColumn fx:id="departureEnterprise" prefWidth="75.0" text="Enterprise" />
-                  <TableColumn fx:id="departureShip" prefWidth="75.0" text="Ship" />
-                  <TableColumn fx:id="departurePort" prefWidth="75.0" text="Port" />
-                  <TableColumn fx:id="unloadingLocations" prefWidth="75.0" text="Unloading Locations" />
-               </columns>
-            </TableColumn>
-            <TableColumn prefWidth="75.0" text="Arrival">
-               <columns>
-                  <TableColumn fx:id="arrivalDate" prefWidth="75.0" text="Date" />
-                  <TableColumn fx:id="arrivalTime" prefWidth="75.0" text="Time" />
-                  <TableColumn fx:id="importationProduct" prefWidth="75.0" text="Product" />
-                  <TableColumn fx:id="arrivalEnterprise" prefWidth="75.0" text="Enterprise" />
-                  <TableColumn fx:id="arrivalShip" prefWidth="75.0" text="Ship" />
-                  <TableColumn fx:id="arrivalPort" prefWidth="75.0" text="Port" />
-                  <TableColumn fx:id="loadingLocations" prefWidth="75.0" text="Loading Locations" />
-               </columns>
-            </TableColumn>
-            <TableColumn prefWidth="75.0" text="Other">
-               <columns>
-                  <TableColumn fx:id="truck" prefWidth="75.0" text="Truck" />
-                  <TableColumn fx:id="company" prefWidth="75.0" text="Company" />
-                  <TableColumn fx:id="cmr" prefWidth="75.0" text="CMR" />
-                  <TableColumn fx:id="income" prefWidth="75.0" text="Income" />
-                  <TableColumn fx:id="kilometers" prefWidth="75.0" text="Kilometers" />
-                  <TableColumn fx:id="comments" prefWidth="75.0" text="Comments" />
-               </columns>
-            </TableColumn>
-         </columns>
-      </TableView>
-      <JFXButton fx:id="editRowButton" defaultButton="true" focusTraversable="false" layoutX="72.0" layoutY="653.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="123.0" ripplerFill="#fffdfd" style="-fx-background-color: #2C2D35; -fx-background-radius: 30px; -fx-border-color: #980B0B; -fx-border-radius: 30px; -fx-border-width: 4px;" text="Edit Row" textAlignment="CENTER" textFill="#980b0b">
-         <font>
-            <Font name="System Bold" size="19.0" />
-         </font>
-      </JFXButton>
-      <JFXButton fx:id="deleteRowButton" defaultButton="true" focusTraversable="false" layoutX="224.0" layoutY="653.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="144.0" ripplerFill="#fffdfd" style="-fx-background-color: #2C2D35; -fx-background-radius: 30px; -fx-border-color: #980B0B; -fx-border-radius: 30px; -fx-border-width: 4px;" text="Delete Row" textAlignment="CENTER" textFill="#980b0b">
-         <font>
-            <Font name="System Bold" size="19.0" />
-         </font>
-      </JFXButton>
-      <Label fx:id="helpLabel" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="47.0" layoutY="641.0" prefHeight="25.0" prefWidth="25.0">
-         <graphic>
-             <ImageView fx:id="questionMark" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                 <Image url="@../Assets/questionMark.png" />
-             </ImageView>
-         </graphic></Label>
-   </AnchorPane>
-   <AnchorPane fx:id="addWin" layoutX="102.0" prefHeight="720.0" prefWidth="1450.0" styleClass="mainWindows" stylesheets="@StyleSheet.css">
-      <JFXButton fx:id="exitButtonAdd" focusTraversable="false" layoutX="1409.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" styleClass="exitButtons" stylesheets="@StyleSheet.css" text="X" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </JFXButton>
-      <JFXButton fx:id="minButtonAdd" focusTraversable="false" layoutX="1369.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" styleClass="minButtons" stylesheets="@StyleSheet.css" text="–" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </JFXButton>
-      <JFXButton fx:id="saveButton" buttonType="RAISED" defaultButton="true" focusTraversable="false" layoutX="1288.0" layoutY="626.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="123.0" ripplerFill="#fffdfd" style="-fx-background-color: transparent; -fx-background-radius: 30px; -fx-border-color: #980B0B; -fx-border-radius: 30px; -fx-border-width: 4px;" text="Save" textAlignment="CENTER" textFill="#980b0b">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </JFXButton>
-      <JFXButton fx:id="minAddFieldButton" defaultButton="true" focusTraversable="false" layoutX="1294.0" layoutY="59.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="93.0" ripplerFill="#fffdfd" rotate="180.0" style="-fx-background-color: transparent; -fx-background-radius: 30px; -fx-border-color: #980B0B; -fx-border-radius: 30px; -fx-border-width: 4px;" text="                       " textAlignment="CENTER" textFill="#980b0b">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-         <graphic>
-            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-               <viewport>
-                  <Rectangle2D />
-               </viewport>
-               <Image url="@../Assets/Minus.png" />
+         <AnchorPane fx:id="userButton" prefHeight="97.0" prefWidth="91.0" styleClass="UserButton" stylesheets="@StyleSheet.css">
+            <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="26.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../Assets/UserApp.png" />
+               <effect>
+                  <BoxBlur height="1.0" width="1.0" />
+               </effect>
             </ImageView>
-         </graphic>
-      </JFXButton>
-      <JFXButton fx:id="addFieldButton" focusTraversable="false" layoutX="1278.0" layoutY="53.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="123.0" ripplerFill="#fffdfd" style="-fx-background-color: #2C2D35; -fx-background-radius: 30px; -fx-border-color: #980B0B; -fx-border-radius: 30px; -fx-border-width: 4px;" text="New Field" textAlignment="CENTER" textFill="#980b0b">
-         <font>
-            <Font name="System Bold" size="19.0" />
-         </font>
-      </JFXButton>
-      <JFXButton fx:id="minRemoveFieldButton" defaultButton="true" focusTraversable="false" layoutX="1294.0" layoutY="269.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="93.0" ripplerFill="#fffdfd" rotate="180.0" style="-fx-background-color: transparent; -fx-background-radius: 30px; -fx-border-color: #980B0B; -fx-border-radius: 30px; -fx-border-width: 4px;" text="                       " textAlignment="CENTER" textFill="#980b0b">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-         <graphic>
-            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-               <viewport>
-                  <Rectangle2D />
-               </viewport>
-               <Image url="@../Assets/Minus.png" />
+            <ImageView fx:id="exitMenuButton" fitHeight="15.0" fitWidth="15.0" layoutX="65.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../Assets/Power.png" />
             </ImageView>
-         </graphic>
-      </JFXButton>
-      <JFXButton fx:id="removeFieldButton" focusTraversable="false" layoutX="1278.0" layoutY="262.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="123.0" ripplerFill="#fffdfd" style="-fx-background-color: #2C2D35; -fx-background-radius: 30px; -fx-border-color: #980B0B; -fx-border-radius: 30px; -fx-border-width: 4px;" text="Remove Field" textAlignment="CENTER" textFill="#980b0b">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </JFXButton>
-      <AnchorPane layoutX="30.0" layoutY="42.0" prefHeight="635.0" prefWidth="370.0" style="-fx-border-color: #980B0B; -fx-border-width: 2px; -fx-border-radius: 8px;">
-         <VBox alignment="CENTER" fillWidth="false" layoutX="68.0" layoutY="25.0" prefHeight="543.0" prefWidth="240.0">
-            <JFXDatePicker fx:id="DepDate" defaultColor="#980b0b" editable="false" prefHeight="30.0" prefWidth="240.0" promptText="Depart Date" styleClass="jfx-date-picker">
-               <VBox.margin>
-                  <Insets top="30.0" />
-               </VBox.margin>
-            </JFXDatePicker>
-            <JFXTimePicker fx:id="DepTime" defaultColor="#980b0b" prefHeight="30.0" prefWidth="240.0" promptText="Depart Time" styleClass="jfx-time-picker">
-               <VBox.margin>
-                  <Insets top="50.0" />
-               </VBox.margin>
-            </JFXTimePicker>
-            <JFXComboBox fx:id="DepProduct" editable="true" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="Exportation Product" styleClass="addComboBoxes" unFocusColor="#4d4d4d">
-               <VBox.margin>
-                  <Insets top="50.0" />
-               </VBox.margin>
-            </JFXComboBox>
-            <JFXComboBox fx:id="DepEnterprise" editable="true" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="Departure Enterprise" styleClass="addComboBoxes">
-               <VBox.margin>
-                  <Insets top="50.0" />
-               </VBox.margin>
-            </JFXComboBox>
-            <JFXComboBox fx:id="DepShip" editable="true" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="Departure Ship" styleClass="addComboBoxes">
-               <VBox.margin>
-                  <Insets top="50.0" />
-               </VBox.margin>
-            </JFXComboBox>
-            <JFXComboBox fx:id="DepPort" editable="true" focusColor="#980b0b" labelFloat="true" layoutX="62.0" prefHeight="30.0" prefWidth="240.0" promptText="Departure Port (From - To)" styleClass="addComboBoxes">
-               <VBox.margin>
-                  <Insets top="50.0" />
-               </VBox.margin>
-            </JFXComboBox>
-            <JFXComboBox fx:id="DepUnloadingLoc" editable="true" focusColor="#980b0b" labelFloat="true" layoutX="62.0" layoutY="412.0" prefHeight="30.0" prefWidth="240.0" promptText="Unloading Locations( - )" styleClass="addComboBoxes">
-               <VBox.margin>
-                  <Insets top="50.0" />
-               </VBox.margin>
-            </JFXComboBox>
-         </VBox>
-         <ImageView fx:id="DepDate_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" visible="false">
-            <Image url="@../Assets/Error.png" />
-         </ImageView>
-         <ImageView fx:id="DepTime_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true" visible="false">
-            <Image url="@../Assets/Error.png" />
-         </ImageView>
-         <ImageView fx:id="DepProduct_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true" visible="false">
-            <Image url="@../Assets/Error.png" />
-         </ImageView>
-         <ImageView fx:id="DepEnterprise_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="305.0" pickOnBounds="true" preserveRatio="true" visible="false">
-            <Image url="@../Assets/Error.png" />
-         </ImageView>
-         <ImageView fx:id="DepShip_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true" visible="false">
-            <Image url="@../Assets/Error.png" />
-         </ImageView>
-         <ImageView fx:id="DepPort_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="465.0" pickOnBounds="true" preserveRatio="true" visible="false">
-            <Image url="@../Assets/Error.png" />
-         </ImageView>
-         <ImageView fx:id="DepUnloadingLoc_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="545.0" pickOnBounds="true" preserveRatio="true" visible="false">
-            <Image url="@../Assets/Error.png" />
-         </ImageView>
-         <Label fx:id="DepDate_Error" layoutX="35.0" layoutY="65.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
-         <Label fx:id="DepTime_Error" layoutX="35.0" layoutY="145.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
-         <Label fx:id="DepProduct_Error" layoutX="35.0" layoutY="225.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
-         <Label fx:id="DepEnterprise_Error" layoutX="35.0" layoutY="305.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
-         <Label fx:id="DepShip_Error" layoutX="35.0" layoutY="385.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
-         <Label fx:id="DepPort_Error" layoutX="35.0" layoutY="465.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
-         <Label fx:id="DepUnloadingLoc_Error" layoutX="35.0" layoutY="545.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
-         <Label layoutX="28.0" layoutY="-17.0" prefHeight="32.0" prefWidth="185.0" style="-fx-background-color: #2C2D35;" text=" Departure Menu " textAlignment="CENTER" textFill="#980b0b">
-            <font>
-               <Font name="System Bold" size="22.0" />
-            </font>
-         </Label>
-         <JFXButton fx:id="DepProduct_Butt" buttonType="RAISED" ellipsisString="" focusTraversable="false" layoutX="316.0" layoutY="206.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" styleClass="minusButton" stylesheets="@StyleSheet.css" textAlignment="CENTER" textOverrun="CLIP">
-            <graphic>
-               <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                  <Image url="@../Assets/Minus.png" />
-               </ImageView>
-            </graphic>
-            <font>
-               <Font size="1.0" />
-            </font>
-         </JFXButton>
-         <JFXButton fx:id="DepEnterprise_But" buttonType="RAISED" ellipsisString="" focusTraversable="false" layoutX="316.0" layoutY="286.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" styleClass="minusButton" stylesheets="@StyleSheet.css" textAlignment="CENTER" textOverrun="CLIP">
-            <graphic>
-               <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                  <Image url="@../Assets/Minus.png" />
-               </ImageView>
-            </graphic>
-            <font>
-               <Font size="1.0" />
-            </font>
-         </JFXButton>
-         <JFXButton fx:id="DepShip_But" buttonType="RAISED" ellipsisString="" focusTraversable="false" layoutX="316.0" layoutY="366.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" styleClass="minusButton" stylesheets="@StyleSheet.css" textAlignment="CENTER" textOverrun="CLIP">
-            <graphic>
-               <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                  <Image url="@../Assets/Minus.png" />
-               </ImageView>
-            </graphic>
-            <font>
-               <Font size="1.0" />
-            </font>
-         </JFXButton>
-         <JFXButton fx:id="DepPort_But" buttonType="RAISED" ellipsisString="" focusTraversable="false" layoutX="316.0" layoutY="446.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" styleClass="minusButton" stylesheets="@StyleSheet.css" textAlignment="CENTER" textOverrun="CLIP">
-            <graphic>
-               <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                  <Image url="@../Assets/Minus.png" />
-               </ImageView>
-            </graphic>
-            <font>
-               <Font size="1.0" />
-            </font>
-         </JFXButton>
-         <JFXButton fx:id="DepUnloadingLoc_But" buttonType="RAISED" ellipsisString="" focusTraversable="false" layoutX="316.0" layoutY="526.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" styleClass="minusButton" stylesheets="@StyleSheet.css" textAlignment="CENTER" textOverrun="CLIP">
-            <graphic>
-               <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                  <Image url="@../Assets/Minus.png" />
-               </ImageView>
-            </graphic>
-            <font>
-               <Font size="1.0" />
-            </font>
-         </JFXButton>
+         </AnchorPane>
+         <AnchorPane fx:id="tableButton" layoutY="205.0" prefHeight="84.0" prefWidth="91.0" styleClass="menuButtons" stylesheets="@StyleSheet.css">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="31.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../Assets/Table.png" />
+            </ImageView>
+         </AnchorPane>
+         <AnchorPane fx:id="addButton" layoutY="322.0" prefHeight="84.0" prefWidth="91.0" styleClass="menuButtons" stylesheets="@StyleSheet.css">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="31.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../Assets/Add.png" />
+            </ImageView>
+         </AnchorPane>
+         <AnchorPane fx:id="statButton" layoutY="439.0" prefHeight="84.0" prefWidth="91.0" styleClass="menuButtons" stylesheets="@StyleSheet.css">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="31.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../Assets/Statistics.png" />
+            </ImageView>
+         </AnchorPane>
+         <AnchorPane fx:id="settButton" layoutY="623.0" prefHeight="97.0" prefWidth="91.0" styleClass="SettButton" stylesheets="@StyleSheet.css">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="31.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../Assets/Settings.png" />
+            </ImageView>
+         </AnchorPane>
+         <AnchorPane layoutX="67.0" layoutY="97.0" prefHeight="21.0" prefWidth="21.0" />
       </AnchorPane>
-      <AnchorPane layoutX="430.0" layoutY="43.0" prefHeight="635.0" prefWidth="370.0" style="-fx-border-color: #980B0B; -fx-border-width: 2px; -fx-border-radius: 8px;">
-         <VBox alignment="CENTER" fillWidth="false" layoutX="68.0" layoutY="25.0" prefHeight="543.0" prefWidth="240.0">
-            <JFXDatePicker fx:id="ArrDate" defaultColor="#980b0b" editable="false" prefHeight="30.0" prefWidth="240.0" promptText="Arrival Date" styleClass="jfx-date-picker">
-               <VBox.margin>
-                  <Insets top="30.0" />
-               </VBox.margin>
-            </JFXDatePicker>
-            <JFXTimePicker fx:id="ArrTime" defaultColor="#980b0b" prefHeight="30.0" prefWidth="240.0" promptText="Arrival Time" styleClass="jfx-time-picker">
-               <VBox.margin>
-                  <Insets top="50.0" />
-               </VBox.margin>
-            </JFXTimePicker>
-            <JFXComboBox fx:id="ArrProduct" editable="true" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="Importation Product" styleClass="addComboBoxes">
-               <VBox.margin>
-                  <Insets top="50.0" />
-               </VBox.margin>
-            </JFXComboBox>
-            <JFXComboBox fx:id="ArrEnterprise" editable="true" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="Arrival Enterprise" styleClass="addComboBoxes">
-               <VBox.margin>
-                  <Insets top="50.0" />
-               </VBox.margin>
-            </JFXComboBox>
-            <JFXComboBox fx:id="ArrShip" editable="true" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="Arrival Ship" styleClass="addComboBoxes">
-               <VBox.margin>
-                  <Insets top="50.0" />
-               </VBox.margin>
-            </JFXComboBox>
-            <JFXComboBox fx:id="ArrPort" editable="true" focusColor="#980b0b" labelFloat="true" layoutX="62.0" prefHeight="30.0" prefWidth="240.0" promptText="Arrival Port (From - To)" styleClass="addComboBoxes">
-               <VBox.margin>
-                  <Insets top="50.0" />
-               </VBox.margin>
-            </JFXComboBox>
-            <JFXComboBox fx:id="ArrLoadingLoc" editable="true" focusColor="#980b0b" labelFloat="true" layoutX="62.0" layoutY="412.0" prefHeight="30.0" prefWidth="240.0" promptText="Loading Locations( - )" styleClass="addComboBoxes">
-               <VBox.margin>
-                  <Insets top="50.0" />
-               </VBox.margin>
-            </JFXComboBox>
-         </VBox>
-         <ImageView fx:id="ArrDate_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" visible="false">
-            <Image url="@../Assets/Error.png" />
+      <ImageView fx:id="arrow" fitHeight="25.0" fitWidth="25.0" layoutX="88.0" layoutY="-25.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../Assets/Arrow.png" />
+      </ImageView>
+      <AnchorPane fx:id="userWin" layoutX="102.0" prefHeight="720.0" prefWidth="1500.0" styleClass="mainWindows" stylesheets="@StyleSheet.css" visible="false">
+         <ImageView fitHeight="97.0" fitWidth="100.0" layoutX="651.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../Assets/UserBig.png" />
          </ImageView>
-         <ImageView fx:id="ArrTime_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true" visible="false">
-            <Image url="@../Assets/Error.png" />
-         </ImageView>
-         <ImageView fx:id="ArrProduct_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true" visible="false">
-            <Image url="@../Assets/Error.png" />
-         </ImageView>
-         <ImageView fx:id="ArrEnterprise_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="305.0" pickOnBounds="true" preserveRatio="true" visible="false">
-            <Image url="@../Assets/Error.png" />
-         </ImageView>
-         <ImageView fx:id="ArrShip_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true" visible="false">
-            <Image url="@../Assets/Error.png" />
-         </ImageView>
-         <ImageView fx:id="ArrPort_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="465.0" pickOnBounds="true" preserveRatio="true" visible="false">
-            <Image url="@../Assets/Error.png" />
-         </ImageView>
-         <ImageView fx:id="ArrLoadingLoc_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="545.0" pickOnBounds="true" preserveRatio="true" visible="false">
-            <Image url="@../Assets/Error.png" />
-         </ImageView>
-         <Label fx:id="ArrDate_Error" layoutX="35.0" layoutY="65.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
-         <Label fx:id="ArrTime_Error" layoutX="35.0" layoutY="145.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
-         <Label fx:id="ArrProduct_Error" layoutX="35.0" layoutY="225.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
-         <Label fx:id="ArrEnterprise_Error" layoutX="35.0" layoutY="305.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
-         <Label fx:id="ArrShip_Error" layoutX="35.0" layoutY="385.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
-         <Label fx:id="ArrPort_Error" layoutX="35.0" layoutY="465.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
-         <Label fx:id="ArrLoadingLoc_Error" layoutX="35.0" layoutY="545.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
-         <Label layoutX="29.0" layoutY="-16.0" prefHeight="32.0" prefWidth="153.0" style="-fx-background-color: #2C2D35;" text=" Arrival Menu " textAlignment="CENTER" textFill="#980b0b">
+         <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="571.0" layoutY="333.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="256.0" style="-fx-background-color: transparent; -fx-background-radius: 5em; -fx-border-color: white; -fx-border-radius: 5em; -fx-border-width: 5px 5px 5px 5px;" text="Change Password" textAlignment="CENTER" textFill="WHITE">
             <font>
-               <Font name="System Bold" size="22.0" />
-            </font>
-         </Label>
-         <JFXButton fx:id="ArrProduct_But" buttonType="RAISED" ellipsisString="" focusTraversable="false" layoutX="316.0" layoutY="206.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" styleClass="minusButton" stylesheets="@StyleSheet.css" textAlignment="CENTER" textOverrun="CLIP">
-            <graphic>
-               <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                  <Image url="@../Assets/Minus.png" />
-               </ImageView>
-            </graphic>
-            <font>
-               <Font size="1.0" />
+               <Font name="System Bold" size="25.0" />
             </font>
          </JFXButton>
-         <JFXButton fx:id="ArrEnterprise_But" buttonType="RAISED" ellipsisString="" focusTraversable="false" layoutX="316.0" layoutY="286.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" styleClass="minusButton" stylesheets="@StyleSheet.css" textAlignment="CENTER" textOverrun="CLIP">
-            <graphic>
-               <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                  <Image url="@../Assets/Minus.png" />
-               </ImageView>
-            </graphic>
+         <JFXButton fx:id="exitButtonUser" focusTraversable="false" layoutX="1458.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" styleClass="exitButtons" stylesheets="@StyleSheet.css" text="X" textAlignment="CENTER" textFill="WHITE">
             <font>
-               <Font size="1.0" />
+               <Font size="20.0" />
             </font>
          </JFXButton>
-         <JFXButton fx:id="ArrShip_But" buttonType="RAISED" ellipsisString="" focusTraversable="false" layoutX="316.0" layoutY="366.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" styleClass="minusButton" stylesheets="@StyleSheet.css" textAlignment="CENTER" textOverrun="CLIP">
-            <graphic>
-               <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                  <Image url="@../Assets/Minus.png" />
-               </ImageView>
-            </graphic>
+         <JFXButton fx:id="minButtonUser" focusTraversable="false" layoutX="1418.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" styleClass="minButtons" stylesheets="@StyleSheet.css" text="–" textAlignment="CENTER" textFill="WHITE">
             <font>
-               <Font size="1.0" />
+               <Font size="20.0" />
             </font>
          </JFXButton>
-         <JFXButton fx:id="ArrPort_But" buttonType="RAISED" ellipsisString="" focusTraversable="false" layoutX="316.0" layoutY="446.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" styleClass="minusButton" stylesheets="@StyleSheet.css" textAlignment="CENTER" textOverrun="CLIP">
-            <graphic>
-               <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                  <Image url="@../Assets/Minus.png" />
-               </ImageView>
-            </graphic>
+         <Label layoutX="623.0" layoutY="189.0" text="GakPower" textFill="WHITE">
             <font>
-               <Font size="1.0" />
-            </font>
-         </JFXButton>
-         <JFXButton fx:id="ArrLoadingLoc_But" buttonType="RAISED" ellipsisString="" focusTraversable="false" layoutX="316.0" layoutY="526.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" styleClass="minusButton" stylesheets="@StyleSheet.css" textAlignment="CENTER" textOverrun="CLIP">
-            <graphic>
-               <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                  <Image url="@../Assets/Minus.png" />
-               </ImageView>
-            </graphic>
-            <font>
-               <Font size="1.0" />
-            </font>
-         </JFXButton>
-      </AnchorPane>
-      <AnchorPane layoutX="830.0" layoutY="43.0" prefHeight="635.0" prefWidth="400.0" style="-fx-border-color: #980B0B; -fx-border-width: 2px; -fx-border-radius: 8px; -fx-background-color: transparent;">
-         <ScrollPane fx:id="otherScrollPane" layoutX="18.0" layoutY="27.0" pannable="true" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER" vmax="0.0">
-            <AnchorPane fx:id="otherAnchor" style="-fx-background-color: transparent;">
-               <VBox alignment="CENTER" fillWidth="false" layoutX="46.0" prefHeight="558.0" prefWidth="240.0">
-                  <JFXComboBox fx:id="OthTruck" editable="true" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="Truck" styleClass="addComboBoxes">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </JFXComboBox>
-                  <JFXComboBox fx:id="OthCompany" editable="true" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="Company" styleClass="addComboBoxes">
-                     <VBox.margin>
-                        <Insets top="50.0" />
-                     </VBox.margin>
-                  </JFXComboBox>
-                  <JFXTextField fx:id="OthCMR" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="CMR" styleClass="addComboBoxes">
-                     <VBox.margin>
-                        <Insets top="50.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="OthIncome" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="Income" styleClass="addComboBoxes">
-                     <VBox.margin>
-                        <Insets top="50.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="OthKil" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="Kilometers" styleClass="addComboBoxes">
-                     <VBox.margin>
-                        <Insets top="50.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXTextArea fx:id="OthCom" disable="true" focusColor="#980b0b" labelFloat="true" prefHeight="95.0" prefWidth="240.0" promptText="Comments" styleClass="addComboBoxes" wrapText="true">
-                     <VBox.margin>
-                        <Insets top="50.0" />
-                     </VBox.margin>
-                  </JFXTextArea>
-               </VBox>
-               <ImageView fx:id="OthTruck_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="12.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" visible="false">
-                  <Image url="@../Assets/Error.png" />
-               </ImageView>
-               <ImageView fx:id="OthCompany_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="12.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" visible="false">
-                  <Image url="@../Assets/Error.png" />
-               </ImageView>
-               <ImageView fx:id="OthCMR_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="12.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true" visible="false">
-                  <Image url="@../Assets/Error.png" />
-               </ImageView>
-               <ImageView fx:id="OthIncome_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="12.0" layoutY="280.0" pickOnBounds="true" preserveRatio="true" visible="false">
-                  <Image url="@../Assets/Error.png" />
-               </ImageView>
-               <ImageView fx:id="OthKil_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="12.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true" visible="false">
-                  <Image url="@../Assets/Error.png" />
-               </ImageView>
-               <ImageView fx:id="OthCom_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="12.0" layoutY="440.0" pickOnBounds="true" preserveRatio="true" visible="false">
-                  <Image url="@../Assets/Error.png" />
-               </ImageView>
-               <Label fx:id="OthTruck_Error" layoutX="12.0" layoutY="40.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
-               <Label fx:id="OthCompany_Error" layoutX="12.0" layoutY="120.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
-               <Label fx:id="OthCMR_Error" layoutX="12.0" layoutY="200.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
-               <Label fx:id="OthIncome_Error" layoutX="12.0" layoutY="280.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
-               <Label fx:id="OthKil_Error" layoutX="12.0" layoutY="360.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
-               <Label fx:id="OthCom_Error" layoutX="12.0" layoutY="440.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
-               <JFXCheckBox fx:id="ComCheck" checkedColor="#980b0b" layoutX="286.0" layoutY="440.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="47.0" text="OFF" textAlignment="CENTER" textFill="#4d4d4d" />
-               <JFXButton fx:id="OthTruck_But" buttonType="RAISED" ellipsisString="" focusTraversable="false" layoutX="289.0" layoutY="25.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" styleClass="minusButton" stylesheets="@StyleSheet.css" textAlignment="CENTER" textOverrun="CLIP">
-                  <graphic>
-                     <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                        <Image url="@../Assets/Minus.png" />
-                     </ImageView>
-                  </graphic>
-                  <font>
-                     <Font size="1.0" />
-                  </font>
-               </JFXButton>
-               <JFXButton fx:id="OthCompany_But" buttonType="RAISED" ellipsisString="" focusTraversable="false" layoutX="289.0" layoutY="105.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" styleClass="minusButton" stylesheets="@StyleSheet.css" textAlignment="CENTER" textOverrun="CLIP">
-                  <graphic>
-                     <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                        <Image url="@../Assets/Minus.png" />
-                     </ImageView>
-                  </graphic>
-                  <font>
-                     <Font size="1.0" />
-                  </font>
-               </JFXButton>
-            </AnchorPane>
-         </ScrollPane>
-         <Label layoutX="28.0" layoutY="-16.0" prefHeight="32.0" prefWidth="73.0" style="-fx-background-color: #2C2D35;" text=" Other " textAlignment="CENTER" textFill="#980b0b">
-            <font>
-               <Font name="System Bold" size="22.0" />
+               <Font name="System Bold" size="32.0" />
             </font>
          </Label>
       </AnchorPane>
-       <AnchorPane fx:id="newFieldAnchor" layoutX="1088.0" layoutY="134.0" opacity="0.0" prefHeight="103.0" prefWidth="321.0" style="-fx-border-color: #980B0B; -fx-border-width: 2px; -fx-border-radius: 8px;" visible="false">
-           <JFXTextField fx:id="newField_TextField" focusColor="#980b0b" labelFloat="true" layoutX="58.0" layoutY="30.0" prefHeight="30.0" prefWidth="240.0" promptText="Name of Field" styleClass="addComboBoxes">
-              <font>
-                  <Font name="System Bold" size="14.0" />
-              </font>
-           </JFXTextField>
-           <ImageView fx:id="newField_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="25.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <AnchorPane fx:id="tableWin" layoutX="102.0" prefHeight="720.0" prefWidth="1500.0" styleClass="mainWindows" stylesheets="@StyleSheet.css" visible="false">
+         <JFXButton fx:id="exitButtonTable" focusTraversable="false" layoutX="1458.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" styleClass="exitButtons" stylesheets="@StyleSheet.css" text="X" textAlignment="CENTER" textFill="WHITE">
+            <font>
+               <Font size="20.0" />
+            </font>
+         </JFXButton>
+         <JFXButton fx:id="minButtonTable" focusTraversable="false" layoutX="1418.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" styleClass="minButtons" stylesheets="@StyleSheet.css" text="–" textAlignment="CENTER" textFill="WHITE">
+            <font>
+               <Font size="20.0" />
+            </font>
+         </JFXButton>
+         <TableView fx:id="tableview" focusTraversable="false" layoutX="35.0" layoutY="48.0" prefHeight="590.0" prefWidth="1415.0">
+            <columns>
+               <TableColumn fx:id="id" prefWidth="75.0" text="ID" />
+               <TableColumn fx:id="departure" prefWidth="75.0" text="Departure">
+                  <columns>
+                     <TableColumn fx:id="departureDate" prefWidth="75.0" text="Date" />
+                     <TableColumn fx:id="departureTime" prefWidth="75.0" text="Time" />
+                     <TableColumn fx:id="exportationProduct" prefWidth="75.0" text="Product" />
+                     <TableColumn fx:id="departureEnterprise" prefWidth="75.0" text="Enterprise" />
+                     <TableColumn fx:id="departureShip" prefWidth="75.0" text="Ship" />
+                     <TableColumn fx:id="departurePort" prefWidth="75.0" text="Port" />
+                     <TableColumn fx:id="unloadingLocations" prefWidth="75.0" text="Unloading Locations" />
+                  </columns>
+               </TableColumn>
+               <TableColumn prefWidth="75.0" text="Arrival">
+                  <columns>
+                     <TableColumn fx:id="arrivalDate" prefWidth="75.0" text="Date" />
+                     <TableColumn fx:id="arrivalTime" prefWidth="75.0" text="Time" />
+                     <TableColumn fx:id="importationProduct" prefWidth="75.0" text="Product" />
+                     <TableColumn fx:id="arrivalEnterprise" prefWidth="75.0" text="Enterprise" />
+                     <TableColumn fx:id="arrivalShip" prefWidth="75.0" text="Ship" />
+                     <TableColumn fx:id="arrivalPort" prefWidth="75.0" text="Port" />
+                     <TableColumn fx:id="loadingLocations" prefWidth="75.0" text="Loading Locations" />
+                  </columns>
+               </TableColumn>
+               <TableColumn prefWidth="75.0" text="Other">
+                  <columns>
+                     <TableColumn fx:id="truck" prefWidth="75.0" text="Truck" />
+                     <TableColumn fx:id="company" prefWidth="75.0" text="Company" />
+                     <TableColumn fx:id="cmr" prefWidth="75.0" text="CMR" />
+                     <TableColumn fx:id="income" prefWidth="75.0" text="Income" />
+                     <TableColumn fx:id="kilometers" prefWidth="75.0" text="Kilometers" />
+                     <TableColumn fx:id="comments" prefWidth="75.0" text="Comments" />
+                  </columns>
+               </TableColumn>
+            </columns>
+         </TableView>
+         <JFXButton fx:id="editRowButton" defaultButton="true" focusTraversable="false" layoutX="72.0" layoutY="653.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="123.0" ripplerFill="#fffdfd" style="-fx-background-color: #2C2D35; -fx-background-radius: 30px; -fx-border-color: #980B0B; -fx-border-radius: 30px; -fx-border-width: 4px;" text="Edit Row" textAlignment="CENTER" textFill="#980b0b">
+            <font>
+               <Font name="System Bold" size="19.0" />
+            </font>
+         </JFXButton>
+         <JFXButton fx:id="deleteRowButton" defaultButton="true" focusTraversable="false" layoutX="224.0" layoutY="653.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="144.0" ripplerFill="#fffdfd" style="-fx-background-color: #2C2D35; -fx-background-radius: 30px; -fx-border-color: #980B0B; -fx-border-radius: 30px; -fx-border-width: 4px;" text="Delete Row" textAlignment="CENTER" textFill="#980b0b">
+            <font>
+               <Font name="System Bold" size="19.0" />
+            </font>
+         </JFXButton>
+         <Label fx:id="helpLabel" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="47.0" layoutY="641.0" prefHeight="25.0" prefWidth="25.0">
+            <graphic>
+               <ImageView fx:id="questionMark" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../Assets/questionMark.png" />
+               </ImageView>
+            </graphic>
+         </Label>
+      </AnchorPane>
+      <AnchorPane fx:id="addWin" layoutX="102.0" prefHeight="720.0" prefWidth="1450.0" styleClass="mainWindows" stylesheets="@StyleSheet.css" visible="false">
+         <JFXButton fx:id="exitButtonAdd" focusTraversable="false" layoutX="1409.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" styleClass="exitButtons" stylesheets="@StyleSheet.css" text="X" textAlignment="CENTER" textFill="WHITE">
+            <font>
+               <Font size="20.0" />
+            </font>
+         </JFXButton>
+         <JFXButton fx:id="minButtonAdd" focusTraversable="false" layoutX="1369.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" styleClass="minButtons" stylesheets="@StyleSheet.css" text="–" textAlignment="CENTER" textFill="WHITE">
+            <font>
+               <Font size="20.0" />
+            </font>
+         </JFXButton>
+         <JFXButton fx:id="saveButton" buttonType="RAISED" defaultButton="true" focusTraversable="false" layoutX="1288.0" layoutY="626.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="123.0" ripplerFill="#fffdfd" style="-fx-background-color: transparent; -fx-background-radius: 30px; -fx-border-color: #980B0B; -fx-border-radius: 30px; -fx-border-width: 4px;" text="Save" textAlignment="CENTER" textFill="#980b0b">
+            <font>
+               <Font name="System Bold" size="20.0" />
+            </font>
+         </JFXButton>
+         <JFXButton fx:id="minAddFieldButton" defaultButton="true" focusTraversable="false" layoutX="1294.0" layoutY="59.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="93.0" ripplerFill="#fffdfd" rotate="180.0" style="-fx-background-color: transparent; -fx-background-radius: 30px; -fx-border-color: #980B0B; -fx-border-radius: 30px; -fx-border-width: 4px;" text="                       " textAlignment="CENTER" textFill="#980b0b">
+            <font>
+               <Font name="System Bold" size="15.0" />
+            </font>
+            <graphic>
+               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                  <viewport>
+                     <Rectangle2D />
+                  </viewport>
+                  <Image url="@../Assets/Minus.png" />
+               </ImageView>
+            </graphic>
+         </JFXButton>
+         <JFXButton fx:id="addFieldButton" focusTraversable="false" layoutX="1278.0" layoutY="53.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="123.0" ripplerFill="#fffdfd" style="-fx-background-color: #2C2D35; -fx-background-radius: 30px; -fx-border-color: #980B0B; -fx-border-radius: 30px; -fx-border-width: 4px;" text="New Field" textAlignment="CENTER" textFill="#980b0b">
+            <font>
+               <Font name="System Bold" size="19.0" />
+            </font>
+         </JFXButton>
+         <JFXButton fx:id="minRemoveFieldButton" defaultButton="true" focusTraversable="false" layoutX="1294.0" layoutY="269.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="93.0" ripplerFill="#fffdfd" rotate="180.0" style="-fx-background-color: transparent; -fx-background-radius: 30px; -fx-border-color: #980B0B; -fx-border-radius: 30px; -fx-border-width: 4px;" text="                       " textAlignment="CENTER" textFill="#980b0b">
+            <font>
+               <Font name="System Bold" size="15.0" />
+            </font>
+            <graphic>
+               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                  <viewport>
+                     <Rectangle2D />
+                  </viewport>
+                  <Image url="@../Assets/Minus.png" />
+               </ImageView>
+            </graphic>
+         </JFXButton>
+         <JFXButton fx:id="removeFieldButton" focusTraversable="false" layoutX="1278.0" layoutY="262.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="123.0" ripplerFill="#fffdfd" style="-fx-background-color: #2C2D35; -fx-background-radius: 30px; -fx-border-color: #980B0B; -fx-border-radius: 30px; -fx-border-width: 4px;" text="Remove Field" textAlignment="CENTER" textFill="#980b0b">
+            <font>
+               <Font name="System Bold" size="15.0" />
+            </font>
+         </JFXButton>
+         <AnchorPane layoutX="30.0" layoutY="42.0" prefHeight="635.0" prefWidth="370.0" style="-fx-border-color: #980B0B; -fx-border-width: 2px; -fx-border-radius: 8px;">
+            <VBox alignment="CENTER" fillWidth="false" layoutX="68.0" layoutY="25.0" prefHeight="543.0" prefWidth="240.0">
+               <JFXDatePicker fx:id="DepDate" defaultColor="#980b0b" editable="false" prefHeight="30.0" prefWidth="240.0" promptText="Depart Date" styleClass="jfx-date-picker">
+                  <VBox.margin>
+                     <Insets top="30.0" />
+                  </VBox.margin>
+               </JFXDatePicker>
+               <JFXTimePicker fx:id="DepTime" defaultColor="#980b0b" prefHeight="30.0" prefWidth="240.0" promptText="Depart Time" styleClass="jfx-time-picker">
+                  <VBox.margin>
+                     <Insets top="50.0" />
+                  </VBox.margin>
+               </JFXTimePicker>
+               <JFXComboBox fx:id="DepProduct" editable="true" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="Exportation Product" styleClass="addComboBoxes" unFocusColor="#4d4d4d">
+                  <VBox.margin>
+                     <Insets top="50.0" />
+                  </VBox.margin>
+               </JFXComboBox>
+               <JFXComboBox fx:id="DepEnterprise" editable="true" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="Departure Enterprise" styleClass="addComboBoxes">
+                  <VBox.margin>
+                     <Insets top="50.0" />
+                  </VBox.margin>
+               </JFXComboBox>
+               <JFXComboBox fx:id="DepShip" editable="true" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="Departure Ship" styleClass="addComboBoxes">
+                  <VBox.margin>
+                     <Insets top="50.0" />
+                  </VBox.margin>
+               </JFXComboBox>
+               <JFXComboBox fx:id="DepPort" editable="true" focusColor="#980b0b" labelFloat="true" layoutX="62.0" prefHeight="30.0" prefWidth="240.0" promptText="Departure Port (From - To)" styleClass="addComboBoxes">
+                  <VBox.margin>
+                     <Insets top="50.0" />
+                  </VBox.margin>
+               </JFXComboBox>
+               <JFXComboBox fx:id="DepUnloadingLoc" editable="true" focusColor="#980b0b" labelFloat="true" layoutX="62.0" layoutY="412.0" prefHeight="30.0" prefWidth="240.0" promptText="Unloading Locations( - )" styleClass="addComboBoxes">
+                  <VBox.margin>
+                     <Insets top="50.0" />
+                  </VBox.margin>
+               </JFXComboBox>
+            </VBox>
+            <ImageView fx:id="DepDate_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <Image url="@../Assets/Error.png" />
-           </ImageView>
-         <Label fx:id="newField_Error" layoutX="25.0" layoutY="35.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
-         <JFXRadioButton fx:id="radioField" layoutX="100.0" layoutY="70.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="56.0" selected="true" styleClass="radioButtons" stylesheets="@StyleSheet.css" text="Field" textAlignment="CENTER" textFill="WHITE">
-            <font>
-               <Font name="System Bold" size="11.0" />
-            </font>
-            <toggleGroup>
-               <ToggleGroup fx:id="radioToggleGroup" />
-            </toggleGroup></JFXRadioButton>
-         <JFXRadioButton fx:id="radioList" layoutX="195.0" layoutY="70.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="56.0" styleClass="radioButtons" stylesheets="@StyleSheet.css" text="List" textAlignment="CENTER" textFill="WHITE" toggleGroup="$radioToggleGroup">
-            <font>
-               <Font name="System Bold" size="11.0" />
-            </font>
-         </JFXRadioButton>
-       </AnchorPane>
-       <ImageView fx:id="arrowNewField" fitHeight="40.0" fitWidth="40.0" layoutX="1265.0" layoutY="96.0" opacity="0.0" pickOnBounds="true" preserveRatio="true" rotate="50.2" visible="false">
-           <Image url="@../Assets/CurvedArrow.png" />
-       </ImageView>
-      <AnchorPane fx:id="removeFieldAnchor" layoutX="1088.0" layoutY="144.0" opacity="0.0" prefHeight="80.0" prefWidth="321.0" style="-fx-border-color: #980B0B; -fx-border-width: 2px; -fx-border-radius: 8px;" visible="false">
-         <JFXTextField fx:id="removeField_TextField" focusColor="#980b0b" labelFloat="true" layoutX="58.0" layoutY="30.0" prefHeight="30.0" prefWidth="240.0" promptText="Name of Field" styleClass="addComboBoxes">
-            <font>
-               <Font name="System Bold" size="14.0" />
-            </font>
-         </JFXTextField>
-         <ImageView fx:id="removeField_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="25.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" visible="false">
-            <Image url="@../Assets/Error.png" />
+            </ImageView>
+            <ImageView fx:id="DepTime_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <Image url="@../Assets/Error.png" />
+            </ImageView>
+            <ImageView fx:id="DepProduct_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <Image url="@../Assets/Error.png" />
+            </ImageView>
+            <ImageView fx:id="DepEnterprise_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="305.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <Image url="@../Assets/Error.png" />
+            </ImageView>
+            <ImageView fx:id="DepShip_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <Image url="@../Assets/Error.png" />
+            </ImageView>
+            <ImageView fx:id="DepPort_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="465.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <Image url="@../Assets/Error.png" />
+            </ImageView>
+            <ImageView fx:id="DepUnloadingLoc_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="545.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <Image url="@../Assets/Error.png" />
+            </ImageView>
+            <Label fx:id="DepDate_Error" layoutX="35.0" layoutY="65.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
+            <Label fx:id="DepTime_Error" layoutX="35.0" layoutY="145.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
+            <Label fx:id="DepProduct_Error" layoutX="35.0" layoutY="225.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
+            <Label fx:id="DepEnterprise_Error" layoutX="35.0" layoutY="305.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
+            <Label fx:id="DepShip_Error" layoutX="35.0" layoutY="385.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
+            <Label fx:id="DepPort_Error" layoutX="35.0" layoutY="465.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
+            <Label fx:id="DepUnloadingLoc_Error" layoutX="35.0" layoutY="545.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
+            <Label layoutX="28.0" layoutY="-17.0" prefHeight="32.0" prefWidth="185.0" style="-fx-background-color: #2C2D35;" text=" Departure Menu " textAlignment="CENTER" textFill="#980b0b">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="DepProduct_Butt" buttonType="RAISED" ellipsisString="" focusTraversable="false" layoutX="316.0" layoutY="206.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" styleClass="minusButton" stylesheets="@StyleSheet.css" textAlignment="CENTER" textOverrun="CLIP">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                     <Image url="@../Assets/Minus.png" />
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font size="1.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="DepEnterprise_But" buttonType="RAISED" ellipsisString="" focusTraversable="false" layoutX="316.0" layoutY="286.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" styleClass="minusButton" stylesheets="@StyleSheet.css" textAlignment="CENTER" textOverrun="CLIP">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                     <Image url="@../Assets/Minus.png" />
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font size="1.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="DepShip_But" buttonType="RAISED" ellipsisString="" focusTraversable="false" layoutX="316.0" layoutY="366.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" styleClass="minusButton" stylesheets="@StyleSheet.css" textAlignment="CENTER" textOverrun="CLIP">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                     <Image url="@../Assets/Minus.png" />
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font size="1.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="DepPort_But" buttonType="RAISED" ellipsisString="" focusTraversable="false" layoutX="316.0" layoutY="446.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" styleClass="minusButton" stylesheets="@StyleSheet.css" textAlignment="CENTER" textOverrun="CLIP">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                     <Image url="@../Assets/Minus.png" />
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font size="1.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="DepUnloadingLoc_But" buttonType="RAISED" ellipsisString="" focusTraversable="false" layoutX="316.0" layoutY="526.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" styleClass="minusButton" stylesheets="@StyleSheet.css" textAlignment="CENTER" textOverrun="CLIP">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                     <Image url="@../Assets/Minus.png" />
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font size="1.0" />
+               </font>
+            </JFXButton>
+         </AnchorPane>
+         <AnchorPane layoutX="430.0" layoutY="43.0" prefHeight="635.0" prefWidth="370.0" style="-fx-border-color: #980B0B; -fx-border-width: 2px; -fx-border-radius: 8px;">
+            <VBox alignment="CENTER" fillWidth="false" layoutX="68.0" layoutY="25.0" prefHeight="543.0" prefWidth="240.0">
+               <JFXDatePicker fx:id="ArrDate" defaultColor="#980b0b" editable="false" prefHeight="30.0" prefWidth="240.0" promptText="Arrival Date" styleClass="jfx-date-picker">
+                  <VBox.margin>
+                     <Insets top="30.0" />
+                  </VBox.margin>
+               </JFXDatePicker>
+               <JFXTimePicker fx:id="ArrTime" defaultColor="#980b0b" prefHeight="30.0" prefWidth="240.0" promptText="Arrival Time" styleClass="jfx-time-picker">
+                  <VBox.margin>
+                     <Insets top="50.0" />
+                  </VBox.margin>
+               </JFXTimePicker>
+               <JFXComboBox fx:id="ArrProduct" editable="true" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="Importation Product" styleClass="addComboBoxes">
+                  <VBox.margin>
+                     <Insets top="50.0" />
+                  </VBox.margin>
+               </JFXComboBox>
+               <JFXComboBox fx:id="ArrEnterprise" editable="true" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="Arrival Enterprise" styleClass="addComboBoxes">
+                  <VBox.margin>
+                     <Insets top="50.0" />
+                  </VBox.margin>
+               </JFXComboBox>
+               <JFXComboBox fx:id="ArrShip" editable="true" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="Arrival Ship" styleClass="addComboBoxes">
+                  <VBox.margin>
+                     <Insets top="50.0" />
+                  </VBox.margin>
+               </JFXComboBox>
+               <JFXComboBox fx:id="ArrPort" editable="true" focusColor="#980b0b" labelFloat="true" layoutX="62.0" prefHeight="30.0" prefWidth="240.0" promptText="Arrival Port (From - To)" styleClass="addComboBoxes">
+                  <VBox.margin>
+                     <Insets top="50.0" />
+                  </VBox.margin>
+               </JFXComboBox>
+               <JFXComboBox fx:id="ArrLoadingLoc" editable="true" focusColor="#980b0b" labelFloat="true" layoutX="62.0" layoutY="412.0" prefHeight="30.0" prefWidth="240.0" promptText="Loading Locations( - )" styleClass="addComboBoxes">
+                  <VBox.margin>
+                     <Insets top="50.0" />
+                  </VBox.margin>
+               </JFXComboBox>
+            </VBox>
+            <ImageView fx:id="ArrDate_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <Image url="@../Assets/Error.png" />
+            </ImageView>
+            <ImageView fx:id="ArrTime_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <Image url="@../Assets/Error.png" />
+            </ImageView>
+            <ImageView fx:id="ArrProduct_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <Image url="@../Assets/Error.png" />
+            </ImageView>
+            <ImageView fx:id="ArrEnterprise_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="305.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <Image url="@../Assets/Error.png" />
+            </ImageView>
+            <ImageView fx:id="ArrShip_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <Image url="@../Assets/Error.png" />
+            </ImageView>
+            <ImageView fx:id="ArrPort_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="465.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <Image url="@../Assets/Error.png" />
+            </ImageView>
+            <ImageView fx:id="ArrLoadingLoc_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="35.0" layoutY="545.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <Image url="@../Assets/Error.png" />
+            </ImageView>
+            <Label fx:id="ArrDate_Error" layoutX="35.0" layoutY="65.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
+            <Label fx:id="ArrTime_Error" layoutX="35.0" layoutY="145.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
+            <Label fx:id="ArrProduct_Error" layoutX="35.0" layoutY="225.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
+            <Label fx:id="ArrEnterprise_Error" layoutX="35.0" layoutY="305.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
+            <Label fx:id="ArrShip_Error" layoutX="35.0" layoutY="385.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
+            <Label fx:id="ArrPort_Error" layoutX="35.0" layoutY="465.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
+            <Label fx:id="ArrLoadingLoc_Error" layoutX="35.0" layoutY="545.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
+            <Label layoutX="29.0" layoutY="-16.0" prefHeight="32.0" prefWidth="153.0" style="-fx-background-color: #2C2D35;" text=" Arrival Menu " textAlignment="CENTER" textFill="#980b0b">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="ArrProduct_But" buttonType="RAISED" ellipsisString="" focusTraversable="false" layoutX="316.0" layoutY="206.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" styleClass="minusButton" stylesheets="@StyleSheet.css" textAlignment="CENTER" textOverrun="CLIP">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                     <Image url="@../Assets/Minus.png" />
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font size="1.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="ArrEnterprise_But" buttonType="RAISED" ellipsisString="" focusTraversable="false" layoutX="316.0" layoutY="286.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" styleClass="minusButton" stylesheets="@StyleSheet.css" textAlignment="CENTER" textOverrun="CLIP">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                     <Image url="@../Assets/Minus.png" />
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font size="1.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="ArrShip_But" buttonType="RAISED" ellipsisString="" focusTraversable="false" layoutX="316.0" layoutY="366.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" styleClass="minusButton" stylesheets="@StyleSheet.css" textAlignment="CENTER" textOverrun="CLIP">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                     <Image url="@../Assets/Minus.png" />
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font size="1.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="ArrPort_But" buttonType="RAISED" ellipsisString="" focusTraversable="false" layoutX="316.0" layoutY="446.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" styleClass="minusButton" stylesheets="@StyleSheet.css" textAlignment="CENTER" textOverrun="CLIP">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                     <Image url="@../Assets/Minus.png" />
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font size="1.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="ArrLoadingLoc_But" buttonType="RAISED" ellipsisString="" focusTraversable="false" layoutX="316.0" layoutY="526.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" styleClass="minusButton" stylesheets="@StyleSheet.css" textAlignment="CENTER" textOverrun="CLIP">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                     <Image url="@../Assets/Minus.png" />
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font size="1.0" />
+               </font>
+            </JFXButton>
+         </AnchorPane>
+         <AnchorPane layoutX="830.0" layoutY="43.0" prefHeight="635.0" prefWidth="400.0" style="-fx-border-color: #980B0B; -fx-border-width: 2px; -fx-border-radius: 8px; -fx-background-color: transparent;">
+            <ScrollPane fx:id="otherScrollPane" layoutX="18.0" layoutY="27.0" pannable="true" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER" vmax="0.0">
+               <AnchorPane fx:id="otherAnchor" style="-fx-background-color: transparent;">
+                  <VBox alignment="CENTER" fillWidth="false" layoutX="46.0" prefHeight="558.0" prefWidth="240.0">
+                     <JFXComboBox fx:id="OthTruck" editable="true" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="Truck" styleClass="addComboBoxes">
+                        <VBox.margin>
+                           <Insets />
+                        </VBox.margin>
+                     </JFXComboBox>
+                     <JFXComboBox fx:id="OthCompany" editable="true" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="Company" styleClass="addComboBoxes">
+                        <VBox.margin>
+                           <Insets top="50.0" />
+                        </VBox.margin>
+                     </JFXComboBox>
+                     <JFXTextField fx:id="OthCMR" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="CMR" styleClass="addComboBoxes">
+                        <VBox.margin>
+                           <Insets top="50.0" />
+                        </VBox.margin>
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </JFXTextField>
+                     <JFXTextField fx:id="OthIncome" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="Income" styleClass="addComboBoxes">
+                        <VBox.margin>
+                           <Insets top="50.0" />
+                        </VBox.margin>
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </JFXTextField>
+                     <JFXTextField fx:id="OthKil" focusColor="#980b0b" labelFloat="true" prefHeight="30.0" prefWidth="240.0" promptText="Kilometers" styleClass="addComboBoxes">
+                        <VBox.margin>
+                           <Insets top="50.0" />
+                        </VBox.margin>
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </JFXTextField>
+                     <JFXTextArea fx:id="OthCom" disable="true" focusColor="#980b0b" labelFloat="true" prefHeight="95.0" prefWidth="240.0" promptText="Comments" styleClass="addComboBoxes" wrapText="true">
+                        <VBox.margin>
+                           <Insets top="50.0" />
+                        </VBox.margin>
+                     </JFXTextArea>
+                  </VBox>
+                  <ImageView fx:id="OthTruck_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="12.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <Image url="@../Assets/Error.png" />
+                  </ImageView>
+                  <ImageView fx:id="OthCompany_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="12.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <Image url="@../Assets/Error.png" />
+                  </ImageView>
+                  <ImageView fx:id="OthCMR_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="12.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <Image url="@../Assets/Error.png" />
+                  </ImageView>
+                  <ImageView fx:id="OthIncome_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="12.0" layoutY="280.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <Image url="@../Assets/Error.png" />
+                  </ImageView>
+                  <ImageView fx:id="OthKil_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="12.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <Image url="@../Assets/Error.png" />
+                  </ImageView>
+                  <ImageView fx:id="OthCom_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="12.0" layoutY="440.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <Image url="@../Assets/Error.png" />
+                  </ImageView>
+                  <Label fx:id="OthTruck_Error" layoutX="12.0" layoutY="40.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
+                  <Label fx:id="OthCompany_Error" layoutX="12.0" layoutY="120.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
+                  <Label fx:id="OthCMR_Error" layoutX="12.0" layoutY="200.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
+                  <Label fx:id="OthIncome_Error" layoutX="12.0" layoutY="280.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
+                  <Label fx:id="OthKil_Error" layoutX="12.0" layoutY="360.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
+                  <Label fx:id="OthCom_Error" layoutX="12.0" layoutY="440.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
+                  <JFXCheckBox fx:id="ComCheck" checkedColor="#980b0b" layoutX="286.0" layoutY="440.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="47.0" text="OFF" textAlignment="CENTER" textFill="#4d4d4d" />
+                  <JFXButton fx:id="OthTruck_But" buttonType="RAISED" ellipsisString="" focusTraversable="false" layoutX="289.0" layoutY="25.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" styleClass="minusButton" stylesheets="@StyleSheet.css" textAlignment="CENTER" textOverrun="CLIP">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                           <Image url="@../Assets/Minus.png" />
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font size="1.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="OthCompany_But" buttonType="RAISED" ellipsisString="" focusTraversable="false" layoutX="289.0" layoutY="105.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="40.0" ripplerFill="WHITE" styleClass="minusButton" stylesheets="@StyleSheet.css" textAlignment="CENTER" textOverrun="CLIP">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                           <Image url="@../Assets/Minus.png" />
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font size="1.0" />
+                     </font>
+                  </JFXButton>
+               </AnchorPane>
+            </ScrollPane>
+            <Label layoutX="28.0" layoutY="-16.0" prefHeight="32.0" prefWidth="73.0" style="-fx-background-color: #2C2D35;" text=" Other " textAlignment="CENTER" textFill="#980b0b">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Label>
+         </AnchorPane>
+         <AnchorPane fx:id="newFieldAnchor" layoutX="1088.0" layoutY="134.0" opacity="0.0" prefHeight="103.0" prefWidth="321.0" style="-fx-border-color: #980B0B; -fx-border-width: 2px; -fx-border-radius: 8px;" visible="false">
+            <JFXTextField fx:id="newField_TextField" focusColor="#980b0b" labelFloat="true" layoutX="58.0" layoutY="30.0" prefHeight="30.0" prefWidth="240.0" promptText="Name of Field" styleClass="addComboBoxes">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXTextField>
+            <ImageView fx:id="newField_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="25.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <Image url="@../Assets/Error.png" />
+            </ImageView>
+            <Label fx:id="newField_Error" layoutX="25.0" layoutY="35.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
+            <JFXRadioButton fx:id="radioField" layoutX="100.0" layoutY="70.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="56.0" selected="true" styleClass="radioButtons" stylesheets="@StyleSheet.css" text="Field" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="11.0" />
+               </font>
+               <toggleGroup>
+                  <ToggleGroup fx:id="radioToggleGroup" />
+               </toggleGroup>
+            </JFXRadioButton>
+            <JFXRadioButton fx:id="radioList" layoutX="195.0" layoutY="70.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="56.0" styleClass="radioButtons" stylesheets="@StyleSheet.css" text="List" textAlignment="CENTER" textFill="WHITE" toggleGroup="$radioToggleGroup">
+               <font>
+                  <Font name="System Bold" size="11.0" />
+               </font>
+            </JFXRadioButton>
+         </AnchorPane>
+         <ImageView fx:id="arrowNewField" fitHeight="40.0" fitWidth="40.0" layoutX="1265.0" layoutY="96.0" opacity="0.0" pickOnBounds="true" preserveRatio="true" rotate="50.2" visible="false">
+            <Image url="@../Assets/CurvedArrow.png" />
          </ImageView>
-         <Label fx:id="removeField_Error" layoutX="25.0" layoutY="35.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
+         <AnchorPane fx:id="removeFieldAnchor" layoutX="1088.0" layoutY="144.0" opacity="0.0" prefHeight="80.0" prefWidth="321.0" style="-fx-border-color: #980B0B; -fx-border-width: 2px; -fx-border-radius: 8px;" visible="false">
+            <JFXTextField fx:id="removeField_TextField" focusColor="#980b0b" labelFloat="true" layoutX="58.0" layoutY="30.0" prefHeight="30.0" prefWidth="240.0" promptText="Name of Field" styleClass="addComboBoxes">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXTextField>
+            <ImageView fx:id="removeField_ImageError" fitHeight="20.0" fitWidth="20.0" layoutX="25.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <Image url="@../Assets/Error.png" />
+            </ImageView>
+            <Label fx:id="removeField_Error" layoutX="25.0" layoutY="35.0" prefHeight="20.0" prefWidth="20.0" text="Label" visible="false" />
+         </AnchorPane>
+         <ImageView fx:id="arrowRemoveField" fitHeight="40.0" fitWidth="40.0" layoutX="1263.0" layoutY="222.0" opacity="0.0" pickOnBounds="true" preserveRatio="true" rotate="180.0" visible="false">
+            <rotationAxis>
+               <Point3D x="1.0" y="-0.5" />
+            </rotationAxis>
+            <Image url="@../Assets/CurvedArrow.png" />
+         </ImageView>
+         <Text fx:id="editingRowLabel" fill="#980b0b" layoutX="1307.0" layoutY="694.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Editing Row" textAlignment="CENTER" visible="false">
+            <font>
+               <Font name="System Bold" size="15.0" />
+            </font>
+            <effect>
+               <DropShadow blurType="GAUSSIAN" color="#000000b2" height="10.0" radius="4.5" spread="0.23" width="10.0" />
+            </effect>
+         </Text>
+         <ProgressIndicator fx:id="progressIndicator" layoutX="1337.0" layoutY="595.0" prefHeight="25.0" prefWidth="25.0" style="-fx-progress-color: #980b0b;" visible="false" />
       </AnchorPane>
-      <ImageView fx:id="arrowRemoveField" fitHeight="40.0" fitWidth="40.0" layoutX="1263.0" layoutY="222.0" opacity="0.0" pickOnBounds="true" preserveRatio="true" rotate="180.0" visible="false">
-         <rotationAxis>
-            <Point3D x="1.0" y="-0.5" />
-         </rotationAxis>
-         <Image url="@../Assets/CurvedArrow.png" />
-      </ImageView>
-      <Text fx:id="editingRowLabel" fill="#980b0b" layoutX="1307.0" layoutY="694.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Editing Row" textAlignment="CENTER" visible="false">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-         <effect>
-            <DropShadow blurType="GAUSSIAN" color="#000000b2" height="10.0" radius="4.5" spread="0.23" width="10.0" />
-         </effect>
-      </Text>
-      <ProgressIndicator fx:id="progressIndicator" layoutX="1337.0" layoutY="595.0" prefHeight="25.0" prefWidth="25.0" style="-fx-progress-color: #980b0b;" visible="false" />
-   </AnchorPane>
-   <AnchorPane fx:id="statWin" layoutX="102.0" prefHeight="720.0" prefWidth="1500.0" styleClass="mainWindows" stylesheets="@StyleSheet.css" visible="false">
-      <JFXButton fx:id="exitButtonStat" focusTraversable="false" layoutX="1458.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" styleClass="exitButtons" stylesheets="@StyleSheet.css" text="X" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </JFXButton>
-      <JFXButton fx:id="minButtonStat" focusTraversable="false" layoutX="1418.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" styleClass="minButtons" stylesheets="@StyleSheet.css" text="–" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </JFXButton>
-       <ScrollPane fx:id="statScrollPane" layoutX="37.0" layoutY="57.0" pannable="true" prefHeight="628.0" prefWidth="1424.0" style="-fx-border-color: #980B0B; -fx-border-width: 2px; -fx-border-radius: 8px;" vbarPolicy="NEVER" vmax="0.0">
-           <HBox fx:id="statHbox" fillHeight="false">
+      <AnchorPane fx:id="statWin" layoutX="102.0" prefHeight="720.0" prefWidth="1500.0" styleClass="mainWindows" stylesheets="@StyleSheet.css" visible="false">
+         <JFXButton fx:id="exitButtonStat" focusTraversable="false" layoutX="1458.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" styleClass="exitButtons" stylesheets="@StyleSheet.css" text="X" textAlignment="CENTER" textFill="WHITE">
+            <font>
+               <Font size="20.0" />
+            </font>
+         </JFXButton>
+         <JFXButton fx:id="minButtonStat" focusTraversable="false" layoutX="1418.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" styleClass="minButtons" stylesheets="@StyleSheet.css" text="–" textAlignment="CENTER" textFill="WHITE">
+            <font>
+               <Font size="20.0" />
+            </font>
+         </JFXButton>
+         <ScrollPane fx:id="statScrollPane" layoutX="37.0" layoutY="57.0" pannable="true" prefHeight="628.0" prefWidth="1424.0" style="-fx-border-color: #980B0B; -fx-border-width: 2px; -fx-border-radius: 8px;" vbarPolicy="NEVER" vmax="0.0">
+            <HBox fx:id="statHbox" fillHeight="false">
                <VBox fillWidth="false">
-                   <AnchorPane>
-                       <VBox prefHeight="185.0" prefWidth="247.0" style="-fx-border-color: #980B0B; -fx-border-width: 2px; -fx-border-radius: 8px;">
-                           <opaqueInsets>
-                               <Insets />
-                           </opaqueInsets>
-                           <HBox prefHeight="30.0" VBox.vgrow="NEVER">
-                               <VBox.margin>
-                                   <Insets left="20.0" right="20.0" top="20.0" />
-                               </VBox.margin>
-                               <Label prefHeight="17.0" prefWidth="37.0" text="Trips:" textFill="WHITE">
-                                   <font>
-                                       <Font name="System Bold" size="12.0" />
-                                   </font>
-                                   <HBox.margin>
-                                       <Insets top="5.0" />
-                                   </HBox.margin>
-                               </Label>
-                               <Label fx:id="tripsLabel" prefHeight="15.0" prefWidth="127.0" textAlignment="CENTER" textFill="#980b0b">
-                                   <font>
-                                       <Font name="System Bold" size="16.0" />
-                                   </font>
-                                   <HBox.margin>
-                                       <Insets left="39.0" />
-                                   </HBox.margin>
-                               </Label>
-                           </HBox>
-                           <HBox layoutX="32.0" layoutY="112.0" prefHeight="30.0">
-                               <VBox.margin>
-                                   <Insets left="20.0" right="20.0" />
-                               </VBox.margin>
-                               <Label prefHeight="17.0" prefWidth="34.0" text="CMR:" textFill="WHITE">
-                                   <font>
-                                       <Font name="System Bold" size="12.0" />
-                                   </font>
-                                   <HBox.margin>
-                                       <Insets top="5.0" />
-                                   </HBox.margin>
-                               </Label>
-                               <Label fx:id="cmrLabel" prefHeight="15.0" prefWidth="127.0" textAlignment="CENTER" textFill="#980b0b">
-                                   <font>
-                                       <Font name="System Bold" size="16.0" />
-                                   </font>
-                                   <HBox.margin>
-                                       <Insets left="42.0" />
-                                   </HBox.margin>
-                               </Label>
-                           </HBox>
-                           <HBox layoutX="32.0" layoutY="152.0" prefHeight="30.0">
-                               <VBox.margin>
-                                   <Insets left="20.0" right="20.0" />
-                               </VBox.margin>
-                               <Label prefHeight="17.0" prefWidth="50.0" text="Income:" textFill="WHITE">
-                                   <font>
-                                       <Font name="System Bold" size="12.0" />
-                                   </font>
-                                   <HBox.margin>
-                                       <Insets top="5.0" />
-                                   </HBox.margin>
-                               </Label>
-                               <Label fx:id="incomeLabel" prefHeight="15.0" prefWidth="127.0" textAlignment="CENTER" textFill="#980b0b">
-                                   <font>
-                                       <Font name="System Bold" size="16.0" />
-                                   </font>
-                                   <HBox.margin>
-                                       <Insets left="26.0" />
-                                   </HBox.margin>
-                               </Label>
-                           </HBox>
-                           <HBox layoutX="32.0" layoutY="72.0" prefHeight="30.0">
-                               <VBox.margin>
-                                   <Insets left="20.0" right="20.0" />
-                               </VBox.margin>
-                               <Label prefHeight="17.0" prefWidth="70.0" text="Kilometers:" textFill="WHITE">
-                                   <font>
-                                       <Font name="System Bold" size="12.0" />
-                                   </font>
-                                   <HBox.margin>
-                                       <Insets top="5.0" />
-                                   </HBox.margin>
-                               </Label>
-                               <Label fx:id="kilometersLabel" prefHeight="15.0" prefWidth="127.0" textAlignment="CENTER" textFill="#980b0b">
-                                   <font>
-                                       <Font name="System Bold" size="16.0" />
-                                   </font>
-                                   <HBox.margin>
-                                       <Insets left="10.0" />
-                                   </HBox.margin>
-                               </Label>
-                           </HBox>
-                           <HBox layoutX="32.0" layoutY="32.0" prefHeight="30.0">
-                               <VBox.margin>
-                                   <Insets left="20.0" right="20.0" />
-                               </VBox.margin>
-                               <Label prefHeight="17.0" prefWidth="46.0" text="Trucks:" textFill="WHITE">
-                                   <font>
-                                       <Font name="System Bold" size="12.0" />
-                                   </font>
-                                   <HBox.margin>
-                                       <Insets top="5.0" />
-                                   </HBox.margin>
-                               </Label>
-                               <Label fx:id="trucksLabel" prefHeight="15.0" prefWidth="127.0" textAlignment="CENTER" textFill="#980b0b">
-                                   <font>
-                                       <Font name="System Bold" size="16.0" />
-                                   </font>
-                                   <HBox.margin>
-                                       <Insets left="30.0" />
-                                   </HBox.margin>
-                               </Label>
-                           </HBox>
-                       </VBox>
-                       <Label layoutX="50.0" layoutY="-17.0" prefHeight="32.0" prefWidth="138.0" style="-fx-background-color: #2C2D35;" text=" Information " textAlignment="CENTER" textFill="#980b0b">
-                           <font>
-                               <Font name="System Bold" size="22.0" />
-                           </font>
-                       </Label>
-                   </AnchorPane>
-                   <HBox.margin>
-                       <Insets top="20.0" />
-                   </HBox.margin>
-                   <padding>
-                       <Insets bottom="20.0" left="20.0" />
-                   </padding>
+                  <AnchorPane>
+                     <VBox prefHeight="185.0" prefWidth="247.0" style="-fx-border-color: #980B0B; -fx-border-width: 2px; -fx-border-radius: 8px;">
+                        <opaqueInsets>
+                           <Insets />
+                        </opaqueInsets>
+                        <HBox prefHeight="30.0" VBox.vgrow="NEVER">
+                           <VBox.margin>
+                              <Insets left="20.0" right="20.0" top="20.0" />
+                           </VBox.margin>
+                           <Label prefHeight="17.0" prefWidth="37.0" text="Trips:" textFill="WHITE">
+                              <font>
+                                 <Font name="System Bold" size="12.0" />
+                              </font>
+                              <HBox.margin>
+                                 <Insets top="5.0" />
+                              </HBox.margin>
+                           </Label>
+                           <Label fx:id="tripsLabel" prefHeight="15.0" prefWidth="127.0" textAlignment="CENTER" textFill="#980b0b">
+                              <font>
+                                 <Font name="System Bold" size="16.0" />
+                              </font>
+                              <HBox.margin>
+                                 <Insets left="39.0" />
+                              </HBox.margin>
+                           </Label>
+                        </HBox>
+                        <HBox layoutX="32.0" layoutY="112.0" prefHeight="30.0">
+                           <VBox.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </VBox.margin>
+                           <Label prefHeight="17.0" prefWidth="34.0" text="CMR:" textFill="WHITE">
+                              <font>
+                                 <Font name="System Bold" size="12.0" />
+                              </font>
+                              <HBox.margin>
+                                 <Insets top="5.0" />
+                              </HBox.margin>
+                           </Label>
+                           <Label fx:id="cmrLabel" prefHeight="15.0" prefWidth="127.0" textAlignment="CENTER" textFill="#980b0b">
+                              <font>
+                                 <Font name="System Bold" size="16.0" />
+                              </font>
+                              <HBox.margin>
+                                 <Insets left="42.0" />
+                              </HBox.margin>
+                           </Label>
+                        </HBox>
+                        <HBox layoutX="32.0" layoutY="152.0" prefHeight="30.0">
+                           <VBox.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </VBox.margin>
+                           <Label prefHeight="17.0" prefWidth="50.0" text="Income:" textFill="WHITE">
+                              <font>
+                                 <Font name="System Bold" size="12.0" />
+                              </font>
+                              <HBox.margin>
+                                 <Insets top="5.0" />
+                              </HBox.margin>
+                           </Label>
+                           <Label fx:id="incomeLabel" prefHeight="15.0" prefWidth="127.0" textAlignment="CENTER" textFill="#980b0b">
+                              <font>
+                                 <Font name="System Bold" size="16.0" />
+                              </font>
+                              <HBox.margin>
+                                 <Insets left="26.0" />
+                              </HBox.margin>
+                           </Label>
+                        </HBox>
+                        <HBox layoutX="32.0" layoutY="72.0" prefHeight="30.0">
+                           <VBox.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </VBox.margin>
+                           <Label prefHeight="17.0" prefWidth="70.0" text="Kilometers:" textFill="WHITE">
+                              <font>
+                                 <Font name="System Bold" size="12.0" />
+                              </font>
+                              <HBox.margin>
+                                 <Insets top="5.0" />
+                              </HBox.margin>
+                           </Label>
+                           <Label fx:id="kilometersLabel" prefHeight="15.0" prefWidth="127.0" textAlignment="CENTER" textFill="#980b0b">
+                              <font>
+                                 <Font name="System Bold" size="16.0" />
+                              </font>
+                              <HBox.margin>
+                                 <Insets left="10.0" />
+                              </HBox.margin>
+                           </Label>
+                        </HBox>
+                        <HBox layoutX="32.0" layoutY="32.0" prefHeight="30.0">
+                           <VBox.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </VBox.margin>
+                           <Label prefHeight="17.0" prefWidth="46.0" text="Trucks:" textFill="WHITE">
+                              <font>
+                                 <Font name="System Bold" size="12.0" />
+                              </font>
+                              <HBox.margin>
+                                 <Insets top="5.0" />
+                              </HBox.margin>
+                           </Label>
+                           <Label fx:id="trucksLabel" prefHeight="15.0" prefWidth="127.0" textAlignment="CENTER" textFill="#980b0b">
+                              <font>
+                                 <Font name="System Bold" size="16.0" />
+                              </font>
+                              <HBox.margin>
+                                 <Insets left="30.0" />
+                              </HBox.margin>
+                           </Label>
+                        </HBox>
+                     </VBox>
+                     <Label layoutX="50.0" layoutY="-17.0" prefHeight="32.0" prefWidth="138.0" style="-fx-background-color: #2C2D35;" text=" Information " textAlignment="CENTER" textFill="#980b0b">
+                        <font>
+                           <Font name="System Bold" size="22.0" />
+                        </font>
+                     </Label>
+                  </AnchorPane>
+                  <HBox.margin>
+                     <Insets top="20.0" />
+                  </HBox.margin>
+                  <padding>
+                     <Insets bottom="20.0" left="20.0" />
+                  </padding>
                </VBox>
-           </HBox>
-       </ScrollPane>
+            </HBox>
+         </ScrollPane>
+      </AnchorPane>
+      <AnchorPane fx:id="settWin" layoutX="102.0" prefHeight="720.0" prefWidth="1500.0" styleClass="mainWindows" stylesheets="@StyleSheet.css" visible="false">
+         <JFXButton fx:id="exitButtonSett" focusTraversable="false" layoutX="1458.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" styleClass="exitButtons" stylesheets="@StyleSheet.css" text="X" textAlignment="CENTER" textFill="WHITE">
+            <font>
+               <Font size="20.0" />
+            </font>
+         </JFXButton>
+         <JFXButton fx:id="minButtonSett" focusTraversable="false" layoutX="1418.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" styleClass="minButtons" stylesheets="@StyleSheet.css" text="–" textAlignment="CENTER" textFill="WHITE">
+            <font>
+               <Font size="20.0" />
+            </font>
+         </JFXButton>
+      </AnchorPane>
    </AnchorPane>
-   <AnchorPane fx:id="settWin" layoutX="102.0" prefHeight="720.0" prefWidth="1500.0" styleClass="mainWindows" stylesheets="@StyleSheet.css" visible="false">
-      <JFXButton fx:id="exitButtonSett" focusTraversable="false" layoutX="1458.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" styleClass="exitButtons" stylesheets="@StyleSheet.css" text="X" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </JFXButton>
-      <JFXButton fx:id="minButtonSett" focusTraversable="false" layoutX="1418.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" styleClass="minButtons" stylesheets="@StyleSheet.css" text="–" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </JFXButton>
-   </AnchorPane>
-</AnchorPane>
+</StackPane>

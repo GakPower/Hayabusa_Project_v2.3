@@ -12,6 +12,7 @@ public class Dialog extends JFXDialog {
 
     private JFXDialog dialog;
     private JFXButton button;
+    private JFXButton noButton;
     private Label label;
 
     public Dialog(StackPane paneToShow,
@@ -26,13 +27,35 @@ public class Dialog extends JFXDialog {
 
         createDialog(paneToShow, message, panesToAffectBlur);
     }
+    public Dialog(StackPane paneToShow,
+                  String message,
+                  String YesButtonText,
+                  String NoButtonText,
+                  String buttonCssFilePath,
+                  String buttonCssClass,
+                  AnchorPane... panesToAffectBlur){
+
+        button = initDialogButton(YesButtonText,
+                buttonCssFilePath,
+                buttonCssClass);
+
+        noButton = initDialogButton(NoButtonText,
+                buttonCssFilePath,
+                buttonCssClass);
+
+        createDialog(paneToShow, message, panesToAffectBlur);
+    }
 
     private void createDialog(StackPane paneToShow, String message, AnchorPane... panesToAffectBlur){
         JFXDialogLayout dialogLayout = new JFXDialogLayout();
 
         label = new Label(message);
         dialogLayout.setHeading(label);
-        dialogLayout.setActions(button);
+        if (noButton != null){
+            dialogLayout.setActions(button, noButton);
+        }else{
+            dialogLayout.setActions(button);
+        }
 
         dialog = new JFXDialog(paneToShow, dialogLayout,JFXDialog.DialogTransition.CENTER);
         dialog.setStyle("-fx-background-color: transparent");
@@ -42,7 +65,7 @@ public class Dialog extends JFXDialog {
         dialog.show();
     }
     private JFXButton initDialogButton(String buttonText, String cssFilePath, String cssClass){
-        button = new JFXButton(buttonText);
+        JFXButton button = new JFXButton(buttonText);
         button.getStylesheets().add(cssFilePath);
         button.getStyleClass().add(cssClass);
         button.setOnAction(event -> label.setText("You have to change the onAction method od the button"));
@@ -66,9 +89,11 @@ public class Dialog extends JFXDialog {
     public JFXButton getButton() {
         return button;
     }
+    public JFXButton getNoButton(){
+        return noButton;
+    }
 
     public void close(){
         dialog.close();
     }
-
 }

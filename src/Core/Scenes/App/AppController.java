@@ -22,6 +22,7 @@ import Core.ExtraFields.ExtraGroups;
 import Core.Range;
 import Core.SQL.CurrentUser;
 import Core.SQL.HyperSQL;
+import Core.Scenes.Dialog;
 import Core.Scenes.UIControls;
 import Core.TableData;
 import Core.TableDatas;
@@ -40,6 +41,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
@@ -56,6 +58,9 @@ import static Core.Components.ComponentFactory.createComponent;
 @SuppressWarnings("Duplicates")
 public class AppController {
 
+
+    @FXML private AnchorPane mainMenu_Anchor;
+    @FXML private StackPane mainApp_Stack;
 
     @FXML private ProgressIndicator progressIndicator;
     @FXML private Text editingRowLabel;
@@ -369,89 +374,109 @@ public class AppController {
         @FXML private void initialize()
         {
             helpLabel.setTooltip(new Tooltip("To Edit or Delete a row from the Table you have to select the row and click the right button"));
-        deleteRowButton.setOnAction(event -> {
-            TableData selectedRow = tableview.getSelectionModel().getSelectedItem();
-            int id = Integer.valueOf(tableview.getSelectionModel().getSelectedItem().getId());
-            tableview.getItems().remove(selectedRow);
+            deleteRowButton.setOnAction(event -> {
+                TableData selectedRow = tableview.getSelectionModel().getSelectedItem();
+                if (selectedRow != null) {
+                    int id = Integer.valueOf(tableview.getSelectionModel().getSelectedItem().getId());
+                    tableview.getItems().remove(selectedRow);
 
-            TableDatas.delete(CurrentUser.getUsername(), id);
-            
-            for (int i = id-1; i < tableview.getItems().size(); i++) {
-                tableview.getItems().get(i).setId(i + 1 + "");
-            }
+                    TableDatas.delete(CurrentUser.getUsername(), id);
 
-            sql.connDB();
-            sql.execUpdateCommand("UPDATE TableData SET ID=ID-1 WHERE ID >=" + id + " AND Username=\'"+CurrentUser.getUsername()+"\';");
-            sql.shutDB();
+                    for (int i = id - 1; i < tableview.getItems().size(); i++) {
+                        tableview.getItems().get(i).setId(i + 1 + "");
+                    }
+
+                    sql.connDB();
+                    sql.execUpdateCommand("UPDATE TableData SET ID=ID-1 WHERE ID >=" + id + " AND Username=\'" + CurrentUser.getUsername() + "\';");
+                    sql.shutDB();
+                }else{
+                    Dialog dialog = new Dialog(mainApp_Stack,
+                            "You have not select any row. Select a row by clicking on It",
+                            "OK",
+                            "Core/Scenes/App/StyleSheet.css",
+                            "dialogButton",
+                            mainMenu_Anchor, tableWin);
+                    dialog.getButton().setOnAction(event1 -> {
+                        dialog.close();
+                    });
+                }
         });
         editRowButton.setOnAction(event -> {
 
-            editingRow = true;
-            editingRowLabel.setVisible(true);
-
             TableData selectedRow = tableview.getSelectionModel().getSelectedItem();
+            if (selectedRow != null) {
+                editingRow = true;
+                editingRowLabel.setVisible(true);
 
-            editingRowID = Integer.valueOf(selectedRow.getId());
+                editingRowID = Integer.valueOf(selectedRow.getId());
 
-            DepDate_Group.setInput(selectedRow.getDepartureDate());
-            DepTime_Group.setInput(selectedRow.getDepartureTime());
-            DepProduct_Group.setInput(selectedRow.getExportationProduct());
-            DepEnterprise_Group.setInput(selectedRow.getDepartureEnterprise());
-            DepShip_Group.setInput(selectedRow.getDepartureShip());
-            DepPort_Group.setInput(selectedRow.getDeparturePort());
-            UnloadingLoc_Group.setInput(selectedRow.getUnloadingLocations());
+                DepDate_Group.setInput(selectedRow.getDepartureDate());
+                DepTime_Group.setInput(selectedRow.getDepartureTime());
+                DepProduct_Group.setInput(selectedRow.getExportationProduct());
+                DepEnterprise_Group.setInput(selectedRow.getDepartureEnterprise());
+                DepShip_Group.setInput(selectedRow.getDepartureShip());
+                DepPort_Group.setInput(selectedRow.getDeparturePort());
+                UnloadingLoc_Group.setInput(selectedRow.getUnloadingLocations());
 
-            ArrDate_Group.setInput(selectedRow.getArrivalDate());
-            ArrTime_Group.setInput(selectedRow.getArrivalTime());
-            ArrProduct_Group.setInput(selectedRow.getImportationProduct());
-            ArrEnterprise_Group.setInput(selectedRow.getArrivalEnterprise());
-            ArrShip_Group.setInput(selectedRow.getArrivalShip());
-            ArrPort_Group.setInput(selectedRow.getArrivalPort());
-            LoadingLoc_Group.setInput(selectedRow.getLoadingLocations());
+                ArrDate_Group.setInput(selectedRow.getArrivalDate());
+                ArrTime_Group.setInput(selectedRow.getArrivalTime());
+                ArrProduct_Group.setInput(selectedRow.getImportationProduct());
+                ArrEnterprise_Group.setInput(selectedRow.getArrivalEnterprise());
+                ArrShip_Group.setInput(selectedRow.getArrivalShip());
+                ArrPort_Group.setInput(selectedRow.getArrivalPort());
+                LoadingLoc_Group.setInput(selectedRow.getLoadingLocations());
 
-            OthTruck_Group.setInput(selectedRow.getTruck());
-            OthCompany_Group.setInput(selectedRow.getCompany());
-            OthCMR_Group.setInput(selectedRow.getCmr());
-            OthIncome_Group.setInput(selectedRow.getIncome());
-            OthKil_Group.setInput(selectedRow.getKilometers());
+                OthTruck_Group.setInput(selectedRow.getTruck());
+                OthCompany_Group.setInput(selectedRow.getCompany());
+                OthCMR_Group.setInput(selectedRow.getCmr());
+                OthIncome_Group.setInput(selectedRow.getIncome());
+                OthKil_Group.setInput(selectedRow.getKilometers());
 
-            if (!selectedRow.getComments().equals("No Comment")) {
-                OthCom_Group.setInput(selectedRow.getComments());
-                OthCom_Group.checkBox.setSelected(true);
-            } else {
-                OthCom_Group.setInput("");
-                OthCom_Group.checkBox.setSelected(false);
-            }
-            for (int i = 21; i < 21+ExtraGroups.extraGroups.size(); i++) {
-                if (i-21 < selectedRow.getExtraData().size()) {
-                    ExtraGroups.extraGroups.get(i-21).getComponent().setText(selectedRow.getExtraData().get(i-21));
-                }else{
-                    ExtraGroups.extraGroups.get(i-21).getComponent().setText("");
+                if (!selectedRow.getComments().equals("No Comment")) {
+                    OthCom_Group.setInput(selectedRow.getComments());
+                    OthCom_Group.checkBox.setSelected(true);
+                } else {
+                    OthCom_Group.setInput("");
+                    OthCom_Group.checkBox.setSelected(false);
                 }
-            }
-
-
-            int newPositionOfArrow = (int) (addButton.getLayoutY()+addButton.getPrefHeight()/2+13);
-
-            if (activeWin != windows.get(addButton))
-            {
-                if (activeWin != null)
-                {
-                    activeButton.setStyle(oldStyles.get(addButton));
-
-                    AnimationControls.hideAndShowWithAnimationInDuration(activeWin, windows.get(addButton), Duration.millis(500));
-                }else{
-                    Animation.fadeInAnimation(Duration.millis(500), windows.get(addButton)).play();
+                for (int i = 21; i < 21 + ExtraGroups.extraGroups.size(); i++) {
+                    if (i - 21 < selectedRow.getExtraData().size()) {
+                        ExtraGroups.extraGroups.get(i - 21).getComponent().setText(selectedRow.getExtraData().get(i - 21));
+                    } else {
+                        ExtraGroups.extraGroups.get(i - 21).getComponent().setText("");
+                    }
                 }
+
+
+                int newPositionOfArrow = (int) (addButton.getLayoutY() + addButton.getPrefHeight() / 2 + 13);
+
+                if (activeWin != windows.get(addButton)) {
+                    if (activeWin != null) {
+                        activeButton.setStyle(oldStyles.get(addButton));
+
+                        AnimationControls.hideAndShowWithAnimationInDuration(activeWin, windows.get(addButton), Duration.millis(500));
+                    } else {
+                        Animation.fadeInAnimation(Duration.millis(500), windows.get(addButton)).play();
+                    }
+                }
+                createAndRunDriftAnimation(newPositionOfArrow);
+
+                activeWin = windows.get(addButton);
+                activeButton = addButton;
+
+                addButton.setStyle(newStyles.get(addButton));
+                windows.get(addButton).setVisible(true);
+            }else{
+                Dialog dialog = new Dialog(mainApp_Stack,
+                        "You have not select any row. Select a row by clicking on It",
+                        "OK",
+                        "Core/Scenes/App/StyleSheet.css",
+                        "dialogButton",
+                        mainMenu_Anchor, tableWin);
+                dialog.getButton().setOnAction(event1 -> {
+                    dialog.close();
+                });
             }
-            createAndRunDriftAnimation(newPositionOfArrow);
-
-            activeWin = windows.get(addButton);
-            activeButton = addButton;
-
-            addButton.setStyle(newStyles.get(addButton));
-            windows.get(addButton).setVisible(true);
-
         });
 
         OthCMR.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -1437,26 +1462,64 @@ public class AppController {
 
         menuButton.setOnMousePressed(event ->
         {
-            int newPositionOfArrow = (int) (menuButton.getLayoutY()+event.getY()+13);
+            if (editingRow) {
+                Dialog dialog = new Dialog(mainApp_Stack,
+                        "You are editing a row! Are you sure you want to stop editing?\n" +
+                                "By selecting YES you will stop editing the row and no change will \n" +
+                                "happen to that row." +
+                                "\n If you select NO or click outside of this dialog you will continue\n editing the row...",
+                        "YES",
+                        "NO",
+                        "Core/Scenes/App/StyleSheet.css",
+                        "dialogButton",
+                        mainMenu_Anchor, addWin, tableWin);
+                dialog.getButton().setOnAction(event1 -> {
+                    int newPositionOfArrow = (int) (menuButton.getLayoutY() + event.getY() + 13);
 
-            if (activeWin != windows.get(menuButton))
-            {
-                if (activeWin != null)
-                {
-                    activeButton.setStyle(oldStyles.get(menuButton));
+                    if (activeWin != windows.get(menuButton)) {
+                        if (activeWin != null) {
+                            activeButton.setStyle(oldStyles.get(menuButton));
 
-                    AnimationControls.hideAndShowWithAnimationInDuration(activeWin, windows.get(menuButton), Duration.millis(500));
-                }else{
-                    Animation.fadeInAnimation(Duration.millis(500), windows.get(menuButton)).play();
+                            AnimationControls.hideAndShowWithAnimationInDuration(activeWin, windows.get(menuButton), Duration.millis(500));
+                        } else {
+                            Animation.fadeInAnimation(Duration.millis(500), windows.get(menuButton)).play();
+                        }
+                    }
+                    createAndRunDriftAnimation(newPositionOfArrow);
+
+                    activeWin = windows.get(menuButton);
+                    activeButton = menuButton;
+
+                    menuButton.setStyle(newStyles.get(menuButton));
+                    windows.get(menuButton).setVisible(true);
+
+                    editingRowLabel.setVisible(false);
+                    editingRow = false;
+                    dialog.close();
+                });
+                dialog.getNoButton().setOnAction(event1 -> {
+                    dialog.close();
+                });
+            }else {
+                int newPositionOfArrow = (int) (menuButton.getLayoutY() + event.getY() + 13);
+
+                if (activeWin != windows.get(menuButton)) {
+                    if (activeWin != null) {
+                        activeButton.setStyle(oldStyles.get(menuButton));
+
+                        AnimationControls.hideAndShowWithAnimationInDuration(activeWin, windows.get(menuButton), Duration.millis(500));
+                    } else {
+                        Animation.fadeInAnimation(Duration.millis(500), windows.get(menuButton)).play();
+                    }
                 }
+                createAndRunDriftAnimation(newPositionOfArrow);
+
+                activeWin = windows.get(menuButton);
+                activeButton = menuButton;
+
+                menuButton.setStyle(newStyles.get(menuButton));
+                windows.get(menuButton).setVisible(true);
             }
-            createAndRunDriftAnimation(newPositionOfArrow);
-
-            activeWin = windows.get(menuButton);
-            activeButton = menuButton;
-
-            menuButton.setStyle(newStyles.get(menuButton));
-            windows.get(menuButton).setVisible(true);
         });
     }
     private void createAndRunDriftAnimation(int newPositionOfArrow)

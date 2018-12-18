@@ -5,8 +5,8 @@ import Core.SQL.CurrentUser;
 import Core.SQL.HyperSQL;
 import Core.SQL.HyperSQLControl;
 import javafx.scene.control.TableView;
+
 import java.sql.Array;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,21 +24,18 @@ public class TableDatas {
         sql.connDB();
         sql.execCommand("SELECT * FROM TableData WHERE Username=\'"+ CurrentUser.getUsername()+"\' ORDER BY ID;");
 
-        ResultSet resultSet = sql.getResultSet();
         try {
-            if(!resultSet.next()){
-                System.out.println("No Data Found");
-            }else{
+            if(sql.getResultSet().next()){
                 tableView.getItems().clear();
                 do{
-                    Array array = resultSet.getArray(3);
+                    Array array = sql.getResultSet().getArray(3);
                     TableData tableData = new TableData(convertSQLArrayToStringArrayList(array));
-                    tableData.setId(resultSet.getInt(1)+"");
+                    tableData.setId(sql.getResultSet().getInt(1)+"");
                     tableView.getItems().add(tableData);
 
                     add(tableData);
                 }
-                while(resultSet.next());
+                while(sql.getResultSet().next());
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -54,7 +51,6 @@ public class TableDatas {
         tableInfo.set(index, tableData);
     }
     public static void save(TableData tableData){
-        System.out.println(Arrays.toString(tableData.getArrayOfData()));
         String[] array = new String[tableData.getArrayOfData().length];
         for (int i = 0; i < tableData.getArrayOfData().length; i++) {
             if (i==0 || i==7){
@@ -63,7 +59,6 @@ public class TableDatas {
                 array[i] = "\'"+ tableData.getArrayOfData()[i] +"\'";
             }
         }
-        System.out.println(Arrays.toString(array));
         sqlControl.addInfoToTable("TableData", (sqlControl.getNextIDFromDBTableForUsername("TableData", CurrentUser.getUsername()))+", "+ "\'"+CurrentUser.getUsername()+"\'" + ", ARRAY"+ Arrays.toString(array));
     }
     public static void save(String usernames, String[] data){

@@ -285,3 +285,23 @@
 .radioButtons{
     -jfx-selected-color: #980B0B;
 }
+
+.dialogButton {
+    -fx-background-color: transparent;
+    -fx-background-radius: 5em;
+    -fx-border-color: #c40101;
+    -fx-border-radius: 5em;
+    -fx-border-width: 2px;
+    -fx-text-fill: Black;
+    -fx-font-weight: bold;
+}
+
+.dialogButton:hover {
+    -fx-background-color: #980B0B;
+    -fx-border-color: #980B0B;
+    -fx-text-fill: White;
+}
+
+.jfx-dialog-overlay-pane > StackPane {
+    -fx-background-color: TRANSPARENT;
+}
