@@ -7,6 +7,7 @@ package Core.Scenes.App;
 
 import Core.Animations.Animation;
 import Core.Animations.AnimationControls;
+import Core.ComboData.ComboData;
 import Core.ComboData.ComboDatas;
 import Core.Components.ComboBox;
 import Core.Components.Component;
@@ -21,7 +22,6 @@ import Core.ExtraFields.ExtraGroups;
 import Core.Range;
 import Core.SQL.CurrentUser;
 import Core.SQL.HyperSQL;
-import Core.SQL.HyperSQLControl;
 import Core.Scenes.UIControls;
 import Core.TableData;
 import Core.TableDatas;
@@ -40,6 +40,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 
@@ -56,6 +57,8 @@ import static Core.Components.ComponentFactory.createComponent;
 public class AppController {
 
 
+    @FXML private ProgressIndicator progressIndicator;
+    @FXML private Text editingRowLabel;
     @FXML private HBox statHbox;
     @FXML private JFXButton editRowButton;
     @FXML private JFXButton deleteRowButton;
@@ -358,15 +361,14 @@ public class AppController {
 
     private boolean editingRow = false;
     private HyperSQL sql = new HyperSQL();
-        private HyperSQLControl sqlControl = new HyperSQLControl(sql);
 
-        private int editingRowID;
-    private ArrayList<ComboBox> comboBoxes = new ArrayList<>();
+
+    private int editingRowID;
+    private HashMap<String, ComboBox> comboBoxes = new HashMap<>();
 
         @FXML private void initialize()
         {
-
-        helpLabel.setTooltip(new Tooltip("To Edit or Delete a row from the Table you have to select the row and click the right button"));
+            helpLabel.setTooltip(new Tooltip("To Edit or Delete a row from the Table you have to select the row and click the right button"));
         deleteRowButton.setOnAction(event -> {
             TableData selectedRow = tableview.getSelectionModel().getSelectedItem();
             int id = Integer.valueOf(tableview.getSelectionModel().getSelectedItem().getId());
@@ -385,6 +387,7 @@ public class AppController {
         editRowButton.setOnAction(event -> {
 
             editingRow = true;
+            editingRowLabel.setVisible(true);
 
             TableData selectedRow = tableview.getSelectionModel().getSelectedItem();
 
@@ -687,94 +690,96 @@ public class AppController {
 
         ArrayList<String> data = new ArrayList<>();
         saveButton.setOnAction(event -> {
-            hideAllErrorLabels();
-            data.clear();
-            if (areInputsOK()) {
-                data.add(DepDate_Group.getInput());
-                data.add(DepTime_Group.getInput());
-                data.add(DepProduct_Group.getInput());
-                data.add(DepEnterprise_Group.getInput());
-                data.add(DepShip_Group.getInput());
-                data.add(DepPort_Group.getInput());
-                data.add(UnloadingLoc_Group.getInput());
-                data.add(ArrDate_Group.getInput());
-                data.add(ArrTime_Group.getInput());
-                data.add(ArrProduct_Group.getInput());
-                data.add(ArrEnterprise_Group.getInput());
-                data.add(ArrShip_Group.getInput());
-                data.add(ArrPort_Group.getInput());
-                data.add(LoadingLoc_Group.getInput());
-                data.add(OthTruck_Group.getInput());
-                data.add(OthCompany_Group.getInput());
-                data.add(OthCMR_Group.getInput());
-                data.add(OthIncome_Group.getInput());
-                data.add(OthKil_Group.getInput());
-                if (OthCom_Group.checkBox.isSelected()) {
-                    data.add(OthCom_Group.getInput());
-                } else {
-                    data.add("No Comment");
-                }
-                for (ExtraGroup extraGroup : ExtraGroups.extraGroups) {
-                    data.add(extraGroup.getComponent().getText());
-                }
-
-                comboBoxes.clear();
-                comboBoxes.add((ComboBox) ArrProduct_Comp);
-                comboBoxes.add((ComboBox) ArrEnterprise_Comp);
-                comboBoxes.add((ComboBox) ArrShip_Comp);
-                comboBoxes.add((ComboBox) ArrPort_Comp);
-                comboBoxes.add((ComboBox) ArrLoadingLoc_Comp);
-                comboBoxes.add((ComboBox) DepProduct_Comp);
-                comboBoxes.add((ComboBox) DepEnterprise_Comp);
-                comboBoxes.add((ComboBox) DepShip_Comp);
-                comboBoxes.add((ComboBox) DepPort_Comp);
-                comboBoxes.add((ComboBox) DepUnloadingLoc_Comp);
-                comboBoxes.add((ComboBox) OthTruck_Comp);
-                comboBoxes.add((ComboBox) OthCompany_Comp);
-
-                ((ComboBox) ArrProduct_Comp).add(ArrProduct_Comp.getText());
-                ((ComboBox) ArrEnterprise_Comp).add(ArrEnterprise_Comp.getText());
-                ((ComboBox) ArrShip_Comp).add(ArrShip_Comp.getText());
-                ((ComboBox) ArrPort_Comp).add(ArrPort_Comp.getText());
-                ((ComboBox) ArrLoadingLoc_Comp).add(ArrLoadingLoc_Comp.getText());
-                ((ComboBox) DepProduct_Comp).add(DepProduct_Comp.getText());
-                ((ComboBox) DepEnterprise_Comp).add(DepEnterprise_Comp.getText());
-                ((ComboBox) DepShip_Comp).add(DepShip_Comp.getText());
-                ((ComboBox) DepPort_Comp).add(DepPort_Comp.getText());
-                ((ComboBox) DepUnloadingLoc_Comp).add(DepUnloadingLoc_Comp.getText());
-                ((ComboBox) OthTruck_Comp).add(OthTruck_Comp.getText());
-                ((ComboBox) OthCompany_Comp).add(OthCompany_Comp.getText());
-
-                ArrayList<String> values = new ArrayList<>();
-                for (ComboBox comboBox: comboBoxes){
-                    values.add(comboBox.getText());
-                }
-                for (ExtraGroup extraGroup : ExtraGroups.extraGroups) {
-                    if (extraGroup.getComponentType() == ComponentType.COMBOBOX) {
-                        comboBoxes.add((ComboBox) extraGroup.getComponent());
-                        values.add(extraGroup.getComponent().getText());
-                        ((ComboBox) extraGroup.getComponent()).add(extraGroup.getComponent().getText());
+            new Thread(()->{
+                progressIndicator.setVisible(true);
+                saveButton.setDisable(true);
+                hideAllErrorLabels();
+                data.clear();
+                if (areInputsOK()) {
+                    data.add(DepDate_Group.getInput());
+                    data.add(DepTime_Group.getInput());
+                    data.add(DepProduct_Group.getInput());
+                    data.add(DepEnterprise_Group.getInput());
+                    data.add(DepShip_Group.getInput());
+                    data.add(DepPort_Group.getInput());
+                    data.add(UnloadingLoc_Group.getInput());
+                    data.add(ArrDate_Group.getInput());
+                    data.add(ArrTime_Group.getInput());
+                    data.add(ArrProduct_Group.getInput());
+                    data.add(ArrEnterprise_Group.getInput());
+                    data.add(ArrShip_Group.getInput());
+                    data.add(ArrPort_Group.getInput());
+                    data.add(LoadingLoc_Group.getInput());
+                    data.add(OthTruck_Group.getInput());
+                    data.add(OthCompany_Group.getInput());
+                    data.add(OthCMR_Group.getInput());
+                    data.add(OthIncome_Group.getInput());
+                    data.add(OthKil_Group.getInput());
+                    if (OthCom_Group.checkBox.isSelected()) {
+                        data.add(OthCom_Group.getInput());
+                    } else {
+                        data.add("No Comment");
                     }
-                }
+                    for (ExtraGroup extraGroup : ExtraGroups.extraGroups) {
+                        data.add(extraGroup.getComponent().getText());
+                    }
 
-                ComboDatas.save(comboBoxes, values);
 
-                if (editingRow)
-                {
-                    TableData tableData = new TableData(data);
-                    tableData.setId(editingRowID+"");
-                    tableview.getItems().set(editingRowID-1, tableData);
-                    TableDatas.set(editingRowID-1, tableData);
-                    TableDatas.setToDB(tableData);
-                    editingRow = false;
-                }else{
-                    TableData tableData = new TableData(data);
-                    tableview.getItems().add(tableData);
-                    TableDatas.add(tableData);
-                    TableDatas.save(tableData);
+                    for (ExtraGroup extraGroup : ExtraGroups.extraGroups) {
+                        if (extraGroup.getComponentType() == ComponentType.COMBOBOX) {
+                            if (!comboBoxes.keySet().contains(((ComboBox) extraGroup.getComponent()).getPromptText())) {
+                                comboBoxes.put(((ComboBox) extraGroup.getComponent()).getPromptText(), ((ComboBox) extraGroup.getComponent()));
+                            }
+                        }
+                    }
+
+                    ArrayList<ComboData> values = new ArrayList<>();
+                    for (ComboBox comboBox : comboBoxes.values()) {
+                        values.add(new ComboData(comboBox.getPromptText(), comboBox.getText()));
+                    }
+
+                    ComboDatas.save(comboBoxes, values);
+
+                    if (editingRow) {
+                        TableData tableData = new TableData(editingRowID, data);
+                        tableData.setId(editingRowID + "");
+                        tableview.getItems().set(editingRowID - 1, tableData);
+                        TableDatas.set(editingRowID - 1, tableData);
+                        TableDatas.setToDB(tableData);
+                        editingRow = false;
+                        editingRowLabel.setVisible(false);
+
+                        int newPositionOfArrow = (int) (tableButton.getLayoutY() + tableButton.getPrefHeight() / 2 + 13);
+
+                        if (activeWin != windows.get(tableButton)) {
+                            if (activeWin != null) {
+                                activeButton.setStyle(oldStyles.get(tableButton));
+
+                                AnimationControls.hideAndShowWithAnimationInDuration(activeWin, windows.get(tableButton), Duration.millis(500));
+                            } else {
+                                Animation.fadeInAnimation(Duration.millis(500), windows.get(tableButton)).play();
+                            }
+                        }
+                        createAndRunDriftAnimation(newPositionOfArrow);
+
+                        activeWin = windows.get(tableButton);
+                        activeButton = tableButton;
+
+                        tableButton.setStyle(newStyles.get(tableButton));
+                        windows.get(tableButton).setVisible(true);
+
+                        tableview.scrollTo(tableData);
+
+                    } else {
+                        TableData tableData = new TableData(data);
+                        tableview.getItems().add(tableData);
+                        TableDatas.add(tableData);
+                        TableDatas.save(tableData);
+                    }
+                    progressIndicator.setVisible(false);
+                    saveButton.setDisable(false);
                 }
-                kapoio provlhma me thn entolh kai afunei anoixth thn db
-            }
+            }).start();
         });
     }
 
@@ -978,22 +983,22 @@ public class AppController {
         updateContent();
 
         comboBoxes.clear();
-        comboBoxes.add((ComboBox) ArrProduct_Comp);
-        comboBoxes.add((ComboBox) ArrEnterprise_Comp);
-        comboBoxes.add((ComboBox) ArrShip_Comp);
-        comboBoxes.add((ComboBox) ArrPort_Comp);
-        comboBoxes.add((ComboBox) ArrLoadingLoc_Comp);
-        comboBoxes.add((ComboBox) DepProduct_Comp);
-        comboBoxes.add((ComboBox) DepEnterprise_Comp);
-        comboBoxes.add((ComboBox) DepShip_Comp);
-        comboBoxes.add((ComboBox) DepPort_Comp);
-        comboBoxes.add((ComboBox) DepUnloadingLoc_Comp);
-        comboBoxes.add((ComboBox) OthTruck_Comp);
-        comboBoxes.add((ComboBox) OthCompany_Comp);
+        comboBoxes.put(((ComboBox) ArrProduct_Comp).getPromptText(), ((ComboBox) ArrProduct_Comp));
+        comboBoxes.put(((ComboBox) ArrEnterprise_Comp).getPromptText(), ((ComboBox) ArrEnterprise_Comp));
+        comboBoxes.put(((ComboBox) ArrShip_Comp).getPromptText(), ((ComboBox) ArrShip_Comp));
+        comboBoxes.put(((ComboBox) ArrPort_Comp).getPromptText(), ((ComboBox) ArrPort_Comp));
+        comboBoxes.put(((ComboBox) ArrLoadingLoc_Comp).getPromptText(), ((ComboBox) ArrLoadingLoc_Comp));
+        comboBoxes.put(((ComboBox) DepProduct_Comp).getPromptText(), ((ComboBox) DepProduct_Comp));
+        comboBoxes.put(((ComboBox) DepEnterprise_Comp).getPromptText(), ((ComboBox) DepEnterprise_Comp));
+        comboBoxes.put(((ComboBox) DepShip_Comp).getPromptText(), ((ComboBox) DepShip_Comp));
+        comboBoxes.put(((ComboBox) DepPort_Comp).getPromptText(), ((ComboBox) DepPort_Comp));
+        comboBoxes.put(((ComboBox) DepUnloadingLoc_Comp).getPromptText(), ((ComboBox) DepUnloadingLoc_Comp));
+        comboBoxes.put(((ComboBox) OthTruck_Comp).getPromptText(), ((ComboBox) OthTruck_Comp));
+        comboBoxes.put(((ComboBox) OthCompany_Comp).getPromptText(), ((ComboBox) OthCompany_Comp));
 
         for (ExtraGroup extraGroup: ExtraGroups.extraGroups){
             if (extraGroup.getComponentType()==ComponentType.COMBOBOX){
-                comboBoxes.add((ComboBox) extraGroup.getComponent());
+                comboBoxes.put(((ComboBox) extraGroup.getComponent()).getPromptText(), ((ComboBox) extraGroup.getComponent()));
             }
         }
 

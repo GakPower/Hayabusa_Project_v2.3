@@ -5,10 +5,9 @@ import Core.SQL.CurrentUser;
 import Core.SQL.HyperSQL;
 import Core.SQL.HyperSQLControl;
 
-import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 
 public class ComboDatas
 {
@@ -17,8 +16,26 @@ public class ComboDatas
 
     private static ArrayList<ComboData> comboInfo = new ArrayList<>();
 
-    public static void load(ArrayList<ComboBox> comboBoxes){
+    public static void load(HashMap<String, ComboBox> comboBoxes){
+
         sql.connDB();
+        sql.execCommand("SELECT * FROM ComboData WHERE Username=\'"+CurrentUser.getUsername()+"\' ORDER BY ID;");
+
+        try {
+            comboInfo.clear();
+            while(sql.getResultSet().next()){
+                ComboBox comboBox = comboBoxes.get(sql.getResultSet().getString(3));
+                comboBox.add(sql.getResultSet().getString(4));
+
+                comboInfo.add(new ComboData(comboBox.getPromptText(), comboBox.getItems().get(comboBox.getItems().size()-1)));
+                System.out.println(comboBox.getPromptText()+"___"+comboBox.getItems().get(comboBox.getItems().size()-1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        sql.shutDB();
+
+        /*sql.connDB();
         sql.execCommand("SELECT * FROM ComboData WHERE Username=\'"+ CurrentUser.getUsername() +"\' ORDER BY ID;");
         try {
             comboInfo.clear();
@@ -41,27 +58,39 @@ public class ComboDatas
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        sql.shutDB();
+        sql.shutDB();*/
     }
 
-    public static void create(ComboData comboData){
-        sqlControl.addInfoToTable("ComboData",
-                sqlControl.getNextIDFromDBTableForUsername("ComboData",
-                        CurrentUser.getUsername())+", \'"+CurrentUser.getUsername()+"\', \'"+comboData.getGroupName()+"\', Array"+ Arrays.toString(comboData.getValues().toArray()));
-        comboInfo.add(comboData);
-    }
-    public static void save(String groupName, String value){
+    public static void save(ComboData comboData){
+
         sql.connDB();
+        sql.execCommand("SELECT Data FROM ComboData WHERE Username=\'"+CurrentUser.getUsername()+"\' AND GroupName=\'"+comboData.getGroupName()+"\' AND Data=\'"+comboData.getValue()+"\';");
+        try {
+            if (!sql.getResultSet().next()){
+                sqlControl.addInfoToTable("ComboData",
+                        sqlControl.getNextIDFromDBTableForUsername("ComboData",
+                                CurrentUser.getUsername())+", \'"+CurrentUser.getUsername()+"\', \'"+comboData.getGroupName()+"\', \'"+comboData.getValue()+"\'");
+                comboInfo.add(comboData);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        sql.shutDB();
+
+        /*sql.connDB();
         sql.execCommand("SELECT Data FROM ComboData WHERE Username=\'"+CurrentUser.getUsername()+"\' AND GroupName=\'"+groupName+"\';");
         ArrayList<String> data;
         try {
             boolean edited = false;
             if (sql.getResultSet().next()){
                 data = convertSQLArrayToStringArrayList(sql.getResultSet().getArray(1));
+                System.out.println(Arrays.toString(data.toArray()));
                 if (!data.contains(value)){
                     data.add("\'"+value+"\'");
                     edited = true;
                 }
+                System.out.println(Arrays.toString(data.toArray()));
                 sql.execUpdateCommand("UPDATE ComboData SET Data=Array"+ Arrays.toString(data.toArray()) +" WHERE Username=\'"+CurrentUser.getUsername()+"\' AND GroupName=\'"+groupName+"\';");
                 for (ComboData comboData: comboInfo) {
                     if (comboData.getGroupName().equals(groupName) && edited){
@@ -73,18 +102,34 @@ public class ComboDatas
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            sql.shutDB();
         }
-        sql.shutDB();
+        sql.shutDB();*/
     }
-    public static void save(ArrayList<ComboBox> comboBoxes, ArrayList<String> values){
+    public static void save(HashMap<String, ComboBox> comboBoxes, ArrayList<ComboData> values){
         for (int i = 0; i < comboBoxes.size(); i++) {
-            String groupName = comboBoxes.get(i).getPromptText();
-            String value = values.get(i);
-            save(groupName, value);
+            String groupName = values.get(i).getGroupName();
+            String value = values.get(i).getValue();
+
+            if (!value.isEmpty()){
+                comboBoxes.get(groupName).add(value);
+                save(values.get(i));
+            }
         }
     }
     public static void delete(String groupName, String value){
         sql.connDB();
+        sql.execUpdateCommand("DELETE FROM ComboData WHERE Username=\'"+CurrentUser.getUsername()+"\' AND GroupName=\'"+groupName+"\' AND Data=\'"+value+"\';");
+        sql.shutDB();
+
+        for (ComboData comboData: comboInfo){
+            if (comboData.getGroupName().equals(groupName) && comboData.getValue().equals(value)){
+                comboInfo.remove(comboData);
+                break;
+            }
+        }
+        /*sql.connDB();
         sql.execCommand("SELECT Data FROM ComboData WHERE Username=\'"+CurrentUser.getUsername()+"\' AND GroupName=\'"+groupName+"\';");
         ArrayList<String> data = new ArrayList<>();
         try {
@@ -101,14 +146,14 @@ public class ComboDatas
 
         sql.execUpdateCommand("UPDATE ComboData SET Data=Array"+ Arrays.toString(data.toArray()) +" WHERE Username=\'"+CurrentUser.getUsername()+"\' AND GroupName=\'"+groupName+"\';");
 
-        sql.shutDB();
+        sql.shutDB();*/
     }
 
     public static ArrayList<ComboData> getConboData(){
         return comboInfo;
     }
 
-    private static ArrayList<String> convertSQLArrayToStringArrayList(Array array) throws SQLException {
+    /*private static ArrayList<String> convertSQLArrayToStringArrayList(Array array) throws SQLException {
         Object[] arraystr = (Object[]) array.getArray();
         ArrayList<String> tempData = new ArrayList<>();
         for (Object o : arraystr) {
@@ -116,5 +161,5 @@ public class ComboDatas
         }
 
         return tempData;
-    }
+    }*/
 }

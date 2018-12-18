@@ -50,7 +50,7 @@ public class Main extends Application {
             sqlControl.createTable("TableData", "ID int NOT NULL, Username varchar(30) NOT NULL, Data varchar(500) ARRAY NOT NULL");
             //sqlControl.createTable("ColumnWidth", "Username varchar(30) NOT NULL, ColumnWidth int ARRAY NOT NULL");
             sqlControl.createTable("ExtraColumns", "ID int NOT NULL PRIMARY KEY, Username varchar(30) NOT NULL, ExtraColumns varchar(150) NOT NULL");
-            sqlControl.createTable("ComboData", "ID int NOT NULL, Username varchar(30) NOT NULL, GroupName varchar(150) NOT NULL , Data varchar(500) ARRAY NOT NULL");
+            sqlControl.createTable("ComboData", "ID int NOT NULL, Username varchar(30) NOT NULL, GroupName varchar(150) NOT NULL , Data varchar(500) NOT NULL");
 
             sqlControl.addInfoToTable("RememberMe","1, 0, \'Uninitialized UserName\'");
         }

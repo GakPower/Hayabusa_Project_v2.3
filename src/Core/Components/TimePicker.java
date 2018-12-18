@@ -2,6 +2,8 @@ package Core.Components;
 
 import com.jfoenix.controls.JFXTimePicker;
 
+import java.time.LocalTime;
+
 public class TimePicker implements Component {
 
     private JFXTimePicker timepicker;
@@ -23,7 +25,8 @@ public class TimePicker implements Component {
 
     @Override
     public void setText(String newText) {
-        timepicker.getEditor().setText(newText);
+        String[] splited = newText.split(":");
+        timepicker.setValue(LocalTime.of(Integer.valueOf(splited[0]), Integer.valueOf(splited[1])));
     }
 
     @Override

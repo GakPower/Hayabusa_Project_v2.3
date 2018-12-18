@@ -62,6 +62,35 @@ public class TableData
 
         data = tableData;
     }
+    public TableData(int ID, ArrayList<String> tableData){
+        id = new SimpleStringProperty(String.valueOf(ID));
+        departureDate = new SimpleStringProperty(tableData.get(0));
+        departureTime = new SimpleStringProperty(tableData.get(1));
+        exportationProduct = new SimpleStringProperty(tableData.get(2));
+        departureEnterprise = new SimpleStringProperty(tableData.get(3));
+        departureShip = new SimpleStringProperty(tableData.get(4));
+        departurePort = new SimpleStringProperty(tableData.get(5));
+        unloadingLocations = new SimpleStringProperty(tableData.get(6));
+        arrivalDate = new SimpleStringProperty(tableData.get(7));
+        arrivalTime = new SimpleStringProperty(tableData.get(8));
+        importationProduct = new SimpleStringProperty(tableData.get(9));
+        arrivalEnterprise = new SimpleStringProperty(tableData.get(10));
+        arrivalShip = new SimpleStringProperty(tableData.get(11));
+        arrivalPort = new SimpleStringProperty(tableData.get(12));
+        loadingLocations = new SimpleStringProperty(tableData.get(13));
+        truck = new SimpleStringProperty(tableData.get(14));
+        company = new SimpleStringProperty(tableData.get(15));
+        cmr = new SimpleStringProperty(tableData.get(16));
+        income = new SimpleStringProperty(tableData.get(17));
+        kilometers = new SimpleStringProperty(tableData.get(18));
+        comments = new SimpleStringProperty(tableData.get(19));
+
+        for (int i = 20; i < tableData.size(); i++) {
+            extraData.add(tableData.get(i));
+        }
+
+        data = tableData;
+    }
 
     public ObservableValue<String> getExtraValue(int index){
         if (extraData.size() <= index){

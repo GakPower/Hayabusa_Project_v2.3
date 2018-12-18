@@ -13,17 +13,20 @@
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.effect.BoxBlur?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1750.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Core.Scenes.App.AppController">
    <AnchorPane prefHeight="720.0" prefWidth="91.0" style="-fx-background-color: #980b0b; -fx-background-radius: 15px;">
@@ -197,7 +200,7 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="addFieldButton" defaultButton="true" focusTraversable="false" layoutX="1278.0" layoutY="53.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="123.0" ripplerFill="#fffdfd" style="-fx-background-color: #2C2D35; -fx-background-radius: 30px; -fx-border-color: #980B0B; -fx-border-radius: 30px; -fx-border-width: 4px;" text="New Field" textAlignment="CENTER" textFill="#980b0b">
+      <JFXButton fx:id="addFieldButton" focusTraversable="false" layoutX="1278.0" layoutY="53.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="123.0" ripplerFill="#fffdfd" style="-fx-background-color: #2C2D35; -fx-background-radius: 30px; -fx-border-color: #980B0B; -fx-border-radius: 30px; -fx-border-width: 4px;" text="New Field" textAlignment="CENTER" textFill="#980b0b">
          <font>
             <Font name="System Bold" size="19.0" />
          </font>
@@ -215,7 +218,7 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="removeFieldButton" defaultButton="true" focusTraversable="false" layoutX="1278.0" layoutY="262.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="123.0" ripplerFill="#fffdfd" style="-fx-background-color: #2C2D35; -fx-background-radius: 30px; -fx-border-color: #980B0B; -fx-border-radius: 30px; -fx-border-width: 4px;" text="Remove Field" textAlignment="CENTER" textFill="#980b0b">
+      <JFXButton fx:id="removeFieldButton" focusTraversable="false" layoutX="1278.0" layoutY="262.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="123.0" ripplerFill="#fffdfd" style="-fx-background-color: #2C2D35; -fx-background-radius: 30px; -fx-border-color: #980B0B; -fx-border-radius: 30px; -fx-border-width: 4px;" text="Remove Field" textAlignment="CENTER" textFill="#980b0b">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -604,6 +607,15 @@
          </rotationAxis>
          <Image url="@../Assets/CurvedArrow.png" />
       </ImageView>
+      <Text fx:id="editingRowLabel" fill="#980b0b" layoutX="1307.0" layoutY="694.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Editing Row" textAlignment="CENTER" visible="false">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+         <effect>
+            <DropShadow blurType="GAUSSIAN" color="#000000b2" height="10.0" radius="4.5" spread="0.23" width="10.0" />
+         </effect>
+      </Text>
+      <ProgressIndicator fx:id="progressIndicator" layoutX="1337.0" layoutY="595.0" prefHeight="25.0" prefWidth="25.0" style="-fx-progress-color: #980b0b;" visible="false" />
    </AnchorPane>
    <AnchorPane fx:id="statWin" layoutX="102.0" prefHeight="720.0" prefWidth="1500.0" styleClass="mainWindows" stylesheets="@StyleSheet.css" visible="false">
       <JFXButton fx:id="exitButtonStat" focusTraversable="false" layoutX="1458.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" styleClass="exitButtons" stylesheets="@StyleSheet.css" text="X" textAlignment="CENTER" textFill="WHITE">

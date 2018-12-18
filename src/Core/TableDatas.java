@@ -51,7 +51,7 @@ public class TableDatas {
         tableInfo.add(tableData);
     }
     public static void set(int index, TableData tableData){
-        tableInfo.add(index, tableData);
+        tableInfo.set(index, tableData);
     }
     public static void save(TableData tableData){
         System.out.println(Arrays.toString(tableData.getArrayOfData()));
