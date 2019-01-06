@@ -9,6 +9,15 @@ public class TextArea implements Component {
     public TextArea(JFXTextArea textArea)
     {
         this.textArea = textArea;
+        banGreekCharacters();
+    }
+
+    private void banGreekCharacters(){
+        this.textArea.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.matches("[ΑαΒβΓγΔδΕεΖζΗηΘθΙιΚκΛλΜμΝνΞξΟοΠπΡρΣσΤτΥυΦφΧχΨψΩω]")) {
+                this.textArea.setText(newValue.replaceAll("[ΑαΒβΓγΔδΕεΖζΗηΘθΙιΚκΛλΜμΝνΞξΟοΠπΡρΣσΤτΥυΦφΧχΨψΩω]", ""));
+            }
+        });
     }
 
     @Override

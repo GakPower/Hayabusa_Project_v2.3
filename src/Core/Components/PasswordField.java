@@ -8,6 +8,15 @@ public class PasswordField implements Component {
 
     public PasswordField(JFXPasswordField passwordField){
         this.passwordField = passwordField;
+        banGreekCharacters();
+    }
+
+    private void banGreekCharacters(){
+        this.passwordField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.matches("[ΑαΒβΓγΔδΕεΖζΗηΘθΙιΚκΛλΜμΝνΞξΟοΠπΡρΣσΤτΥυΦφΧχΨψΩω]")) {
+                this.passwordField.setText(newValue.replaceAll("[ΑαΒβΓγΔδΕεΖζΗηΘθΙιΚκΛλΜμΝνΞξΟοΠπΡρΣσΤτΥυΦφΧχΨψΩω]", ""));
+            }
+        });
     }
 
     @Override

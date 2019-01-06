@@ -15,14 +15,19 @@ import Core.Scenes.Dialog;
 import Core.Scenes.Scenes;
 import Core.Scenes.UIControls;
 import com.jfoenix.controls.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
+import sun.security.util.Password;
 
 import java.io.File;
+import java.util.*;
 
 import static Core.Components.ComponentFactory.createComponent;
 
@@ -34,6 +39,15 @@ public class Login_SingUpController {
     private final File file = new File("C:\\Hayabusa Project\\HayaBusa");
     private static final int DURATION_INT = 500;
     private static final Duration DURATION = Duration.millis(DURATION_INT);
+
+    @FXML private JFXButton enterUsernameNextButton;
+    @FXML private JFXButton answerQuestionNextButton;
+    @FXML private JFXButton changePasswordNextButton;
+
+    @FXML private JFXButton signUpButton;
+
+    @FXML private JFXButton loginButton;
+    private JFXButton currentDefaultButton = null;
 
     @FXML private StackPane mainLogin_SignUp_Stack;
     @FXML private AnchorPane SignUp_Anchor;
@@ -131,11 +145,39 @@ public class Login_SingUpController {
 
     private AnchorPane activeAnchorPane = Login_Anchor;
 
+    private LinkedHashMap<AnchorPane, JFXButton> defaultButtons = new LinkedHashMap<>();
+
+
+    private void initDefaultButtonsHashMap(){
+        defaultButtons.put(SignUp_Anchor, signUpButton);
+        defaultButtons.put(Login_Anchor, loginButton);
+        defaultButtons.put(EnterUsername_Anchor, enterUsernameNextButton);
+        defaultButtons.put(AnswerQuestion_Anchor, answerQuestionNextButton);
+        defaultButtons.put(ChangePassword_Anchor, changePasswordNextButton);
+    }
 
     @FXML private void initialize() {
+        initDefaultButtonsHashMap();
+        setDefaultButtonFocusTraversalListeners();
         IfFirstTimeExecutedShowSignUp();
         initGroups();
         setRememberedUsernameIfInDB();
+    }
+    private void setDefaultButtonFocusTraversalListeners(){
+        currentDefaultButton = defaultButtons.get(Login_Anchor);
+
+        for (AnchorPane anchorPane:defaultButtons.keySet()){
+            setAnchorListener(anchorPane);
+        }
+    }
+    private void setAnchorListener(AnchorPane anchorPane){
+        anchorPane.visibleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                currentDefaultButton.setDefaultButton(false);
+                currentDefaultButton = defaultButtons.get(anchorPane);
+                currentDefaultButton.setDefaultButton(true);
+            }
+        });
     }
     private void IfFirstTimeExecutedShowSignUp() {
         if (isFirstTimeExecuted()) {
@@ -218,6 +260,7 @@ public class Login_SingUpController {
             changeSceneToApp();
             storeUsernameIfCheckBoxIsSelected();
             clearLoginInput();
+
         }
     }
     private void hideLoginErrorLabels() {

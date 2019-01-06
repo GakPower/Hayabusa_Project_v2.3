@@ -8,6 +8,15 @@ public class TextField implements Component {
 
     public TextField(JFXTextField textField) {
         this.textField = textField;
+        banGreekCharacters();
+    }
+
+    private void banGreekCharacters(){
+        this.textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.matches("[ΑαΒβΓγΔδΕεΖζΗηΘθΙιΚκΛλΜμΝνΞξΟοΠπΡρΣσΤτΥυΦφΧχΨψΩω]")) {
+                this.textField.setText(newValue.replaceAll("[ΑαΒβΓγΔδΕεΖζΗηΘθΙιΚκΛλΜμΝνΞξΟοΠπΡρΣσΤτΥυΦφΧχΨψΩω]", ""));
+            }
+        });
     }
 
     @Override

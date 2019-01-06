@@ -305,3 +305,32 @@
 .jfx-dialog-overlay-pane > StackPane {
     -fx-background-color: TRANSPARENT;
 }
+
+.axis-label {
+    -fx-text-fill: #980B0B;
+    -fx-font-weight: bold;
+    -fx-font-size: 14;
+}
+
+.chart-legend {
+    -fx-background-color:  transparent;
+    -fx-border-color: #980B0B;
+    -fx-border-radius: 15px;
+    -fx-border-width: 2px;
+    -fx-padding: 7px;
+}
+
+.chart-title {
+    -fx-text-fill: #980B0B;
+    -fx-font-weight: bold;
+    -fx-font-size: 17;
+}
+
+.chart-legend-item{
+    -fx-text-fill: #fff;
+}
+
+.axis {
+    -fx-tick-label-fill: #fff;
+    -fx-tick-label-font-size: 14;
+}

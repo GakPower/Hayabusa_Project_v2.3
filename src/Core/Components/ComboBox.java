@@ -12,6 +12,15 @@ public class ComboBox implements Component {
     public ComboBox(JFXComboBox<String> comboBox) {
         this.comboBox = comboBox;
         setShowAndHideDynamically();
+        banGreekCharacters();
+    }
+
+    private void banGreekCharacters(){
+        this.comboBox.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.matches("[ΑαΒβΓγΔδΕεΖζΗηΘθΙιΚκΛλΜμΝνΞξΟοΠπΡρΣσΤτΥυΦφΧχΨψΩω]")) {
+                this.comboBox.getEditor().setText(newValue.replaceAll("[ΑαΒβΓγΔδΕεΖζΗηΘθΙιΚκΛλΜμΝνΞξΟοΠπΡρΣσΤτΥυΦφΧχΨψΩω]", ""));
+            }
+        });
     }
 
     private void setShowAndHideDynamically() {

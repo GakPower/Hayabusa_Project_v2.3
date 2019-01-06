@@ -58,7 +58,6 @@ import static Core.Components.ComponentFactory.createComponent;
 @SuppressWarnings("Duplicates")
 public class AppController {
 
-
     @FXML private AnchorPane mainMenu_Anchor;
     @FXML private StackPane mainApp_Stack;
 
@@ -78,8 +77,8 @@ public class AppController {
     @FXML private Label trucksLabel;
 
     /*public TableColumn<TableData, String> idcolumn;
-            public TableColumn<TableData, Integer> numcolumn;
-            public TableColumn<TableData, String> fckcolumn;*/
+    public TableColumn<TableData, Integer> numcolumn;
+    public TableColumn<TableData, String> fckcolumn;*/
     @FXML private ScrollPane otherScrollPane;
     @FXML public TableView<TableData> tableview;
     //@FXML public TableView<ArrayList<String>> tableview;
@@ -371,136 +370,124 @@ public class AppController {
     private int editingRowID;
     private HashMap<String, ComboBox> comboBoxes = new HashMap<>();
 
-        @FXML private void initialize()
+    private TableData getSelectedRow(){
+        return tableview.getSelectionModel().getSelectedItem();
+    }
+    private void reduceTableIDByOne(int id){
+        for (int i = id - 1; i < tableview.getItems().size(); i++) {
+            tableview.getItems().get(i).setId(i + 1 + "");
+        }
+    }
+    private void reduceDBIDByOne(int id){
+        sql.connDB();
+        sql.execUpdateCommand("UPDATE TableData SET ID=ID-1 WHERE ID >=" + id + " AND Username=\'" + CurrentUser.getUsername() + "\';");
+        sql.shutDB();
+    }
+    private void reduceIDByOne(int id){
+        reduceTableIDByOne(id);
+        reduceDBIDByOne(id);
+    }
+    private void initNoRowSelectedDialog(){
+        Dialog dialog = new Dialog(mainApp_Stack,
+                "You have not select any row. Select a row by clicking on It",
+                "OK",
+                "Core/Scenes/App/StyleSheet.css",
+                "dialogButton",
+                mainMenu_Anchor, tableWin);
+        dialog.getButton().setOnAction(event1 -> dialog.close());
+    }
+    private void removeRow(TableData selectedRow, int id){
+        tableview.getItems().remove(selectedRow);
+        TableDatas.delete(CurrentUser.getUsername(), id);
+    }
+    private void setHelpToolTip(){
+        helpLabel.setTooltip(new Tooltip("To Edit or Delete a row from the Table you have to select the row and click the right button"));
+    }
+    private void setOnActionDelete(){
+        deleteRowButton.setOnAction(event ->
         {
-            helpLabel.setTooltip(new Tooltip("To Edit or Delete a row from the Table you have to select the row and click the right button"));
-            deleteRowButton.setOnAction(event -> {
-                TableData selectedRow = tableview.getSelectionModel().getSelectedItem();
-                if (selectedRow != null) {
-                    int id = Integer.valueOf(tableview.getSelectionModel().getSelectedItem().getId());
-                    tableview.getItems().remove(selectedRow);
+            TableData selectedRow = getSelectedRow();
+            if (selectedRow != null)
+            {
+                int id = Integer.valueOf(selectedRow.getId());
 
-                    TableDatas.delete(CurrentUser.getUsername(), id);
-
-                    for (int i = id - 1; i < tableview.getItems().size(); i++) {
-                        tableview.getItems().get(i).setId(i + 1 + "");
-                    }
-
-                    sql.connDB();
-                    sql.execUpdateCommand("UPDATE TableData SET ID=ID-1 WHERE ID >=" + id + " AND Username=\'" + CurrentUser.getUsername() + "\';");
-                    sql.shutDB();
-                }else{
-                    Dialog dialog = new Dialog(mainApp_Stack,
-                            "You have not select any row. Select a row by clicking on It",
-                            "OK",
-                            "Core/Scenes/App/StyleSheet.css",
-                            "dialogButton",
-                            mainMenu_Anchor, tableWin);
-                    dialog.getButton().setOnAction(event1 -> {
-                        dialog.close();
-                    });
-                }
+                removeRow(selectedRow, id);
+                reduceIDByOne(id);
+            }else{
+                initNoRowSelectedDialog();
+            }
         });
-        editRowButton.setOnAction(event -> {
+    }
+    private void transferExtraColumnsTableInputs(TableData selectedRow){
+        for (int i = 21; i < 21 + ExtraGroups.extraGroups.size(); i++) {
+            if (i - 21 < selectedRow.getExtraData().size()) {
+                ExtraGroups.extraGroups.get(i - 21).getComponent().setText(selectedRow.getExtraData().get(i - 21));
+            } else {
+                ExtraGroups.extraGroups.get(i - 21).getComponent().setText("");
+            }
+        }
+    }
+    private void transferTableInputs(TableData selectedRow){
+        DepDate_Group.setInput(selectedRow.getDepartureDate());
+        DepTime_Group.setInput(selectedRow.getDepartureTime());
+        DepProduct_Group.setInput(selectedRow.getExportationProduct());
+        DepEnterprise_Group.setInput(selectedRow.getDepartureEnterprise());
+        DepShip_Group.setInput(selectedRow.getDepartureShip());
+        DepPort_Group.setInput(selectedRow.getDeparturePort());
+        UnloadingLoc_Group.setInput(selectedRow.getUnloadingLocations());
+        ArrDate_Group.setInput(selectedRow.getArrivalDate());
+        ArrTime_Group.setInput(selectedRow.getArrivalTime());
+        ArrProduct_Group.setInput(selectedRow.getImportationProduct());
+        ArrEnterprise_Group.setInput(selectedRow.getArrivalEnterprise());
+        ArrShip_Group.setInput(selectedRow.getArrivalShip());
+        ArrPort_Group.setInput(selectedRow.getArrivalPort());
+        LoadingLoc_Group.setInput(selectedRow.getLoadingLocations());
+        OthTruck_Group.setInput(selectedRow.getTruck());
+        OthCompany_Group.setInput(selectedRow.getCompany());
+        OthCMR_Group.setInput(selectedRow.getCmr());
+        OthIncome_Group.setInput(selectedRow.getIncome());
+        OthKil_Group.setInput(selectedRow.getKilometers());
+        if (!selectedRow.getComments().equals("No Comment")) {
+            OthCom_Group.setInput(selectedRow.getComments());
+            OthCom_Group.checkBox.setSelected(true);
+        } else {
+            OthCom_Group.setInput("");
+            OthCom_Group.checkBox.setSelected(false);
+        }
 
-            TableData selectedRow = tableview.getSelectionModel().getSelectedItem();
+        transferExtraColumnsTableInputs(selectedRow);
+    }
+    private void setOnActionEdit(){
+        editRowButton.setOnAction(event -> {
+            TableData selectedRow = getSelectedRow();
             if (selectedRow != null) {
                 editingRow = true;
                 editingRowLabel.setVisible(true);
 
                 editingRowID = Integer.valueOf(selectedRow.getId());
+                transferTableInputs(selectedRow);
 
-                DepDate_Group.setInput(selectedRow.getDepartureDate());
-                DepTime_Group.setInput(selectedRow.getDepartureTime());
-                DepProduct_Group.setInput(selectedRow.getExportationProduct());
-                DepEnterprise_Group.setInput(selectedRow.getDepartureEnterprise());
-                DepShip_Group.setInput(selectedRow.getDepartureShip());
-                DepPort_Group.setInput(selectedRow.getDeparturePort());
-                UnloadingLoc_Group.setInput(selectedRow.getUnloadingLocations());
-
-                ArrDate_Group.setInput(selectedRow.getArrivalDate());
-                ArrTime_Group.setInput(selectedRow.getArrivalTime());
-                ArrProduct_Group.setInput(selectedRow.getImportationProduct());
-                ArrEnterprise_Group.setInput(selectedRow.getArrivalEnterprise());
-                ArrShip_Group.setInput(selectedRow.getArrivalShip());
-                ArrPort_Group.setInput(selectedRow.getArrivalPort());
-                LoadingLoc_Group.setInput(selectedRow.getLoadingLocations());
-
-                OthTruck_Group.setInput(selectedRow.getTruck());
-                OthCompany_Group.setInput(selectedRow.getCompany());
-                OthCMR_Group.setInput(selectedRow.getCmr());
-                OthIncome_Group.setInput(selectedRow.getIncome());
-                OthKil_Group.setInput(selectedRow.getKilometers());
-
-                if (!selectedRow.getComments().equals("No Comment")) {
-                    OthCom_Group.setInput(selectedRow.getComments());
-                    OthCom_Group.checkBox.setSelected(true);
-                } else {
-                    OthCom_Group.setInput("");
-                    OthCom_Group.checkBox.setSelected(false);
-                }
-                for (int i = 21; i < 21 + ExtraGroups.extraGroups.size(); i++) {
-                    if (i - 21 < selectedRow.getExtraData().size()) {
-                        ExtraGroups.extraGroups.get(i - 21).getComponent().setText(selectedRow.getExtraData().get(i - 21));
-                    } else {
-                        ExtraGroups.extraGroups.get(i - 21).getComponent().setText("");
-                    }
-                }
-
-
-                int newPositionOfArrow = (int) (addButton.getLayoutY() + addButton.getPrefHeight() / 2 + 13);
-
-                if (activeWin != windows.get(addButton)) {
-                    if (activeWin != null) {
-                        activeButton.setStyle(oldStyles.get(addButton));
-
-                        AnimationControls.hideAndShowWithAnimationInDuration(activeWin, windows.get(addButton), Duration.millis(500));
-                    } else {
-                        Animation.fadeInAnimation(Duration.millis(500), windows.get(addButton)).play();
-                    }
-                }
-                createAndRunDriftAnimation(newPositionOfArrow);
-
-                activeWin = windows.get(addButton);
-                activeButton = addButton;
-
-                addButton.setStyle(newStyles.get(addButton));
-                windows.get(addButton).setVisible(true);
+                switchWindow(addButton);
             }else{
-                Dialog dialog = new Dialog(mainApp_Stack,
-                        "You have not select any row. Select a row by clicking on It",
-                        "OK",
-                        "Core/Scenes/App/StyleSheet.css",
-                        "dialogButton",
-                        mainMenu_Anchor, tableWin);
-                dialog.getButton().setOnAction(event1 -> {
-                    dialog.close();
-                });
+                initNoRowSelectedDialog();
             }
         });
-
-        OthCMR.textProperty().addListener((observable, oldValue, newValue) -> {
+    }
+    private void banAllNonNumberForJFXTextField(JFXTextField textField){
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
-                OthCMR.setText(newValue.replaceAll("[^\\d]", ""));
+                textField.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
-        OthIncome.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                OthIncome.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        });
-        OthKil.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                OthKil.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        });
-
-
+    }
+    @FXML private void initialize()
+    {
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
         final BarChart<String,Number> bc =
                 new BarChart<>(xAxis,yAxis);
         bc.setTitle("Country Summary");
+        bc.setPrefSize(500,500);
         xAxis.setLabel("Country");
         yAxis.setLabel("Value");
 
@@ -677,6 +664,14 @@ public class AppController {
 
         });
 
+        setHelpToolTip();
+        setOnActionDelete();
+        setOnActionEdit();
+
+        banAllNonNumberForJFXTextField(OthCMR);
+        banAllNonNumberForJFXTextField(OthIncome);
+        banAllNonNumberForJFXTextField(OthKil);
+
         initializeHashMaps();
         menuButtonsSwitchSetup();
         minExitButtonsListeners();
@@ -687,10 +682,102 @@ public class AppController {
         initComponents();
         initGroup();
 
+        initComboBoxesHashMap();
         initAddField();
         initRemoveField();
         initMinButtons();
 
+        initColumnProperties();
+
+        setOnActionSave();
+    }
+    private void setOnActionSave(){
+        saveButton.setOnAction(event -> new Thread(this::saveInputsOnTable).start());
+    }
+    private void saveInputsOnTable(){
+        progressIndicator.setVisible(true);
+        saveButton.setDisable(true);
+        hideAllErrorLabels();
+        ArrayList<String> data = new ArrayList<>();
+        if (areInputsOK()) {
+
+            addDataToTempArray(data);
+            addAnyExtraFieldDataToComboArray();
+
+            ArrayList<ComboData> values = getValuesFromComboBoxes();
+
+            ComboDatas.save(comboBoxes, values);
+
+            if (editingRow) {
+                TableData tableData = new TableData(editingRowID, data);
+                tableData.setId(editingRowID + "");
+                tableview.getItems().set(editingRowID - 1, tableData);
+                TableDatas.set(editingRowID - 1, tableData);
+                TableDatas.setToDB(tableData);
+                editingRow = false;
+                editingRowLabel.setVisible(false);
+
+                switchWindow(tableButton);
+
+                tableview.scrollTo(tableData);
+            } else {
+                TableData tableData = new TableData(data);
+                tableview.getItems().add(tableData);
+                TableDatas.add(tableData);
+                TableDatas.save(tableData);
+            }
+            progressIndicator.setVisible(false);
+            saveButton.setDisable(false);
+        }
+    }
+    private ArrayList<ComboData> getValuesFromComboBoxes(){
+        ArrayList<ComboData> values = new ArrayList<>();
+        for (ComboBox comboBox : comboBoxes.values()) {
+            values.add(new ComboData(comboBox.getPromptText(), comboBox.getText()));
+        }
+
+        return values;
+    }
+    private void addAnyExtraFieldDataToComboArray(){
+        for (ExtraGroup extraGroup : ExtraGroups.extraGroups) {
+            if (extraGroup.getComponentType() == ComponentType.COMBOBOX) {
+                if (!comboBoxes.keySet().contains(((ComboBox) extraGroup.getComponent()).getPromptText())) {
+                    comboBoxes.put(((ComboBox) extraGroup.getComponent()).getPromptText(), ((ComboBox) extraGroup.getComponent()));
+                }
+            }
+        }
+    }
+    private void addDataToTempArray(ArrayList<String> data){
+        data.add(DepDate_Group.getInput());
+        data.add(DepTime_Group.getInput());
+        data.add(DepProduct_Group.getInput());
+        data.add(DepEnterprise_Group.getInput());
+        data.add(DepShip_Group.getInput());
+        data.add(DepPort_Group.getInput());
+        data.add(UnloadingLoc_Group.getInput());
+        data.add(ArrDate_Group.getInput());
+        data.add(ArrTime_Group.getInput());
+        data.add(ArrProduct_Group.getInput());
+        data.add(ArrEnterprise_Group.getInput());
+        data.add(ArrShip_Group.getInput());
+        data.add(ArrPort_Group.getInput());
+        data.add(LoadingLoc_Group.getInput());
+        data.add(OthTruck_Group.getInput());
+        data.add(OthCompany_Group.getInput());
+        data.add(OthCMR_Group.getInput());
+        data.add(OthIncome_Group.getInput());
+        data.add(OthKil_Group.getInput());
+        if (OthCom_Group.checkBox.isSelected()) {
+            data.add(OthCom_Group.getInput());
+        } else {
+            data.add("No Comment");
+        }
+        for (ExtraGroup extraGroup : ExtraGroups.extraGroups) {
+            data.add(extraGroup.getComponent().getText());
+        }
+    }
+
+    private void initColumnProperties(){
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
         departureDate.setCellValueFactory(new PropertyValueFactory<>("departureDate"));
         departureTime.setCellValueFactory(new PropertyValueFactory<>("departureTime"));
@@ -712,100 +799,27 @@ public class AppController {
         income.setCellValueFactory(new PropertyValueFactory<>("income"));
         kilometers.setCellValueFactory(new PropertyValueFactory<>("kilometers"));
         comments.setCellValueFactory(new PropertyValueFactory<>("comments"));
+    }
 
-        ArrayList<String> data = new ArrayList<>();
-        saveButton.setOnAction(event -> {
-            new Thread(()->{
-                progressIndicator.setVisible(true);
-                saveButton.setDisable(true);
-                hideAllErrorLabels();
-                data.clear();
-                if (areInputsOK()) {
-                    data.add(DepDate_Group.getInput());
-                    data.add(DepTime_Group.getInput());
-                    data.add(DepProduct_Group.getInput());
-                    data.add(DepEnterprise_Group.getInput());
-                    data.add(DepShip_Group.getInput());
-                    data.add(DepPort_Group.getInput());
-                    data.add(UnloadingLoc_Group.getInput());
-                    data.add(ArrDate_Group.getInput());
-                    data.add(ArrTime_Group.getInput());
-                    data.add(ArrProduct_Group.getInput());
-                    data.add(ArrEnterprise_Group.getInput());
-                    data.add(ArrShip_Group.getInput());
-                    data.add(ArrPort_Group.getInput());
-                    data.add(LoadingLoc_Group.getInput());
-                    data.add(OthTruck_Group.getInput());
-                    data.add(OthCompany_Group.getInput());
-                    data.add(OthCMR_Group.getInput());
-                    data.add(OthIncome_Group.getInput());
-                    data.add(OthKil_Group.getInput());
-                    if (OthCom_Group.checkBox.isSelected()) {
-                        data.add(OthCom_Group.getInput());
-                    } else {
-                        data.add("No Comment");
-                    }
-                    for (ExtraGroup extraGroup : ExtraGroups.extraGroups) {
-                        data.add(extraGroup.getComponent().getText());
-                    }
+    private void switchWindow(AnchorPane menuButton){
+        int newPositionOfArrow = (int) (menuButton.getLayoutY() + menuButton.getPrefHeight() / 2 + 13);
 
+        if (activeWin != windows.get(menuButton)) {
+            if (activeWin != null) {
+                activeButton.setStyle(oldStyles.get(menuButton));
 
-                    for (ExtraGroup extraGroup : ExtraGroups.extraGroups) {
-                        if (extraGroup.getComponentType() == ComponentType.COMBOBOX) {
-                            if (!comboBoxes.keySet().contains(((ComboBox) extraGroup.getComponent()).getPromptText())) {
-                                comboBoxes.put(((ComboBox) extraGroup.getComponent()).getPromptText(), ((ComboBox) extraGroup.getComponent()));
-                            }
-                        }
-                    }
+                AnimationControls.hideAndShowWithAnimationInDuration(activeWin, windows.get(menuButton), Duration.millis(500));
+            } else {
+                Animation.fadeInAnimation(Duration.millis(500), windows.get(menuButton)).play();
+            }
+        }
+        createAndRunDriftAnimation(newPositionOfArrow);
 
-                    ArrayList<ComboData> values = new ArrayList<>();
-                    for (ComboBox comboBox : comboBoxes.values()) {
-                        values.add(new ComboData(comboBox.getPromptText(), comboBox.getText()));
-                    }
+        activeWin = windows.get(menuButton);
+        activeButton = menuButton;
 
-                    ComboDatas.save(comboBoxes, values);
-
-                    if (editingRow) {
-                        TableData tableData = new TableData(editingRowID, data);
-                        tableData.setId(editingRowID + "");
-                        tableview.getItems().set(editingRowID - 1, tableData);
-                        TableDatas.set(editingRowID - 1, tableData);
-                        TableDatas.setToDB(tableData);
-                        editingRow = false;
-                        editingRowLabel.setVisible(false);
-
-                        int newPositionOfArrow = (int) (tableButton.getLayoutY() + tableButton.getPrefHeight() / 2 + 13);
-
-                        if (activeWin != windows.get(tableButton)) {
-                            if (activeWin != null) {
-                                activeButton.setStyle(oldStyles.get(tableButton));
-
-                                AnimationControls.hideAndShowWithAnimationInDuration(activeWin, windows.get(tableButton), Duration.millis(500));
-                            } else {
-                                Animation.fadeInAnimation(Duration.millis(500), windows.get(tableButton)).play();
-                            }
-                        }
-                        createAndRunDriftAnimation(newPositionOfArrow);
-
-                        activeWin = windows.get(tableButton);
-                        activeButton = tableButton;
-
-                        tableButton.setStyle(newStyles.get(tableButton));
-                        windows.get(tableButton).setVisible(true);
-
-                        tableview.scrollTo(tableData);
-
-                    } else {
-                        TableData tableData = new TableData(data);
-                        tableview.getItems().add(tableData);
-                        TableDatas.add(tableData);
-                        TableDatas.save(tableData);
-                    }
-                    progressIndicator.setVisible(false);
-                    saveButton.setDisable(false);
-                }
-            }).start();
-        });
+        menuButton.setStyle(newStyles.get(menuButton));
+        windows.get(menuButton).setVisible(true);
     }
 
     /*private void initColumnWidthListener(){
@@ -1002,8 +1016,7 @@ public class AppController {
             }
         }));
     }
-    private void initAddField()
-    {
+    private void initComboBoxesHashMap(){
         ExtraGroups.loadContent();
         updateContent();
 
@@ -1026,7 +1039,9 @@ public class AppController {
                 comboBoxes.put(((ComboBox) extraGroup.getComponent()).getPromptText(), ((ComboBox) extraGroup.getComponent()));
             }
         }
-
+    }
+    private void initAddField()
+    {
         addFieldButton.setOnAction((event)->
         {
             if (removeFieldAnchor.isVisible()){

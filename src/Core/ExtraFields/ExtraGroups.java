@@ -21,11 +21,6 @@ public class ExtraGroups {
     public static void add(ExtraGroup extraGroup){
         extraGroups.add(extraGroup);
         save(extraGroup.getGroupName(), extraGroup.getComponentType().toString());
-        /*if (extraGroup.getComponentType()==ComponentType.COMBOBOX){
-            ComboData comboData = new ComboData(((ComboBox)extraGroup.getComponent()).getPromptText());
-            ComboDatas.create(comboData);
-            ComboDatas.getConboData().add(comboData);
-        }*/
     }
 
     public static void remove(String promptText){
