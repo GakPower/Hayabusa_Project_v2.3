@@ -31,11 +31,10 @@ import com.jfoenix.controls.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
@@ -480,189 +479,10 @@ public class AppController {
             }
         });
     }
+
     @FXML private void initialize()
     {
-        final CategoryAxis xAxis = new CategoryAxis();
-        final NumberAxis yAxis = new NumberAxis();
-        final BarChart<String,Number> bc =
-                new BarChart<>(xAxis,yAxis);
-        bc.setTitle("Country Summary");
-        bc.setPrefSize(500,500);
-        xAxis.setLabel("Country");
-        yAxis.setLabel("Value");
-
-        XYChart.Series series1 = new XYChart.Series();
-        series1.setName("Loaded");
-
-        XYChart.Series series2 = new XYChart.Series();
-        series2.setName("Unloaded");
-        statButton.setOnMouseClicked(event -> {
-            /*final NumberAxis xAxis = new NumberAxis(1, 31, 1);
-            final NumberAxis yAxis = new NumberAxis();
-            final StackedAreaChart<Number, Number> sac =
-                    new StackedAreaChart<>(xAxis, yAxis);
-
-            sac.setTitle("Temperature Monitoring (in Degrees C)");
-            XYChart.Series<Number, Number> seriesApril =
-                    new XYChart.Series<>();
-            seriesApril.setName("April");
-            seriesApril.getData().add(new XYChart.Data(1, 4));
-            seriesApril.getData().add(new XYChart.Data(3, 10));
-            seriesApril.getData().add(new XYChart.Data(6, 15));
-            seriesApril.getData().add(new XYChart.Data(9, 8));
-            seriesApril.getData().add(new XYChart.Data(12, 5));
-            seriesApril.getData().add(new XYChart.Data(15, 18));
-            seriesApril.getData().add(new XYChart.Data(18, 15));
-            seriesApril.getData().add(new XYChart.Data(21, 13));
-            seriesApril.getData().add(new XYChart.Data(24, 19));
-            seriesApril.getData().add(new XYChart.Data(27, 21));
-            seriesApril.getData().add(new XYChart.Data(30, 21));
-            XYChart.Series<Number, Number> seriesMay =
-                    new XYChart.Series<>();
-            seriesMay.setName("May");
-            seriesMay.getData().add(new XYChart.Data(1, 20));
-            seriesMay.getData().add(new XYChart.Data(3, 15));
-            seriesMay.getData().add(new XYChart.Data(6, 13));
-            seriesMay.getData().add(new XYChart.Data(9, 12));
-            seriesMay.getData().add(new XYChart.Data(12, 14));
-            seriesMay.getData().add(new XYChart.Data(15, 18));
-            seriesMay.getData().add(new XYChart.Data(18, 25));
-            seriesMay.getData().add(new XYChart.Data(21, 25));
-            seriesMay.getData().add(new XYChart.Data(24, 23));
-            seriesMay.getData().add(new XYChart.Data(27, 26));
-            seriesMay.getData().add(new XYChart.Data(31, 26));
-
-            sac.getData().addAll(seriesApril, seriesMay);
-
-            sac.setLayoutX(200);
-            sac.setLayoutY(200);
-            statWin.getChildren().add(sac);*/
-
-            /*ObservableList<PieChart.Data> pieChartData =
-                    FXCollections.observableArrayList(
-                            new PieChart.Data("Grapefruit", 13),
-                            new PieChart.Data("Oranges", 25),
-                            new PieChart.Data("Plums", 10),
-                            new PieChart.Data("Pears", 22),
-                            new PieChart.Data("Apples", 30));
-
-            final PieChart chart = new PieChart(pieChartData);
-            chart.setTitle("Imported Fruits");
-
-            final Label caption = new Label();
-            caption.setTextFill(Color.WHITE);
-            caption.setStyle("-fx-font: 24 arial;");
-            caption.setVisible(true);
-
-            DoubleBinding total = Bindings.createDoubleBinding(() ->
-                    pieChartData.stream().mapToDouble(PieChart.Data::getPieValue).sum(), pieChartData);
-
-            for (final PieChart.Data data : chart.getData()) {
-                data.getNode().setOnMouseEntered(
-                    e -> {
-                        caption.setTranslateX(e.getSceneX()-100);
-                        caption.setTranslateY(e.getSceneY()-25);
-                        String text = String.format("%.1f%%", 100*data.getPieValue()/total.get()) ;
-                        caption.setText(text);
-                    }
-                );
-
-                data.getNode().setOnMouseExited(
-                    event1 -> {
-                        double minx = caption.getTranslateY();
-                        double maxx = minx+caption.getWidth();
-
-                        double miny = caption.getTranslateY();
-                        double maxy = minx+caption.getHeight();
-
-                        if (!(event1.getSceneX() >= minx && event1.getSceneX() <= maxx
-                        || event1.getSceneY() >= miny && event1.getSceneY() <= maxy)){
-                            caption.setText("");
-                        }
-                    }
-                );
-            }
-
-            statWin.getChildren().add(chart);
-            statWin.getChildren().add(caption);*/
-
-
-
-            /*if (tableview.getItems().size() > 0){
-                for (TableData data: tableview.getItems()) {
-
-                }
-            }*/
-
-            SortedMap<String, ArrayList<TableData>> corespondingData = new TreeMap<>();
-            for (TableData data : tableview.getItems())
-            {
-                String year = data.getDepartureDate().split(" ")[3];
-                if (!corespondingData.containsKey(year))
-                {
-                    ArrayList<TableData> tableDataForYear = new ArrayList<>();
-
-                    corespondingData.put(year, tableDataForYear);
-                    tableDataForYear.add(data);
-                }else{
-                    corespondingData.get(year).add(data);
-                }
-            }
-
-            int tempNumOfUnloadedTrips;
-            for (String year : corespondingData.keySet()) {
-                tempNumOfUnloadedTrips = 0;
-                for (TableData data : corespondingData.get(year)) {
-                    if (data.getExportationProduct().equals("-")){
-                        tempNumOfUnloadedTrips++;
-                    }
-                }
-                series1.getData().add(new XYChart.Data<>(year, corespondingData.get(year).size()-tempNumOfUnloadedTrips));
-                series2.getData().add(new XYChart.Data<>(year, tempNumOfUnloadedTrips));
-            }
-
-
-            if (!statHbox.getChildren().contains(bc)){
-                bc.getData().addAll(series1, series2);
-                statHbox.getChildren().add(bc);
-            }
-
-
-            /*ObservableList<PieChart.Data> pieChartData =
-                    FXCollections.observableArrayList();
-
-            for (String year : corespondingData.keySet()) {
-                pieChartData.add(new PieChart.Data(year, corespondingData.get(year).size()));
-            }
-
-            final PieChart chart = new PieChart(pieChartData);
-
-            hboxx.getChildren().add(chart);*/
-
-
-
-            int cmrSum = 0;
-            int incomeSum = 0;
-            int kilometersSum = 0;
-            ArrayList<String> trucks = new ArrayList<>();
-            for (String year : corespondingData.keySet()) {
-                for (TableData data : corespondingData.get(year)) {
-                    cmrSum += Integer.valueOf(data.getCmr());
-                    incomeSum += Integer.valueOf(data.getIncome());
-                    kilometersSum += Integer.valueOf(data.getKilometers());
-                    if (!trucks.contains(data.getTruck())){
-                        trucks.add(data.getTruck());
-                    }
-                }
-            }
-
-            tripsLabel.setText(tableview.getItems().size()+"");
-            cmrLabel.setText(cmrSum+"");
-            incomeLabel.setText(incomeSum+"");
-            kilometersLabel.setText(kilometersSum+"");
-            trucksLabel.setText(trucks.size()+"");
-
-        });
+        setOnClickStat();
 
         setHelpToolTip();
         setOnActionDelete();
@@ -690,6 +510,121 @@ public class AppController {
         initColumnProperties();
 
         setOnActionSave();
+    }
+    private void setOnClickStat(){
+        ////////////////////////////////////////////////////////////
+        final CategoryAxis xAxis = new CategoryAxis();
+        final NumberAxis yAxis = new NumberAxis();
+        final BarChart<String,Number> barLoadedEmptyTripsChart = new BarChart<>(xAxis,yAxis);
+        barLoadedEmptyTripsChart.setPrefWidth(500);
+        barLoadedEmptyTripsChart.setTitle("Loaded/Empty Trips (by year)");
+
+        xAxis.setLabel("Year");
+        yAxis.setLabel("Trips");
+
+        XYChart.Series series1 = new XYChart.Series();
+        series1.setName("Loaded");
+        XYChart.Series series2 = new XYChart.Series();
+        series2.setName("Empty");
+        //////////////////////////////////////////////////////////
+        ObservableList<PieChart.Data> pieLoadedEmptyData =
+                FXCollections.observableArrayList();
+        PieChart pieLoadedEmpty = new PieChart(pieLoadedEmptyData);
+        pieLoadedEmpty.setTitle("Loaded/Empty Trips");
+        //////////////////////////////////////////////////////
+        ObservableList<PieChart.Data> pieCompanyData =
+                FXCollections.observableArrayList();
+        PieChart pieCompany = new PieChart(pieCompanyData);
+        pieCompany.setTitle("Loaded/Empty Trips");
+
+        statButton.setOnMouseClicked(event -> {
+            ///////// Update BarChart ///////////
+            SortedMap<String, ArrayList<TableData>> yearlySortedData = getYearlySortedData();
+
+            int emptyTrips = 0;
+            int tempNumOfEmptyTrips;
+            for (String year : yearlySortedData.keySet()) {
+                tempNumOfEmptyTrips = 0;
+                for (TableData data : yearlySortedData.get(year)) {
+                    if (data.getExportationProduct().equals("-")){
+                        tempNumOfEmptyTrips++;
+                    }
+                }
+                series1.getData().add(new XYChart.Data<>(year, yearlySortedData.get(year).size()-tempNumOfEmptyTrips));
+                series2.getData().add(new XYChart.Data<>(year, tempNumOfEmptyTrips));
+                emptyTrips += tempNumOfEmptyTrips;
+            }
+
+            if (!statHbox.getChildren().contains(barLoadedEmptyTripsChart)
+                    && tableview.getItems().size() > 0){
+                barLoadedEmptyTripsChart.getData().addAll(series1, series2);
+                statHbox.getChildren().add(barLoadedEmptyTripsChart);
+            }
+
+            resizeBarLoadedEmptyChart(yearlySortedData, barLoadedEmptyTripsChart);
+            ///////// Update PieChart (LoadedEmpty) ///////////
+            pieLoadedEmptyData.clear();
+            pieLoadedEmptyData.add(new PieChart.Data("Loaded", tableview.getItems().size()-emptyTrips));
+            pieLoadedEmptyData.add(new PieChart.Data("Empty", emptyTrips));
+
+            if (!statHbox.getChildren().contains(pieLoadedEmpty) && tableview.getItems().size() > 0) {
+                statHbox.getChildren().add(pieLoadedEmpty);
+            }
+            ///////// Update PieChart (Company) ///////////
+            SortedMap<String, ArrayList<TableData>> companySortedData = getCompanySortedData();
+            pieCompanyData.clear();
+            int tempNumOfTripsPerPerson;
+            for (String company : companySortedData.keySet()) {
+                tempNumOfTripsPerPerson = companySortedData.get(company).size();
+                pieCompanyData.add(new PieChart.Data(company, tempNumOfTripsPerPerson));
+            }
+            if (!statHbox.getChildren().contains(pieCompany) && tableview.getItems().size() > 0) {
+                statHbox.getChildren().add(pieCompany);
+            }
+            /////////////////////////////////////
+
+            setStatInfo(yearlySortedData);
+        });
+    }
+    private SortedMap<String, ArrayList<TableData>> getYearlySortedData(){
+        SortedMap<String, ArrayList<TableData>> yearlySortedData = new TreeMap<>();
+        for (TableData data : tableview.getItems())
+        {
+            String year = data.getDepartureDate().split(" ")[3];
+            if (!yearlySortedData.containsKey(year))
+            {
+                ArrayList<TableData> tableDataOfYear = new ArrayList<>();
+
+                yearlySortedData.put(year, tableDataOfYear);
+                tableDataOfYear.add(data);
+            }else{
+                yearlySortedData.get(year).add(data);
+            }
+        }
+        return yearlySortedData;
+    }
+    private SortedMap<String, ArrayList<TableData>> getCompanySortedData(){
+        SortedMap<String, ArrayList<TableData>> getCompanySortedData = new TreeMap<>();
+        for (TableData data : tableview.getItems())
+        {
+            String company = data.getCompany();
+            if (!getCompanySortedData.containsKey(company))
+            {
+                ArrayList<TableData> tableDataOfCompany = new ArrayList<>();
+
+                getCompanySortedData.put(company, tableDataOfCompany);
+                tableDataOfCompany.add(data);
+            }else{
+                getCompanySortedData.get(company).add(data);
+            }
+        }
+        return getCompanySortedData;
+    }
+    private void resizeBarLoadedEmptyChart(SortedMap<String, ArrayList<TableData>> yearlySortedData,
+                                           BarChart<String,Number> barLoadedEmptyTripsChart){
+        if (yearlySortedData.keySet().size() > 10){
+            barLoadedEmptyTripsChart.setPrefWidth(50*yearlySortedData.keySet().size());
+        }
     }
     private void setOnActionSave(){
         saveButton.setOnAction(event -> new Thread(this::saveInputsOnTable).start());
@@ -1599,4 +1534,28 @@ public class AppController {
         hBox.getChildren().add(otherAnchor);
         hBox.setSpacing(56);
     }
+
+    private void setStatInfo(SortedMap<String, ArrayList<TableData>> correspondingData){
+        double cmrSum = 0;
+        double incomeSum = 0;
+        double kilometersSum = 0;
+        ArrayList<String> trucks = new ArrayList<>();
+        for (String year : correspondingData.keySet()) {
+            for (TableData data : correspondingData.get(year)) {
+                cmrSum += Double.valueOf(data.getCmr());
+                incomeSum += Double.valueOf(data.getIncome());
+                kilometersSum += Double.valueOf(data.getKilometers());
+                if (!trucks.contains(data.getTruck())){
+                    trucks.add(data.getTruck());
+                }
+            }
+        }
+
+        tripsLabel.setText(tableview.getItems().size()+"");
+        cmrLabel.setText(cmrSum+"");
+        incomeLabel.setText(incomeSum+"");
+        kilometersLabel.setText(kilometersSum+"");
+        trucksLabel.setText(trucks.size()+"");
+    }
+
 }

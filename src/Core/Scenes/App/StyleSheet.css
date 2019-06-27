@@ -328,9 +328,19 @@
 
 .chart-legend-item{
     -fx-text-fill: #fff;
+    -fx-font-weight: bold;
 }
 
 .axis {
     -fx-tick-label-fill: #fff;
-    -fx-tick-label-font-size: 14;
+    -fx-tick-label-font-size: 14px;
+}
+
+.chart-pie-label {
+    -fx-fill: #ffffff;
+    -fx-font-size: 1em;
+    -fx-font-weight: bold;
+}
+.chart-pie {
+    -fx-border-color: transparent;
 }
