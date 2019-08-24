@@ -15,16 +15,12 @@ import Core.Scenes.Dialog;
 import Core.Scenes.Scenes;
 import Core.Scenes.UIControls;
 import com.jfoenix.controls.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
-import sun.security.util.Password;
 
 import java.io.File;
 import java.util.*;
@@ -290,7 +286,7 @@ public class Login_SingUpController {
         if (isSignUpInputOK()) {
             showSignUpDialog();
             //sqlControl.addInfoToTable("ColumnWidth", "\'"+UsernameSingUp_Group.getInput()+"\', Array[500,50,150,50,50,50,50,100,50,50,50,50,50,50,50,50,50,50,50,50,50]");
-            storeInfoToDBInNewThreadAncClearInput();
+            storeInfoToDBAndClearInputs();
         }
     }
     private void hideSignUpErrorLabels(){
@@ -321,11 +317,9 @@ public class Login_SingUpController {
             onLogin_SingUpButtonClick();
         });
     }
-    private void storeInfoToDBInNewThreadAncClearInput(){
-        new Thread(()-> {
-            storeInfoToDB();
-            clearSingUpInput();
-        }).start();
+    private void storeInfoToDBAndClearInputs(){
+        storeInfoToDB();
+        clearSingUpInput();
     }
     private void clearSingUpInput(){
         UsernameSingUp_Group.clearInput();

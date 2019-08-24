@@ -6,6 +6,7 @@ package Core.SQL;
 // Date: 13-Jun-2018 (11:11 PM)
 //
 
+import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -311,5 +312,24 @@ public class HyperSQLControl {
         sql.shutDB();
 
         return result.toArray(new String[0]);
+    }
+
+    public Integer[] loadColumnWidth() {
+        sql.connDB();
+        sql.execCommand("SELECT ColumnWidth FROM ColumnWidth WHERE Username=\'"+CurrentUser.getUsername()+"\'");
+
+        Integer[] result = null;
+
+        try {
+            while(sql.getResultSet().next()){
+                result=(Integer[])sql.getResultSet().getArray(1).getArray();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        sql.shutDB();
+
+        return result;
     }
 }

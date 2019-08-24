@@ -4,8 +4,11 @@ import Core.SQL.HyperSQL;
 import Core.SQL.HyperSQLControl;
 import Core.Scenes.Scenes;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 import java.io.File;
 
@@ -34,7 +37,6 @@ public class Main extends Application {
 
         stage.show();
     }
-
 
     public static void main(String[] args) {
         createSQLTablesIfFileDoesNotExist();

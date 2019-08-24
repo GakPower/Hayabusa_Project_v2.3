@@ -5,6 +5,7 @@ package Core.Scenes.App;
 // Date: 14-Jun-2018 (12:01 AM)
 //
 
+import Core.*;
 import Core.Animations.Animation;
 import Core.Animations.AnimationControls;
 import Core.ComboData.ComboData;
@@ -19,20 +20,19 @@ import Core.Components.GroupOfComponents.GroupType;
 import Core.DayConvertion.DateConvertion;
 import Core.ExtraFields.ExtraGroup;
 import Core.ExtraFields.ExtraGroups;
-import Core.Range;
 import Core.SQL.CurrentUser;
 import Core.SQL.HyperSQL;
+import Core.SQL.HyperSQLControl;
 import Core.Scenes.Dialog;
 import Core.Scenes.UIControls;
-import Core.TableData;
-import Core.TableDatas;
-import Core.TableExtraColumns;
 import com.jfoenix.controls.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
@@ -41,16 +41,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.SortedMap;
-import java.util.TreeMap;
+import java.util.*;
 
 import static Core.Components.ComponentFactory.createComponent;
 
@@ -62,12 +60,19 @@ public class AppController {
 
     @FXML private ProgressIndicator progressIndicator;
     @FXML private Text editingRowLabel;
+    @FXML private VBox statVBox;
     @FXML private HBox statHbox;
     @FXML private JFXButton editRowButton;
     @FXML private JFXButton deleteRowButton;
     @FXML private Label helpLabel;
-    @FXML private ImageView questionMark;
-    @FXML private ScrollPane statScrollPane;
+    @FXML public JFXButton sysRestoreButton;
+    @FXML public JFXButton sysBackupButton;
+    @FXML public Label sysBackupLabel;
+    @FXML public Label sysRestoreLabel;
+    @FXML public JFXButton accRestoreButton;
+    @FXML public JFXButton accBackupButton;
+    @FXML public Label accBackupLabel;
+    @FXML public Label accRestoreLabel;
 
     @FXML private Label tripsLabel;
     @FXML private Label cmrLabel;
@@ -360,7 +365,7 @@ public class AppController {
 
     private boolean loadData = false;
 
-    private ArrayList<Integer> columnsWidth = new ArrayList<>(20);
+    //private ArrayList<Integer> columnsWidth = new ArrayList<>(20);
 
     private boolean editingRow = false;
     private HyperSQL sql = new HyperSQL();
@@ -401,6 +406,14 @@ public class AppController {
     }
     private void setHelpToolTip(){
         helpLabel.setTooltip(new Tooltip("To Edit or Delete a row from the Table you have to select the row and click the right button"));
+    }
+    private void setSettToolTips(){
+        Tooltip tooltip = new Tooltip();
+        tooltip.setStyle("-fx-font-size: 20;");
+        sysBackupLabel.setTooltip(new Tooltip("You can get a backup of the whole system with all the accounts"));
+        sysRestoreLabel.setTooltip(new Tooltip("You can restore a backup you have taken of the whole system with all the accounts"));
+        accBackupLabel.setTooltip(new Tooltip("You can get a backup of your account"));
+        accRestoreLabel.setTooltip(new Tooltip("You can restore a backup you have taken of your account"));
     }
     private void setOnActionDelete(){
         deleteRowButton.setOnAction(event ->
@@ -482,9 +495,8 @@ public class AppController {
 
     @FXML private void initialize()
     {
-        setOnClickStat();
-
         setHelpToolTip();
+        setSettToolTips();
         setOnActionDelete();
         setOnActionEdit();
 
@@ -510,8 +522,13 @@ public class AppController {
         initColumnProperties();
 
         setOnActionSave();
+
+        setOnClickStat();
     }
     private void setOnClickStat(){
+        DataSorter dataSorter = new DataSorter(tableview.getItems());
+        double pieChartStartingAngle = 30;
+        double pieChartSize = 465;
         ////////////////////////////////////////////////////////////
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
@@ -531,16 +548,104 @@ public class AppController {
                 FXCollections.observableArrayList();
         PieChart pieLoadedEmpty = new PieChart(pieLoadedEmptyData);
         pieLoadedEmpty.setTitle("Loaded/Empty Trips");
+        pieLoadedEmpty.setStartAngle(pieChartStartingAngle);
+        pieLoadedEmpty.setPrefSize(pieChartSize,pieChartSize);
         //////////////////////////////////////////////////////
         ObservableList<PieChart.Data> pieCompanyData =
                 FXCollections.observableArrayList();
         PieChart pieCompany = new PieChart(pieCompanyData);
-        pieCompany.setTitle("Loaded/Empty Trips");
+        pieCompany.setTitle("Company");
+        pieCompany.setStartAngle(pieChartStartingAngle);
+        pieCompany.setPrefSize(pieChartSize,pieChartSize);
+        /////////////////////////////////////////////////////
+        ObservableList<PieChart.Data> pieExportProductData =
+                FXCollections.observableArrayList();
+        PieChart pieExportProduct = new PieChart(pieExportProductData);
+        pieExportProduct.setTitle("Exportation Product");
+        pieExportProduct.setStartAngle(pieChartStartingAngle);
+        pieExportProduct.setPrefSize(pieChartSize,pieChartSize);
+        /////////////////////////////////////////////////////
+        ObservableList<PieChart.Data> pieDepEnterpriseData =
+                FXCollections.observableArrayList();
+        PieChart pieDepartureEnterprise = new PieChart(pieDepEnterpriseData);
+        pieDepartureEnterprise.setTitle("Departure Enterprise");
+        pieDepartureEnterprise.setStartAngle(pieChartStartingAngle);
+        pieDepartureEnterprise.setPrefSize(pieChartSize,pieChartSize);
+        /////////////////////////////////////////////////////
+        ObservableList<PieChart.Data> pieDepShipData =
+                FXCollections.observableArrayList();
+        PieChart pieDepShip = new PieChart(pieDepShipData);
+        pieDepShip.setTitle("Departure Ship");
+        pieDepShip.setStartAngle(pieChartStartingAngle);
+        pieDepShip.setPrefSize(pieChartSize,pieChartSize);
+        /////////////////////////////////////////////////////
+        ObservableList<PieChart.Data> pieDepPortData =
+                FXCollections.observableArrayList();
+        PieChart pieDepPort = new PieChart(pieDepPortData);
+        pieDepPort.setTitle("Departure Port(From-To)");
+        pieDepPort.setStartAngle(pieChartStartingAngle);
+        pieDepPort.setPrefSize(pieChartSize,pieChartSize);
+        /////////////////////////////////////////////////////
+        ObservableList<PieChart.Data> pieUnloadingLocData =
+                FXCollections.observableArrayList();
+        PieChart pieUnloadingLoc = new PieChart(pieUnloadingLocData);
+        pieUnloadingLoc.setTitle("Unloading Locations");
+        pieUnloadingLoc.setStartAngle(pieChartStartingAngle);
+        pieUnloadingLoc.setPrefSize(pieChartSize,pieChartSize);
+        ////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////
+        ObservableList<PieChart.Data> pieImportProductData =
+                FXCollections.observableArrayList();
+        PieChart pieImportProduct = new PieChart(pieImportProductData);
+        pieImportProduct.setTitle("Importation Product");
+        pieImportProduct.setStartAngle(pieChartStartingAngle);
+        pieImportProduct.setPrefSize(pieChartSize,pieChartSize);
+        /////////////////////////////////////////////////////
+        ObservableList<PieChart.Data> pieArrEnterpriseData =
+                FXCollections.observableArrayList();
+        PieChart pieArrEnterprise = new PieChart(pieArrEnterpriseData);
+        pieArrEnterprise.setTitle("Arrival Enterprise");
+        pieArrEnterprise.setStartAngle(pieChartStartingAngle);
+        pieArrEnterprise.setPrefSize(pieChartSize,pieChartSize);
+        /////////////////////////////////////////////////////
+        ObservableList<PieChart.Data> pieArrShipData =
+                FXCollections.observableArrayList();
+        PieChart pieArrShip = new PieChart(pieArrShipData);
+        pieArrShip.setTitle("Arrival Ship");
+        pieArrShip.setStartAngle(pieChartStartingAngle);
+        pieArrShip.setPrefSize(pieChartSize,pieChartSize);
+        /////////////////////////////////////////////////////
+        ObservableList<PieChart.Data> pieArrPortData =
+                FXCollections.observableArrayList();
+        PieChart pieArrPort = new PieChart(pieArrPortData);
+        pieArrPort.setTitle("Arrival Port(From-To)");
+        pieArrPort.setStartAngle(pieChartStartingAngle);
+        pieArrPort.setPrefSize(pieChartSize,pieChartSize);
+        /////////////////////////////////////////////////////
+        ObservableList<PieChart.Data> pieLoadingLocData =
+                FXCollections.observableArrayList();
+        PieChart pieLoadingLoc = new PieChart(pieLoadingLocData);
+        pieLoadingLoc.setTitle("Loading Locations");
+        pieLoadingLoc.setStartAngle(pieChartStartingAngle);
+        pieLoadingLoc.setPrefSize(pieChartSize,pieChartSize);
+        ////////////////////////////////////////////////////
+        final CategoryAxis yearXAxis = new CategoryAxis();
+        final NumberAxis incomeYAxis = new NumberAxis();
+        yearXAxis.setLabel("Year");
+        incomeYAxis.setLabel("Income");
+
+        final LineChart<String,Number> lineYearlyIncome = new LineChart<>(yearXAxis, incomeYAxis);
+        lineYearlyIncome.setTitle("Yearly Income");
+        lineYearlyIncome.setLegendVisible(false);
+
+        XYChart.Series yearlyIncomeSeries = new XYChart.Series();
+        lineYearlyIncome.getData().add(yearlyIncomeSeries);
 
         statButton.setOnMouseClicked(event -> {
-            ///////// Update BarChart ///////////
-            SortedMap<String, ArrayList<TableData>> yearlySortedData = getYearlySortedData();
 
+            currentStatHBox = new HBox();
+            ///////// Update BarChart ///////////
+            SortedMap<String, ArrayList<TableData>> yearlySortedData = dataSorter.getYearlySortedData();
             int emptyTrips = 0;
             int tempNumOfEmptyTrips;
             for (String year : yearlySortedData.keySet()) {
@@ -557,6 +662,7 @@ public class AppController {
 
             if (!statHbox.getChildren().contains(barLoadedEmptyTripsChart)
                     && tableview.getItems().size() > 0){
+                barLoadedEmptyTripsChart.getData().clear();
                 barLoadedEmptyTripsChart.getData().addAll(series1, series2);
                 statHbox.getChildren().add(barLoadedEmptyTripsChart);
             }
@@ -564,70 +670,155 @@ public class AppController {
             resizeBarLoadedEmptyChart(yearlySortedData, barLoadedEmptyTripsChart);
             ///////// Update PieChart (LoadedEmpty) ///////////
             pieLoadedEmptyData.clear();
-            pieLoadedEmptyData.add(new PieChart.Data("Loaded", tableview.getItems().size()-emptyTrips));
-            pieLoadedEmptyData.add(new PieChart.Data("Empty", emptyTrips));
-
-            if (!statHbox.getChildren().contains(pieLoadedEmpty) && tableview.getItems().size() > 0) {
-                statHbox.getChildren().add(pieLoadedEmpty);
+            if ((tableview.getItems().size()-emptyTrips) > 0) {
+                pieLoadedEmptyData.add(new PieChart.Data("Loaded", tableview.getItems().size()-emptyTrips));
             }
+            if (emptyTrips > 0) {
+                pieLoadedEmptyData.add(new PieChart.Data("Empty", emptyTrips));
+            }
+
+            addChartsToStatVBox(pieLoadedEmpty);
             ///////// Update PieChart (Company) ///////////
-            SortedMap<String, ArrayList<TableData>> companySortedData = getCompanySortedData();
+            SortedMap<String, ArrayList<TableData>> companySortedData = dataSorter.getCompanySortedData();
             pieCompanyData.clear();
             int tempNumOfTripsPerPerson;
             for (String company : companySortedData.keySet()) {
                 tempNumOfTripsPerPerson = companySortedData.get(company).size();
                 pieCompanyData.add(new PieChart.Data(company, tempNumOfTripsPerPerson));
             }
-            if (!statHbox.getChildren().contains(pieCompany) && tableview.getItems().size() > 0) {
-                statHbox.getChildren().add(pieCompany);
+            addChartsToStatVBox(pieCompany);
+            //////// Update PieChart (Export Product) ////
+            SortedMap<String, ArrayList<TableData>> expProductSortedData = dataSorter.getExpProductSortedData();
+            pieExportProductData.clear();
+            int tempNumOfExpProduct;
+            for (String expProduct : expProductSortedData.keySet()) {
+                tempNumOfExpProduct = expProductSortedData.get(expProduct).size();
+                if (expProduct.equals("-")){
+                    expProduct = "None";
+                }
+                pieExportProductData.add(new PieChart.Data(expProduct, tempNumOfExpProduct));
             }
-            /////////////////////////////////////
-
+            addChartsToStatVBox(pieExportProduct);
+            /////////////////////////////////////////////
+            SortedMap<String, ArrayList<TableData>> depEnterpriseSortedData = dataSorter.getDepEnterpriseSortedData();
+            pieDepEnterpriseData.clear();
+            int tempNumOfDepEnterprise;
+            for (String depEnterprise : depEnterpriseSortedData.keySet()) {
+                tempNumOfDepEnterprise = depEnterpriseSortedData.get(depEnterprise).size();
+                pieDepEnterpriseData.add(new PieChart.Data(depEnterprise, tempNumOfDepEnterprise));
+            }
+            addChartsToStatVBox(pieDepartureEnterprise);
+            /////////////////////////////////////////////
+            SortedMap<String, ArrayList<TableData>> pieDepShipSortedData = dataSorter.getDepShipSortedData();
+            pieDepShipData.clear();
+            int tempNumOfDepShip;
+            for (String depShip : pieDepShipSortedData.keySet()) {
+                tempNumOfDepShip = pieDepShipSortedData.get(depShip).size();
+                pieDepShipData.add(new PieChart.Data(depShip, tempNumOfDepShip));
+            }
+            addChartsToStatVBox(pieDepShip);
+            /////////////////////////////////////////////
+            SortedMap<String, ArrayList<TableData>> pieDepPortSortedData = dataSorter.getDepPortSortedData();
+            pieDepPortData.clear();
+            int tempNumOfDepPort;
+            for (String depPort : pieDepPortSortedData.keySet()) {
+                tempNumOfDepPort = pieDepPortSortedData.get(depPort).size();
+                pieDepPortData.add(new PieChart.Data(depPort, tempNumOfDepPort));
+            }
+            addChartsToStatVBox(pieDepPort);
+            /////////////////////////////////////////////
+            SortedMap<String, ArrayList<TableData>> pieUnloadingLocSortedData = dataSorter.getUnloadingLocSortedData();
+            pieUnloadingLocData.clear();
+            int tempNumOfUnloadingLoc;
+            for (String unloadingLoc : pieUnloadingLocSortedData.keySet()) {
+                tempNumOfUnloadingLoc = pieUnloadingLocSortedData.get(unloadingLoc).size();
+                pieUnloadingLocData.add(new PieChart.Data(unloadingLoc, tempNumOfUnloadingLoc));
+            }
+            addChartsToStatVBox(pieUnloadingLoc);
+            /////////////////////////////////////////////
+            /////////////////////////////////////////////
+            SortedMap<String, ArrayList<TableData>> impProductSortedData = dataSorter.getImportProductSortedData();
+            pieImportProductData.clear();
+            int tempNumOfImpProduct;
+            for (String impProduct : impProductSortedData.keySet()) {
+                tempNumOfImpProduct = impProductSortedData.get(impProduct).size();
+                if (impProduct.equals("-")){
+                    impProduct = "None";
+                }
+                pieImportProductData.add(new PieChart.Data(impProduct, tempNumOfImpProduct));
+            }
+            addChartsToStatVBox(pieImportProduct);
+            /////////////////////////////////////////////
+            SortedMap<String, ArrayList<TableData>> arrEnterpriseSortedData = dataSorter.getArrEnterpriseSortedData();
+            pieArrEnterpriseData.clear();
+            int tempNumOfArrEnterprise;
+            for (String arrEnterprise : arrEnterpriseSortedData.keySet()) {
+                tempNumOfArrEnterprise = arrEnterpriseSortedData.get(arrEnterprise).size();
+                pieArrEnterpriseData.add(new PieChart.Data(arrEnterprise, tempNumOfArrEnterprise));
+            }
+            addChartsToStatVBox(pieArrEnterprise);
+            /////////////////////////////////////////////
+            SortedMap<String, ArrayList<TableData>> pieArrShipSortedData = dataSorter.getArrShipSortedData();
+            pieArrShipData.clear();
+            int tempNumOfArrShip;
+            for (String arrShip : pieArrShipSortedData.keySet()) {
+                tempNumOfArrShip = pieArrShipSortedData.get(arrShip).size();
+                pieArrShipData.add(new PieChart.Data(arrShip, tempNumOfArrShip));
+            }
+            addChartsToStatVBox(pieArrShip);
+            /////////////////////////////////////////////
+            SortedMap<String, ArrayList<TableData>> pieArrPortSortedData = dataSorter.getArrPortSortedData();
+            pieArrPortData.clear();
+            int tempNumOfArrPort;
+            for (String arrPort : pieArrPortSortedData.keySet()) {
+                tempNumOfArrPort = pieArrPortSortedData.get(arrPort).size();
+                pieArrPortData.add(new PieChart.Data(arrPort, tempNumOfArrPort));
+            }
+            addChartsToStatVBox(pieArrPort);
+            /////////////////////////////////////////////
+            SortedMap<String, ArrayList<TableData>> pieLoadingLocSortedData = dataSorter.getLoadingLocSortedData();
+            pieLoadingLocData.clear();
+            int tempNumOfLoadingLoc;
+            for (String loadingLoc : pieLoadingLocSortedData.keySet()) {
+                tempNumOfLoadingLoc = pieLoadingLocSortedData.get(loadingLoc).size();
+                pieLoadingLocData.add(new PieChart.Data(loadingLoc, tempNumOfLoadingLoc));
+            }
+            addChartsToStatVBox(pieLoadingLoc);
+            /////////////////////////////////////////////
+            yearlyIncomeSeries.getData().clear();
+            for (String year: yearlySortedData.keySet()) {
+                double incomeOfTheYear = yearlySortedData.get(year).stream().mapToDouble(a -> Double.parseDouble(a.getIncome())).sum();
+                yearlyIncomeSeries.getData().add(new XYChart.Data(year, incomeOfTheYear));
+            }
+            resizeBarLoadedEmptyChart(yearlySortedData, lineYearlyIncome);
+            addChartsToStatVBox(lineYearlyIncome);
+            ////////////////////////////////////////////////////////////////
             setStatInfo(yearlySortedData);
         });
     }
-    private SortedMap<String, ArrayList<TableData>> getYearlySortedData(){
-        SortedMap<String, ArrayList<TableData>> yearlySortedData = new TreeMap<>();
-        for (TableData data : tableview.getItems())
-        {
-            String year = data.getDepartureDate().split(" ")[3];
-            if (!yearlySortedData.containsKey(year))
-            {
-                ArrayList<TableData> tableDataOfYear = new ArrayList<>();
 
-                yearlySortedData.put(year, tableDataOfYear);
-                tableDataOfYear.add(data);
-            }else{
-                yearlySortedData.get(year).add(data);
-            }
-        }
-        return yearlySortedData;
-    }
-    private SortedMap<String, ArrayList<TableData>> getCompanySortedData(){
-        SortedMap<String, ArrayList<TableData>> getCompanySortedData = new TreeMap<>();
-        for (TableData data : tableview.getItems())
-        {
-            String company = data.getCompany();
-            if (!getCompanySortedData.containsKey(company))
-            {
-                ArrayList<TableData> tableDataOfCompany = new ArrayList<>();
-
-                getCompanySortedData.put(company, tableDataOfCompany);
-                tableDataOfCompany.add(data);
-            }else{
-                getCompanySortedData.get(company).add(data);
-            }
-        }
-        return getCompanySortedData;
-    }
     private void resizeBarLoadedEmptyChart(SortedMap<String, ArrayList<TableData>> yearlySortedData,
-                                           BarChart<String,Number> barLoadedEmptyTripsChart){
+                                           Chart chart){
         if (yearlySortedData.keySet().size() > 10){
-            barLoadedEmptyTripsChart.setPrefWidth(50*yearlySortedData.keySet().size());
+            chart.setPrefWidth(50*yearlySortedData.keySet().size());
+        }
+    }
+    private HBox currentStatHBox = new HBox();
+    private void addChartsToStatVBox(Chart chart){
+        if (!statVBox.getChildren().contains(currentStatHBox)){
+            statVBox.getChildren().add(currentStatHBox);
+        }
+        if (!currentStatHBox.getChildren().contains(chart) && tableview.getItems().size() > 0) {
+            currentStatHBox.getChildren().add(chart);
+        }
+
+        if (currentStatHBox.getChildren().size() > 2){
+            currentStatHBox = new HBox();
+            statVBox.getChildren().add(currentStatHBox);
         }
     }
     private void setOnActionSave(){
-        saveButton.setOnAction(event -> new Thread(this::saveInputsOnTable).start());
+        saveButton.setOnAction(event -> saveInputsOnTable());
     }
     private void saveInputsOnTable(){
         progressIndicator.setVisible(true);
@@ -664,6 +855,8 @@ public class AppController {
             progressIndicator.setVisible(false);
             saveButton.setDisable(false);
         }
+        progressIndicator.setVisible(false);
+        saveButton.setDisable(false);
     }
     private ArrayList<ComboData> getValuesFromComboBoxes(){
         ArrayList<ComboData> values = new ArrayList<>();
@@ -757,22 +950,14 @@ public class AppController {
         windows.get(menuButton).setVisible(true);
     }
 
-    /*private void initColumnWidthListener(){
-        for (TableColumn<TableData, String> column: columns){
-            column.widthProperty().addListener((observable, oldValue, newValue) -> {
-                column.prefWidthProperty().setValue(newValue);
-                getAllColumnWidths();
-            });
-        }
-    }
-    public static ArrayList<Integer> getAllColumnWidths(){
-        columnsWidth.clear();
+    private ArrayList<Integer> getColumnWidth(){
+        ArrayList<Integer> columnsWidth = new ArrayList<>();
         for (TableColumn<TableData, String> column: columns){
             columnsWidth.add((int) column.widthProperty().get());
             System.out.println((int) column.widthProperty().get());
         }
         return columnsWidth;
-    }*/
+    }
 
     private void initColumnArray(){
         columns.add(id);
@@ -1447,9 +1632,7 @@ public class AppController {
                     editingRow = false;
                     dialog.close();
                 });
-                dialog.getNoButton().setOnAction(event1 -> {
-                    dialog.close();
-                });
+                dialog.getNoButton().setOnAction(event1 -> dialog.close());
             }else {
                 int newPositionOfArrow = (int) (menuButton.getLayoutY() + event.getY() + 13);
 
